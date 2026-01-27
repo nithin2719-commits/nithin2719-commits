@@ -1,3 +1,10 @@
+<img width="1544" height="1018" alt="image" src="https://github.com/user-attachments/assets/e1305a2e-3397-4b49-acee-47eb847b5779" />
+
+
+
+
+
+
 # 💫 About Me:
 👋HI, It's Nithin here !<br>📚 I am currently pursuing B.E CSE (Cybersecurity)<br>💻 Passionate about coding, AI/ML, and secure systems.<br>🚀 Currently learning: Advanced Python & backend frameworks
 
