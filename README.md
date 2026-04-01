@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://user-images.githubusercontent.com/74038190/225813708-98b745f2-7d22-48cf-9150-083f1b00d6c9.gif" width="500" />
+<img src="https://user-images.githubusercontent.com/74038190/225813708-98b745f2-7d22-48cf-9150-083f1b00d6c9.gif" width="100%" />
 
 <br/>
 
@@ -45,9 +45,9 @@ class Nithin:
 
 <div align="center">
 
-> *"Security people are often the target of irrational fear.  
-> The difference between a good engineer and a great one  
-> is understanding how things **fail**."*
+> *"Security people are often the target of irrational fear.*
+> *The difference between a good engineer and a great one*
+> *is understanding how things **fail**."*
 >
 > **— Linus Torvalds**
 
@@ -80,6 +80,7 @@ Nmap done: 6 ports open. System secured. Attacker: not you.
 ![Kali Linux](https://img.shields.io/badge/Kali_Linux-000000?style=for-the-badge&logo=kali-linux&logoColor=white)
 ![Wireshark](https://img.shields.io/badge/Wireshark-000000?style=for-the-badge&logo=wireshark&logoColor=white)
 ![Metasploit](https://img.shields.io/badge/Metasploit-000000?style=for-the-badge&logoColor=white)
+![Burp Suite](https://img.shields.io/badge/Burp_Suite-000000?style=for-the-badge&logo=burpsuite&logoColor=white)
 
 **💻 Languages & Backend**
 
@@ -108,15 +109,15 @@ Nmap done: 6 ports open. System secured. Attacker: not you.
 
 <div align="center">
 
-<img height="180em" src="https://github-readme-stats.vercel.app/api?username=nithin2719&show_icons=true&theme=dark&bg_color=000000&title_color=ffffff&text_color=ffffff&icon_color=ffffff&border_color=444444&include_all_commits=true&count_private=true" />
+<img height="180em" src="https://github-readme-stats.vercel.app/api?username=nithin2719&show_icons=true&theme=dark&bg_color=000000&title_color=ffffff&text_color=ffffff&icon_color=ffffff&border_color=444444&include_all_commits=true&count_private=true&hide_border=false" />
 
-<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=nithin2719&layout=compact&theme=dark&bg_color=000000&title_color=ffffff&text_color=ffffff&border_color=444444" />
+<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=nithin2719&layout=compact&theme=dark&bg_color=000000&title_color=ffffff&text_color=ffffff&border_color=444444&hide_border=false&langs_count=8" />
 
 </div>
 
 <div align="center">
 
-![GitHub Streak](https://nirzak-streak-stats.vercel.app/?user=nithin2719&theme=dark&background=000000&ring=ffffff&fire=ffffff&currStreakLabel=ffffff&border=444444&sideLabels=ffffff&dates=888888&currStreakNum=ffffff&sideNums=ffffff)
+![GitHub Streak](https://streak-stats.demolab.com?user=nithin2719&theme=dark&background=000000&ring=ffffff&fire=ffffff&currStreakLabel=ffffff&border=444444&sideLabels=ffffff&dates=888888&currStreakNum=ffffff&sideNums=ffffff)
 
 </div>
 
@@ -155,8 +156,8 @@ Nmap done: 6 ports open. System secured. Attacker: not you.
 
 [![Instagram](https://img.shields.io/badge/Instagram-000000?style=for-the-badge&logo=Instagram&logoColor=white)](https://instagram.com/nit_2719)
 [![GitHub](https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/nithin2719)
-[![TryHackMe](https://img.shields.io/badge/TryHackMe-000000?style=for-the-badge&logo=tryhackme&logoColor=white)](https://tryhackme.com)
-[![HackTheBox](https://img.shields.io/badge/HackTheBox-000000?style=for-the-badge&logo=hackthebox&logoColor=white)](https://hackthebox.com)
+[![TryHackMe](https://img.shields.io/badge/TryHackMe-000000?style=for-the-badge&logo=tryhackme&logoColor=white)](https://tryhackme.com/p/nithin2719)
+[![HackTheBox](https://img.shields.io/badge/HackTheBox-000000?style=for-the-badge&logo=hackthebox&logoColor=white)](https://app.hackthebox.com/profile/nithin2719)
 
 </div>
 
