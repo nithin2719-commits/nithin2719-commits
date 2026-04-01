@@ -4,7 +4,7 @@
 
 <br/>
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=FFFFFF&center=true&vCenter=true&background=00000000&width=700&lines=B.E+CSE+%7C+Cybersecurity+Specialist+%F0%9F%94%90;Ethical+Hacker+%7C+AI%2FML+Enthusiast+%F0%9F%A4%96;Advanced+Python+%7C+Backend+Dev+%F0%9F%90%8D;If+it%27s+connected%2C+it%27s+vulnerable." alt="Typing SVG" />
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=FFFFFF&center=true&vCenter=true&background=00000000&width=700&lines=B.E+CSE+%7C+Cybersecurity+Specialist+%F0%9F%94%90;Ethical+Hacker+%7C+AI%2FML+Enthusiast+%F0%9F%A4%96;Advanced+Python+%7C+Backend+Dev+%F0%9F%90%8D;If+it%27s+connected%2C+it%27s+vulnerable.;BTW...+I+use+Arch+%F0%9F%90%A7;The+quieter+you+become%2C+the+more+you+hear.;Root+is+not+a+privilege.+It%27s+a+responsibility.;I+don%27t+hack+systems.+I+understand+them.;pacman+-Syu+%26%26+conquer+the+world+%F0%9F%8C%8D;Security+is+not+a+product.+It%27s+a+mindset." alt="Typing SVG" />
 
 <br/>
 
@@ -23,7 +23,7 @@ class Nithin:
     location   = "India"
     interests  = ["Ethical Hacking", "AI/ML", "Backend Dev", "CTFs"]
     learning   = ["Advanced Python", "Django", "FastAPI", "Malware Analysis"]
-    tools      = ["Kali Linux", "Burp Suite", "Wireshark", "Metasploit"]
+    tools      = ["BlackArch Linux", "Burp Suite", "Wireshark", "Metasploit"]
     motto      = "Break things ethically. Fix them permanently."
 
     def status(self):
@@ -51,7 +51,7 @@ class Nithin:
 
 ### 🛡️ Cybersecurity
 
-![Kali Linux](https://img.shields.io/badge/Kali_Linux-000000?style=for-the-badge&logo=kali-linux&logoColor=white)
+![BlackArch Linux](https://img.shields.io/badge/BlackArch_Linux-000000?style=for-the-badge&logo=arch-linux&logoColor=white)
 ![Wireshark](https://img.shields.io/badge/Wireshark-000000?style=for-the-badge&logo=wireshark&logoColor=white)
 ![Metasploit](https://img.shields.io/badge/Metasploit-000000?style=for-the-badge&logoColor=white)
 ![Burp Suite](https://img.shields.io/badge/Burp_Suite-000000?style=for-the-badge&logo=burpsuite&logoColor=white)
@@ -88,8 +88,6 @@ class Nithin:
 ---
 
 ### [ 04 ] — GITHUB STATS
-
-</div>
 
 <div align="center">
 
