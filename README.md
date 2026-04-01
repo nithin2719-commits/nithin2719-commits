@@ -32,6 +32,14 @@ class Nithin:
 
 ---
 
+<div align="center">
+
+> *"The difference between a good engineer and a great one*
+> *is understanding how things **fail**."*
+>
+> **— Linus Torvalds**
+
+</div>
 
 
 ### [ 03 ] — TECH STACK
