@@ -32,26 +32,7 @@ class Nithin:
 
 ---
 
-### [ 02 ] — NMAP SCAN
 
-```
-Starting Nmap 7.94 — Scanning target: nithin
-[*] Initiating SYN Stealth Scan...
-
-PORT        STATE   SERVICE              VERSION
-22/tcp      open    shell                Python 3.x | Bash | Zsh
-80/tcp      open    backend-dev          Django | FastAPI | REST APIs
-443/tcp     open    ai-ml                TensorFlow | scikit-learn | CUDA
-8080/tcp    open    security             Kali | Burp Suite | Wireshark
-3000/tcp    open    creative-tools       Blender 3D | Canva
-1337/tcp    open    ctf-recon            Web Exploitation | Rev Eng
-9999/tcp    open    malware-analysis     IDA Pro | Ghidra | Radare2
-
-[+] OS Detection : Linux 5.x (Kali Rolling)
-[!] Done         : 7 ports open — Attacker: not you.
-```
-
----
 
 ### [ 03 ] — TECH STACK
 
