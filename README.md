@@ -67,13 +67,13 @@ class Nithin:
 </td>
 <td valign="top" width="50%">
 
-** AI / ML**
+**⚡ AI / ML**
 
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-000000?style=for-the-badge&logo=TensorFlow&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-000000?style=for-the-badge&logo=scikit-learn&logoColor=white)
 ![NVIDIA CUDA](https://img.shields.io/badge/NVIDIA_CUDA-000000?style=for-the-badge&logo=nvidia&logoColor=white)
 
-** Tools & Creative**
+**⚡ Tools & Creative**
 
 ![Blender](https://img.shields.io/badge/Blender-000000?style=for-the-badge&logo=blender&logoColor=white)
 ![Canva](https://img.shields.io/badge/Canva-000000?style=for-the-badge&logo=canva&logoColor=white)
@@ -87,26 +87,24 @@ class Nithin:
 
 ---
 
-
 ### [ 04 ] — GITHUB STATS
 
 <div align="center">
 
-<img width="100%" src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=nithin2719-commits&theme=2077" />
+<img width="100%" src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=nithin2719-commits&theme=github_dark" />
 
 </div>
 
 <div align="center">
 
-<img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=nithin2719-commits&theme=2077" />
-<img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=nithin2719-commits&theme=2077" />
+<img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=nithin2719-commits&theme=github_dark" />
+<img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=nithin2719-commits&theme=github_dark" />
 
 </div>
 
-
 <div align="center">
 
-<img src="https://streak-stats.demolab.com?user=nithin2719-commits&theme=dark&background=0D1117&ring=FFFFFF&fire=FFFFFF&currStreakLabel=FFFFFF&border=30363D&sideLabels=AAAAAA&dates=AAAAAA&currStreakNum=FFFFFF&sideNums=FFFFFF" />
+<img src="https://streak-stats.demolab.com?user=nithin2719-commits&theme=dark&background=0D1117&ring=FFFFFF&fire=FFFFFF&currStreakLabel=FFFFFF&border=30363D&sideLabels=FFFFFF&dates=AAAAAA&currStreakNum=FFFFFF&sideNums=FFFFFF" />
 
 </div>
 
@@ -120,9 +118,7 @@ class Nithin:
 
 </div>
 
-
-╚══════════════════════════════════════════════════════════╝
-
+---
 
 ### [ 09 ] — CONNECT
 
