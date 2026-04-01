@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://user-images.githubusercontent.com/74038190/212749171-b84692a8-2b04-4e3b-93ca-ac14705da224.gif" width="100%" />
+<img src="https://user-images.githubusercontent.com/74038190/238200622-0c4a9bb7-45e8-4ee7-bec0-3a78dc78ff20.gif" width="100%" />
 
 <br/>
 
@@ -100,9 +100,9 @@ Nmap done: 6 ports open. System secured. Attacker: not you.
 
 <div align="center">
 
-<img height="180em" src="https://github-readme-stats.vercel.app/api?username=nithin2719-commits&show_icons=true&bg_color=000000&title_color=ffffff&text_color=aaaaaa&icon_color=ffffff&border_color=333333&include_all_commits=true&count_private=true&hide_border=false" />
+<img height="180em" src="https://github-readme-stats-git-masterrstaa-rickstaa.vercel.app/api?username=nithin2719-commits&show_icons=true&bg_color=000000&title_color=ffffff&text_color=aaaaaa&icon_color=ffffff&border_color=333333&include_all_commits=true&count_private=true" />
 
-<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=nithin2719-commits&layout=compact&bg_color=000000&title_color=ffffff&text_color=aaaaaa&border_color=333333&langs_count=8&hide_border=false" />
+<img height="180em" src="https://github-readme-stats-git-masterrstaa-rickstaa.vercel.app/api/top-langs/?username=nithin2719-commits&layout=compact&bg_color=000000&title_color=ffffff&text_color=aaaaaa&border_color=333333&langs_count=8" />
 
 </div>
 
@@ -165,34 +165,6 @@ Nmap done: 6 ports open. System secured. Attacker: not you.
 </picture>
 
 </div>
-
-> ⚙️ **To activate the snake** — create `.github/workflows/snake.yml` in your repo with this exact content, then go to **Actions tab → "Generate Snake" → Run workflow**:
-
-```yaml
-name: Generate Snake
-
-on:
-  schedule:
-    - cron: "0 0 * * *"
-  workflow_dispatch:
-
-jobs:
-  generate:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: Platane/snk@v3
-        with:
-          github_user_name: nithin2719-commits
-          outputs: |
-            dist/github-contribution-grid-snake.svg
-            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
-      - uses: crazy-max/ghaction-github-pages@v3
-        with:
-          target_branch: output
-          build_dir: dist
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-```
 
 ---
 
