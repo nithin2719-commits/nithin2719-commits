@@ -14,7 +14,7 @@
 
 ---
 
-## `> whoami`
+## whoami
 
 ```python
 class Nithin:
@@ -32,25 +32,24 @@ class Nithin:
 
 ---
 
-## `> linus --quote`
+## Quote
 
 <div align="center">
 
 > *"The difference between a good engineer and a great one*
 > *is understanding how things **fail**."*
 >
-> **— Linus Torvalds**
+> — Linus Torvalds
 
 </div>
 
 ---
 
-## `> nmap -sV --open target`
+## nmap Scan
 
 ```
 Starting Nmap 7.94 — Scanning target: nithin
 [*] Initiating SYN Stealth Scan...
-[*] Sending raw IP packets...
 
 PORT        STATE   SERVICE              VERSION
 22/tcp      open    shell                Python 3.x | Bash | Zsh
@@ -62,26 +61,25 @@ PORT        STATE   SERVICE              VERSION
 9999/tcp    open    malware-analysis     IDA Pro | Ghidra | Radare2
 
 [+] OS Detection: Linux 5.x (Kali Rolling)
-[+] Aggressive OS guesses: Arch/Kali hybrid (98%)
 [!] Nmap done: 7 ports open — Attacker: not you.
 ```
 
 ---
 
-## `> cat /etc/tech_stack`
+## Tech Stack
 
 <table>
 <tr>
 <td valign="top">
 
-**`[0x01]` 🔐 Cybersecurity Arsenal**
+**Cybersecurity Arsenal**
 
 ![Kali Linux](https://img.shields.io/badge/Kali_Linux-000000?style=for-the-badge&logo=kali-linux&logoColor=white)
 ![Wireshark](https://img.shields.io/badge/Wireshark-000000?style=for-the-badge&logo=wireshark&logoColor=white)
 ![Metasploit](https://img.shields.io/badge/Metasploit-000000?style=for-the-badge&logoColor=white)
 ![Burp Suite](https://img.shields.io/badge/Burp_Suite-000000?style=for-the-badge&logo=burpsuite&logoColor=white)
 
-**`[0x02]` 💻 Languages & Backend**
+**Languages & Backend**
 
 ![Python](https://img.shields.io/badge/Python-000000?style=for-the-badge&logo=python&logoColor=white)
 ![Django](https://img.shields.io/badge/Django-000000?style=for-the-badge&logo=django&logoColor=white)
@@ -92,13 +90,13 @@ PORT        STATE   SERVICE              VERSION
 </td>
 <td valign="top">
 
-**`[0x03]` 🧠 AI / ML**
+**AI / ML**
 
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-000000?style=for-the-badge&logo=TensorFlow&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-000000?style=for-the-badge&logo=scikit-learn&logoColor=white)
-![nVIDIA](https://img.shields.io/badge/NVIDIA_CUDA-000000?style=for-the-badge&logo=nvidia&logoColor=white)
+![NVIDIA CUDA](https://img.shields.io/badge/NVIDIA_CUDA-000000?style=for-the-badge&logo=nvidia&logoColor=white)
 
-**`[0x04]` 🛠️ Tools & Creative**
+**Tools & Creative**
 
 ![Blender](https://img.shields.io/badge/Blender-000000?style=for-the-badge&logo=blender&logoColor=white)
 ![Canva](https://img.shields.io/badge/Canva-000000?style=for-the-badge&logo=canva&logoColor=white)
@@ -112,25 +110,29 @@ PORT        STATE   SERVICE              VERSION
 
 ---
 
-## `> git log --all --stat`
+## GitHub Stats
 
 <div align="center">
 
-<img height="175em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=nithin2719-commits&theme=monochrome" />
-&nbsp;
-<img height="175em" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=nithin2719-commits&theme=monochrome" />
+![Nithin's GitHub Stats](https://github-readme-stats.vercel.app/api?username=nithin2719-commits&show_icons=true&theme=dark&bg_color=0D1117&title_color=FFFFFF&icon_color=FFFFFF&text_color=FFFFFF&border_color=30363D&hide_border=false)
 
-</div>
-
-<div align="center">
-
-![GitHub Streak](https://streak-stats.demolab.com?user=nithin2719-commits&theme=highcontrast&background=0D1117&ring=FFFFFF&fire=FFFFFF&currStreakLabel=FFFFFF&border=30363D&sideLabels=8B949E&dates=8B949E&currStreakNum=FFFFFF&sideNums=FFFFFF)
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=nithin2719-commits&layout=compact&theme=dark&bg_color=0D1117&title_color=FFFFFF&text_color=FFFFFF&border_color=30363D)
 
 </div>
 
 ---
 
-## `> tail -f /var/log/activity.log`
+## Streak
+
+<div align="center">
+
+![GitHub Streak](https://streak-stats.demolab.com?user=nithin2719-commits&theme=dark&background=0D1117&ring=FFFFFF&fire=FFFFFF&currStreakLabel=FFFFFF&border=30363D&sideLabels=8B949E&dates=8B949E&currStreakNum=FFFFFF&sideNums=FFFFFF)
+
+</div>
+
+---
+
+## Activity
 
 <div align="center">
 
@@ -140,9 +142,7 @@ PORT        STATE   SERVICE              VERSION
 
 ---
 
-## `> watch -n 1 threat_status.sh`
-
-<div align="center">
+## Security Console
 
 ```
 ╔══════════════════════════════════════════════════════════╗
@@ -158,15 +158,12 @@ PORT        STATE   SERVICE              VERSION
 ║  [!] Threat Level         : ALWAYS ELEVATED             ║
 ║  [!] Intrusion Attempts   : BLOCKED [0x4E]              ║
 ║  [*] Current Mission      : Secure Everything           ║
-║  [*] Next CTF             : IMMINENT                    ║
 ╚══════════════════════════════════════════════════════════╝
 ```
 
-</div>
-
 ---
 
-## `> ./exploit_chain.sh --target=learning`
+## Exploit Chain
 
 ```bash
 #!/bin/bash
@@ -177,16 +174,15 @@ enum()      { echo "[*] Enumerating vulnerabilities to patch..."; }
 exploit()   { echo "[+] Exploiting knowledge gaps — PWNED."; }
 escalate()  { echo "[+] Privilege escalated: Noob -> Elite"; }
 persist()   { echo "[+] Persistence established via daily commits"; }
-cover()     { echo "[*] Covering tracks... just kidding, it's all on GitHub."; }
 
-recon && enum && exploit && escalate && persist && cover
+recon && enum && exploit && escalate && persist
 
 echo "[✓] MISSION COMPLETE — System hardened. Knowledge updated."
 ```
 
 ---
 
-## `> netstat -an | grep ESTABLISHED`
+## Connect
 
 <div align="center">
 
@@ -199,7 +195,7 @@ echo "[✓] MISSION COMPLETE — System hardened. Knowledge updated."
 
 ---
 
-## `> cat /proc/contributions`
+## Contribution Snake
 
 <div align="center">
 
