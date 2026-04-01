@@ -6,7 +6,7 @@
 
 <br/>
 
-[![](https://visitcount.itsvg.in/api?id=nithin2719&icon=6&color=12)](https://visitcount.itsvg.in)
+[![](https://visitcount.itsvg.in/api?id=nithin2719-commits&icon=6&color=12)](https://visitcount.itsvg.in)
 
 </div>
 
@@ -96,19 +96,17 @@ Nmap done: 6 ports open. System secured. Attacker: not you.
 
 ## `> git log --all --stat`
 
-> ⚠️ **Important:** These stats only work when this README is in your **profile repo** — a repo named exactly `nithin2719` (same as your username). Create it at github.com/new if it doesn't exist yet.
-
 <div align="center">
 
-<img height="180em" src="https://github-readme-stats.vercel.app/api?username=nithin2719&show_icons=true&theme=dark&bg_color=000000&title_color=ffffff&text_color=ffffff&icon_color=ffffff&border_color=444444&include_all_commits=true&count_private=true&hide_border=false" />
+<img height="180em" src="https://github-readme-stats.vercel.app/api?username=nithin2719-commits&show_icons=true&theme=dark&bg_color=000000&title_color=ffffff&text_color=ffffff&icon_color=ffffff&border_color=444444&include_all_commits=true&count_private=true&hide_border=false" />
 
-<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=nithin2719&layout=compact&theme=dark&bg_color=000000&title_color=ffffff&text_color=ffffff&border_color=444444&hide_border=false&langs_count=8" />
+<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=nithin2719-commits&layout=compact&theme=dark&bg_color=000000&title_color=ffffff&text_color=ffffff&border_color=444444&hide_border=false&langs_count=8" />
 
 </div>
 
 <div align="center">
 
-![GitHub Streak](https://streak-stats.demolab.com?user=nithin2719&theme=dark&background=000000&ring=ffffff&fire=ffffff&currStreakLabel=ffffff&border=444444&sideLabels=ffffff&dates=888888&currStreakNum=ffffff&sideNums=ffffff)
+![GitHub Streak](https://streak-stats.demolab.com?user=nithin2719-commits&theme=dark&background=000000&ring=ffffff&fire=ffffff&currStreakLabel=ffffff&border=444444&sideLabels=ffffff&dates=888888&currStreakNum=ffffff&sideNums=ffffff)
 
 </div>
 
@@ -118,7 +116,7 @@ Nmap done: 6 ports open. System secured. Attacker: not you.
 
 <div align="center">
 
-[![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=nithin2719&theme=github-compact&bg_color=000000&color=ffffff&line=ffffff&point=ffffff&area=true&hide_border=true)](https://github.com/ashutosh00710/github-readme-activity-graph)
+[![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=nithin2719-commits&theme=github-compact&bg_color=000000&color=ffffff&line=ffffff&point=ffffff&area=true&hide_border=true)](https://github.com/ashutosh00710/github-readme-activity-graph)
 
 </div>
 
@@ -146,7 +144,7 @@ Nmap done: 6 ports open. System secured. Attacker: not you.
 <div align="center">
 
 [![Instagram](https://img.shields.io/badge/Instagram-000000?style=for-the-badge&logo=Instagram&logoColor=white)](https://instagram.com/nit_2719)
-[![GitHub](https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/nithin2719)
+[![GitHub](https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/nithin2719-commits)
 [![TryHackMe](https://img.shields.io/badge/TryHackMe-000000?style=for-the-badge&logo=tryhackme&logoColor=white)](https://tryhackme.com/p/nithin2719)
 [![HackTheBox](https://img.shields.io/badge/HackTheBox-000000?style=for-the-badge&logo=hackthebox&logoColor=white)](https://app.hackthebox.com/profile/nithin2719)
 
@@ -159,14 +157,14 @@ Nmap done: 6 ports open. System secured. Attacker: not you.
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/nithin2719/nithin2719/output/github-contribution-grid-snake-dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/nithin2719/nithin2719/output/github-contribution-grid-snake.svg" />
-  <img alt="contribution-snake" src="https://raw.githubusercontent.com/nithin2719/nithin2719/output/github-contribution-grid-snake-dark.svg" />
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/nithin2719-commits/nithin2719-commits/output/github-contribution-grid-snake-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/nithin2719-commits/nithin2719-commits/output/github-contribution-grid-snake.svg" />
+  <img alt="contribution-snake" src="https://raw.githubusercontent.com/nithin2719-commits/nithin2719-commits/output/github-contribution-grid-snake-dark.svg" />
 </picture>
 
 </div>
 
-> ⚙️ **To activate the snake:** Go to your `nithin2719` profile repo → **Actions** tab → create `.github/workflows/snake.yml` using [Platane/snk](https://github.com/Platane/snk). It auto-generates the cyber snake from your real contributions.
+> ⚙️ **To activate the snake:** Go to your `nithin2719-commits` profile repo → **Actions** tab → create `.github/workflows/snake.yml` using [Platane/snk](https://github.com/Platane/snk). It auto-generates the cyber snake from your real contributions.
 
 ---
 
