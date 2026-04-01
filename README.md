@@ -2,124 +2,154 @@
 
 <img src="https://user-images.githubusercontent.com/74038190/225813708-98b745f2-7d22-48cf-9150-083f1b00d6c9.gif" width="100%" />
 
-<br/>
+</div>
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=FFFFFF&center=true&vCenter=true&background=00000000&width=700&lines=B.E+CSE+%7C+Cybersecurity+Specialist+%F0%9F%94%90;Ethical+Hacker+%7C+AI%2FML+Enthusiast+%F0%9F%A4%96;Advanced+Python+%7C+Backend+Dev+%F0%9F%90%8D;If+it%27s+connected%2C+it%27s+vulnerable." alt="Typing SVG" />
+<div align="center">
 
-<br/>
-
-![Profile Views](https://komarev.com/ghpvc/?username=nithin2719-commits&color=grey&style=for-the-badge&label=PROFILE+VIEWS)
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=28&pause=1000&color=FFFFFF&center=true&vCenter=true&width=800&lines=root%40nithin%3A~%23+_+;Ethical+Hacker+%2F+AI-ML+Engineer;Cybersecurity+Specialist;If+it%27s+connected%2C+it%27s+vulnerable.;Break+things+ethically.+Fix+them+permanently." alt="Typing SVG" />
 
 </div>
 
+<div align="center">
+
+![](https://komarev.com/ghpvc/?username=nithin2719-commits&style=for-the-badge&color=000000&label=PROFILE+VIEWS)
+
+</div>
+
+<br/>
+
 ---
 
-### [ 01 ] — WHO AM I
+```
+╔════════════════════════════════════════════════════════════════╗
+║                                                                ║
+║     ███╗   ██╗██╗████████╗██╗  ██╗██╗███╗   ██╗              ║
+║     ████╗  ██║██║╚══██╔══╝██║  ██║██║████╗  ██║              ║
+║     ██╔██╗ ██║██║   ██║   ███████║██║██╔██╗ ██║              ║
+║     ██║╚██╗██║██║   ██║   ██╔══██║██║██║╚██╗██║              ║
+║     ██║ ╚████║██║   ██║   ██║  ██║██║██║ ╚████║              ║
+║     ╚═╝  ╚═══╝╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝              ║
+║                                                                ║
+║          [ B.E CSE — CYBERSECURITY SPECIALIST ]               ║
+║          [ ETHICAL HACKER | AI/ML | BACKEND DEV ]             ║
+║                                                                ║
+╚════════════════════════════════════════════════════════════════╝
+```
+
+---
+
+## 〔 01 〕 IDENTITY
 
 ```python
+#!/usr/bin/env python3
+# target_profile.py — classified
+
 class Nithin:
     name       = "Nithin"
-    degree     = "B.E CSE — Cybersecurity"
+    degree     = "B.E Computer Science — Cybersecurity"
     location   = "India"
     interests  = ["Ethical Hacking", "AI/ML", "Backend Dev", "CTFs"]
     learning   = ["Advanced Python", "Django", "FastAPI", "Malware Analysis"]
     tools      = ["Kali Linux", "Burp Suite", "Wireshark", "Metasploit"]
+    platforms  = ["TryHackMe", "HackTheBox"]
     motto      = "Break things ethically. Fix them permanently."
 
-    def status(self):
-        return "[ACTIVE] — Building. Breaking. Learning."
+    def status(self) -> str:
+        return "[ONLINE] — Building. Breaking. Learning."
+
+if __name__ == "__main__":
+    me = Nithin()
+    print(me.status())
+
+# OUTPUT: [ONLINE] — Building. Breaking. Learning.
 ```
 
 ---
 
-### [ 02 ] — NMAP SCAN
+## 〔 02 〕 RECON
 
 ```
-Starting Nmap 7.94 — Scanning target: nithin
-[*] Initiating SYN Stealth Scan...
+[nithin@kali ~]$ nmap -sV -sC -T4 --open nithin.local
+
+Starting Nmap 7.94 ( https://nmap.org )
+[*] Initiating SYN Stealth Scan at 04:20
+[*] Scanning nithin.local
 
 PORT        STATE   SERVICE              VERSION
 22/tcp      open    shell                Python 3.x | Bash | Zsh
-80/tcp      open    backend-dev          Django | FastAPI | REST APIs
+80/tcp      open    backend              Django | FastAPI | REST APIs
 443/tcp     open    ai-ml                TensorFlow | scikit-learn | CUDA
-8080/tcp    open    security             Kali | Burp Suite | Wireshark
-3000/tcp    open    creative-tools       Blender 3D | Canva
-1337/tcp    open    ctf-recon            Web Exploitation | Rev Eng
-9999/tcp    open    malware-analysis     IDA Pro | Ghidra | Radare2
+1337/tcp    open    ctf-pwn              Web Exploitation | Rev Eng | OSINT
+8080/tcp    open    appsec               Kali | Burp Suite | Wireshark
+9001/tcp    open    creative             Blender 3D | Canva
+9999/tcp    open    malware-lab          IDA Pro | Ghidra | Radare2
 
-[+] OS Detection : Linux 5.x (Kali Rolling)
-[!] Done         : 7 ports open — Attacker: not you.
+Host script results:
+| os-detection: Linux 5.x — Kali Rolling (98% confidence)
+| uptime: always
+| threat-to-attacker: CRITICAL
+
+[+] Nmap done — 7 services open.  Attacker: not you.
 ```
 
 ---
 
-### [ 03 ] — TECH STACK
+## 〔 03 〕 ARSENAL
 
-<table>
-<tr>
-<td valign="top" width="50%">
+<div align="center">
 
-**// Cybersecurity**
-
+### // OFFENSE
 ![Kali Linux](https://img.shields.io/badge/Kali_Linux-000000?style=for-the-badge&logo=kali-linux&logoColor=white)
-![Wireshark](https://img.shields.io/badge/Wireshark-000000?style=for-the-badge&logo=wireshark&logoColor=white)
-![Metasploit](https://img.shields.io/badge/Metasploit-000000?style=for-the-badge&logoColor=white)
 ![Burp Suite](https://img.shields.io/badge/Burp_Suite-000000?style=for-the-badge&logo=burpsuite&logoColor=white)
+![Metasploit](https://img.shields.io/badge/Metasploit-000000?style=for-the-badge&logoColor=white)
+![Wireshark](https://img.shields.io/badge/Wireshark-000000?style=for-the-badge&logo=wireshark&logoColor=white)
 
-**// Languages & Backend**
-
+### // CODE
 ![Python](https://img.shields.io/badge/Python-000000?style=for-the-badge&logo=python&logoColor=white)
+![Bash](https://img.shields.io/badge/Bash-000000?style=for-the-badge&logo=gnubash&logoColor=white)
+![C](https://img.shields.io/badge/C-000000?style=for-the-badge&logo=c&logoColor=white)
 ![Django](https://img.shields.io/badge/Django-000000?style=for-the-badge&logo=django&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-000000?style=for-the-badge&logo=fastapi&logoColor=white)
-![C](https://img.shields.io/badge/C-000000?style=for-the-badge&logo=c&logoColor=white)
-![Bash](https://img.shields.io/badge/Bash-000000?style=for-the-badge&logo=gnubash&logoColor=white)
 
-</td>
-<td valign="top" width="50%">
-
-**// AI / ML**
-
-![TensorFlow](https://img.shields.io/badge/TensorFlow-000000?style=for-the-badge&logo=TensorFlow&logoColor=white)
+### // INTELLIGENCE
+![TensorFlow](https://img.shields.io/badge/TensorFlow-000000?style=for-the-badge&logo=tensorflow&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-000000?style=for-the-badge&logo=scikit-learn&logoColor=white)
 ![NVIDIA CUDA](https://img.shields.io/badge/NVIDIA_CUDA-000000?style=for-the-badge&logo=nvidia&logoColor=white)
 
-**// Tools & Creative**
-
-![Blender](https://img.shields.io/badge/Blender-000000?style=for-the-badge&logo=blender&logoColor=white)
-![Canva](https://img.shields.io/badge/Canva-000000?style=for-the-badge&logo=canva&logoColor=white)
-![Git](https://img.shields.io/badge/Git-000000?style=for-the-badge&logo=git&logoColor=white)
+### // INFRASTRUCTURE
 ![Linux](https://img.shields.io/badge/Linux-000000?style=for-the-badge&logo=linux&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-000000?style=for-the-badge&logo=docker&logoColor=white)
-
-</td>
-</tr>
-</table>
-
----
-
-### [ 04 ] — GITHUB STATS
-
-<div align="center">
-
-<img height="180em" src="https://github-readme-stats.vercel.app/api?username=nithin2719-commits&show_icons=true&theme=dark&bg_color=0D1117&title_color=FFFFFF&icon_color=FFFFFF&text_color=AAAAAA&border_color=30363D&count_private=true&include_all_commits=true" />
-&nbsp;&nbsp;
-<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=nithin2719-commits&layout=compact&theme=dark&bg_color=0D1117&title_color=FFFFFF&text_color=AAAAAA&border_color=30363D&langs_count=8" />
+![Git](https://img.shields.io/badge/Git-000000?style=for-the-badge&logo=git&logoColor=white)
+![Blender](https://img.shields.io/badge/Blender-000000?style=for-the-badge&logo=blender&logoColor=white)
+![Canva](https://img.shields.io/badge/Canva-000000?style=for-the-badge&logo=canva&logoColor=white)
 
 </div>
 
 ---
 
-### [ 05 ] — STREAK
+## 〔 04 〕 STATS
 
 <div align="center">
 
-<img src="https://streak-stats.demolab.com?user=nithin2719-commits&theme=dark&background=0D1117&ring=FFFFFF&fire=FFFFFF&currStreakLabel=FFFFFF&border=30363D&sideLabels=AAAAAA&dates=AAAAAA&currStreakNum=FFFFFF&sideNums=FFFFFF" />
+<img height="180em" src="https://github-readme-stats.vercel.app/api?username=nithin2719-commits&show_icons=true&theme=dark&bg_color=0D1117&title_color=FFFFFF&icon_color=FFFFFF&text_color=999999&border_color=30363D&count_private=true&include_all_commits=true&hide_border=false" />
+&nbsp;
+<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=nithin2719-commits&layout=compact&theme=dark&bg_color=0D1117&title_color=FFFFFF&text_color=999999&border_color=30363D&langs_count=8&hide_border=false" />
 
 </div>
 
 ---
 
-### [ 06 ] — ACTIVITY
+## 〔 05 〕 STREAK
+
+<div align="center">
+
+<img src="https://streak-stats.demolab.com?user=nithin2719-commits&theme=dark&background=0D1117&ring=FFFFFF&fire=FFFFFF&currStreakLabel=FFFFFF&border=30363D&sideLabels=999999&dates=999999&currStreakNum=FFFFFF&sideNums=FFFFFF" />
+
+</div>
+
+---
+
+## 〔 06 〕 ACTIVITY
 
 <div align="center">
 
@@ -129,47 +159,48 @@ PORT        STATE   SERVICE              VERSION
 
 ---
 
-### [ 07 ] — SECURITY CONSOLE
+## 〔 07 〕 CONSOLE
 
 ```
-╔══════════════════════════════════════════════════════════╗
-║          NITHIN SECURITY CONSOLE v2.0 [ACTIVE]          ║
-╠══════════════════════════════════════════════════════════╣
-║  [✓] System Status        : ONLINE                      ║
-║  [✓] Learning Mode        : ACTIVE                      ║
-║  [✓] CTF Mode             : ENGAGED                     ║
-║  [✓] Defense Layer        : ENABLED                     ║
-║  [✓] VPN Tunnel           : ESTABLISHED                 ║
-║  [✓] IDS / IPS            : RUNNING                     ║
-║  [✓] Firewall Rules       : 2719 LOADED                 ║
-║  [!] Threat Level         : ALWAYS ELEVATED             ║
-║  [!] Intrusion Attempts   : BLOCKED [0x4E]              ║
-║  [*] Current Mission      : Secure Everything           ║
-╚══════════════════════════════════════════════════════════╝
+[nithin@kali ~]$ ./status.sh
+
+  NITHIN SECURITY CONSOLE v3.0
+  ==============================
+  System Status      [ONLINE]
+  Learning Mode      [ACTIVE]
+  CTF Mode           [ENGAGED]
+  VPN Tunnel         [UP]
+  IDS / IPS          [RUNNING]
+  Firewall           [2719 RULES LOADED]
+  Threat Level       [ALWAYS ELEVATED]
+  Intrusion Blocked  [0x4E attempts]
+  Mission            [SECURE EVERYTHING]
+
+[nithin@kali ~]$ _
 ```
 
 ---
 
-### [ 08 ] — EXPLOIT CHAIN
+## 〔 08 〕 EXPLOIT CHAIN
 
 ```bash
 #!/bin/bash
-# Mission: Achieve Full Knowledge Compromise
+# file: mission.sh — Full Knowledge Compromise
 
 recon()    { echo "[*] Gathering intel on new tech..."; }
-enum()     { echo "[*] Enumerating vulnerabilities to patch..."; }
-exploit()  { echo "[+] Exploiting knowledge gaps — PWNED."; }
+enum()     { echo "[*] Enumerating knowledge gaps..."; }
+exploit()  { echo "[+] Gaps exploited — PWNED."; }
 escalate() { echo "[+] Privilege escalated: Noob -> Elite"; }
-persist()  { echo "[+] Persistence established via daily commits"; }
+persist()  { echo "[+] Persistence: daily commits established"; }
 
 recon && enum && exploit && escalate && persist
-
+echo ""
 echo "[✓] MISSION COMPLETE — System hardened. Knowledge updated."
 ```
 
 ---
 
-### [ 09 ] — CONNECT
+## 〔 09 〕 CONNECT
 
 <div align="center">
 
@@ -182,7 +213,7 @@ echo "[✓] MISSION COMPLETE — System hardened. Knowledge updated."
 
 ---
 
-### [ 10 ] — CONTRIBUTION SNAKE
+## 〔 10 〕 CONTRIBUTION SNAKE
 
 <div align="center">
 
@@ -195,15 +226,17 @@ echo "[✓] MISSION COMPLETE — System hardened. Knowledge updated."
 <div align="center">
 
 ```
-+----------------------------------------------------------+
-|   [✓] README loaded         [✓] Modules initialized     |
-|   [✓] Stats connected       [✓] Defenses active         |
-|   [✓] Snake deployed        [✓] Streak online           |
-|   [!] Unauthorized access will be traced & reported     |
-+----------------------------------------------------------+
-|          root@nithin:~# █                               |
-|          © 2025 Nithin — Cybersecurity Engineer         |
-+----------------------------------------------------------+
++----------------------------------------------------------------+
+|  [✓] README loaded        [✓] Stats connected                 |
+|  [✓] Snake deployed       [✓] Streak online                   |
+|  [✓] Defenses active      [✓] Modules initialized             |
+|  [!] Unauthorized access will be traced & reported            |
++----------------------------------------------------------------+
+|                    root@nithin:~# █                           |
+|              Cybersecurity Engineer  —  India                 |
++----------------------------------------------------------------+
 ```
+
+*"The quieter you become, the more you can hear."* — Kali Linux
 
 </div>
