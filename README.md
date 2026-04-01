@@ -49,14 +49,14 @@ class Nithin:
 <tr>
 <td valign="top" width="50%">
 
-**Cybersecurity**
+### 🛡️ Cybersecurity
 
 ![Kali Linux](https://img.shields.io/badge/Kali_Linux-000000?style=for-the-badge&logo=kali-linux&logoColor=white)
 ![Wireshark](https://img.shields.io/badge/Wireshark-000000?style=for-the-badge&logo=wireshark&logoColor=white)
 ![Metasploit](https://img.shields.io/badge/Metasploit-000000?style=for-the-badge&logoColor=white)
 ![Burp Suite](https://img.shields.io/badge/Burp_Suite-000000?style=for-the-badge&logo=burpsuite&logoColor=white)
 
-**Languages & Backend**
+### 🐍 Languages & Backend
 
 ![Python](https://img.shields.io/badge/Python-000000?style=for-the-badge&logo=python&logoColor=white)
 ![Django](https://img.shields.io/badge/Django-000000?style=for-the-badge&logo=django&logoColor=white)
@@ -67,13 +67,13 @@ class Nithin:
 </td>
 <td valign="top" width="50%">
 
-**⚡ AI / ML**
+### 🤖 AI / ML
 
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-000000?style=for-the-badge&logo=TensorFlow&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-000000?style=for-the-badge&logo=scikit-learn&logoColor=white)
 ![NVIDIA CUDA](https://img.shields.io/badge/NVIDIA_CUDA-000000?style=for-the-badge&logo=nvidia&logoColor=white)
 
-**⚡ Tools & Creative**
+### 🛠️ Tools & Creative
 
 ![Blender](https://img.shields.io/badge/Blender-000000?style=for-the-badge&logo=blender&logoColor=white)
 ![Canva](https://img.shields.io/badge/Canva-000000?style=for-the-badge&logo=canva&logoColor=white)
@@ -91,14 +91,13 @@ class Nithin:
 
 <div align="center">
 
-<img width="100%" src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=nithin2719-commits&theme=github_dark" />
+<img src="https://github-readme-stats.vercel.app/api?username=nithin2719-commits&show_icons=true&bg_color=000000&title_color=FFFFFF&text_color=FFFFFF&icon_color=FFFFFF&border_color=FFFFFF&hide_border=false&include_all_commits=true&count_private=true" />
 
 </div>
 
 <div align="center">
 
-<img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=nithin2719-commits&theme=github_dark" />
-<img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=nithin2719-commits&theme=github_dark" />
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=nithin2719-commits&layout=compact&bg_color=000000&title_color=FFFFFF&text_color=FFFFFF&border_color=FFFFFF&hide_border=false" />
 
 </div>
 
