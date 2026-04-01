@@ -100,9 +100,14 @@ Nmap done: 6 ports open. System secured. Attacker: not you.
 
 <div align="center">
 
-<img height="180em" src="https://github-readme-stats-git-masterrstaa-rickstaa.vercel.app/api?username=nithin2719-commits&show_icons=true&bg_color=000000&title_color=ffffff&text_color=aaaaaa&icon_color=ffffff&border_color=333333&include_all_commits=true&count_private=true" />
+<img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=nithin2719-commits&theme=github_dark" />
 
-<img height="180em" src="https://github-readme-stats-git-masterrstaa-rickstaa.vercel.app/api/top-langs/?username=nithin2719-commits&layout=compact&bg_color=000000&title_color=ffffff&text_color=aaaaaa&border_color=333333&langs_count=8" />
+</div>
+
+<div align="center">
+
+<img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=nithin2719-commits&theme=github_dark" />
+<img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=nithin2719-commits&theme=github_dark" />
 
 </div>
 
@@ -158,13 +163,11 @@ Nmap done: 6 ports open. System secured. Attacker: not you.
 
 <div align="center">
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/nithin2719-commits/nithin2719-commits/output/github-contribution-grid-snake-dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/nithin2719-commits/nithin2719-commits/output/github-contribution-grid-snake.svg" />
-  <img alt="contribution-snake" src="https://raw.githubusercontent.com/nithin2719-commits/nithin2719-commits/output/github-contribution-grid-snake-dark.svg" />
-</picture>
+![snake gif](https://raw.githubusercontent.com/nithin2719-commits/nithin2719-commits/output/github-contribution-grid-snake-dark.svg)
 
 </div>
+
+> ⚙️ **One-time snake setup** — Upload `snake.yml` (downloaded separately) to `.github/workflows/snake.yml` in this repo, then go to **Actions → Generate Snake → Run workflow**.
 
 ---
 
