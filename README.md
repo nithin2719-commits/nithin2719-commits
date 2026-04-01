@@ -99,6 +99,22 @@ PORT        STATE   SERVICE              VERSION
 
 ### [ 04 ] — GITHUB STATS
 
+
+![Kali Linux](https://img.shields.io/badge/Kali_Linux-000000?style=for-the-badge&logo=kali-linux&logoColor=white)
+![Burp Suite](https://img.shields.io/badge/Burp_Suite-000000?style=for-the-badge&logo=burpsuite&logoColor=white)
+![Metasploit](https://img.shields.io/badge/Metasploit-000000?style=for-the-badge&logoColor=white)
+![Wireshark](https://img.shields.io/badge/Wireshark-000000?style=for-the-badge&logo=wireshark&logoColor=white)
+
+*💻 CODE*
+
+![Python](https://img.shields.io/badge/Python-000000?style=for-the-badge&logo=python&logoColor=white)
+![Bash](https://img.shields.io/badge/Bash-000000?style=for-the-badge&logo=gnubash&logoColor=white)
+![C](https://img.shields.io/badge/C-000000?style=for-the-badge&logo=c&logoColor=white)
+![Django](https://img.shields.io/badge/Django-000000?style=for-the-badge&logo=django&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-000000?style=for-the-badge&logo=fastapi&logoColor=white)
+
+*🧠 INTELLIGENCE*
+
 <div align="center">
 
 <img height="180em" src="https://github-readme-stats.vercel.app/api?username=nithin2719-commits&show_icons=true&theme=dark&bg_color=0D1117&title_color=FFFFFF&icon_color=FFFFFF&text_color=AAAAAA&border_color=30363D&count_private=true&include_all_commits=true" />
