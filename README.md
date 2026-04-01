@@ -124,6 +124,20 @@ class Nithin:
 ╚══════════════════════════════════════════════════════════╝
 ```
 
+---
+
+### [ 09 ] — CONNECT
+
+<div align="center">
+
+[![Instagram](https://img.shields.io/badge/Instagram-000000?style=for-the-badge&logo=Instagram&logoColor=white)](https://instagram.com/nit_2719)
+[![GitHub](https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/nithin2719-commits)
+[![TryHackMe](https://img.shields.io/badge/TryHackMe-000000?style=for-the-badge&logo=tryhackme&logoColor=white)](https://tryhackme.com/p/nithin2719)
+[![HackTheBox](https://img.shields.io/badge/HackTheBox-000000?style=for-the-badge&logo=hackthebox&logoColor=white)](https://app.hackthebox.com/profile/nithin2719)
+
+</div>
+
+---
 
 
 ### [ 09 ] — CONNECT
