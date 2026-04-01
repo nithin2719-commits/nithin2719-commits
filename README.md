@@ -16,41 +16,19 @@
 
 ## `> whoami`
 
-<table>
-<tr>
-<td valign="top" width="55%">
-
 ```python
 class Nithin:
     name       = "Nithin"
     degree     = "B.E CSE — Cybersecurity"
     location   = "India 🇮🇳"
-    interests  = ["Ethical Hacking",
-                  "AI/ML", "Backend Dev",
-                  "CTFs"]
-    learning   = ["Advanced Python",
-                  "Django", "FastAPI",
-                  "Malware Analysis"]
-    tools      = ["Kali Linux",
-                  "Burp Suite",
-                  "Wireshark",
-                  "Metasploit"]
-    motto      = "Break things ethically.\
-                  Fix them permanently."
+    interests  = ["Ethical Hacking", "AI/ML", "Backend Dev", "CTFs"]
+    learning   = ["Advanced Python", "Django", "FastAPI", "Malware Analysis"]
+    tools      = ["Kali Linux", "Burp Suite", "Wireshark", "Metasploit"]
+    motto      = "Break things ethically. Fix them permanently."
 
     def status(self):
-        return "[ACTIVE] — Building.\
-                Breaking. Learning."
+        return "[ACTIVE] — Building. Breaking. Learning."
 ```
-
-</td>
-<td valign="top" width="45%" align="center">
-
-<img src="https://user-images.githubusercontent.com/74038190/212749695-a6817c5a-a794-462b-afca-1b5ce7dd5e63.gif" width="300" />
-
-</td>
-</tr>
-</table>
 
 ---
 
@@ -132,15 +110,9 @@ Nmap done: 6 ports open. System secured. Attacker: not you.
 
 <div align="center">
 
-<img width="100%" src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=nithin2719-commits&theme=zenburn" />
-
-</div>
-
-<div align="center">
-
-<img height="175em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=nithin2719-commits&theme=zenburn" />
+<img height="175em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=nithin2719-commits&theme=monochrome" />
 &nbsp;
-<img height="175em" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=nithin2719-commits&theme=zenburn" />
+<img height="175em" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=nithin2719-commits&theme=monochrome" />
 
 </div>
 
