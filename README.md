@@ -120,47 +120,11 @@ class Nithin:
 
 </div>
 
----
 
-### [ 07 ] — SECURITY CONSOLE
-
-```
-╔══════════════════════════════════════════════════════════╗
-║          NITHIN SECURITY CONSOLE v2.0 [ACTIVE]          ║
-╠══════════════════════════════════════════════════════════╣
-║  [✓] System Status        : ONLINE                      ║
-║  [✓] Learning Mode        : ACTIVE                      ║
-║  [✓] CTF Mode             : ENGAGED                     ║
-║  [✓] Defense Layer        : ENABLED                     ║
-║  [✓] VPN Tunnel           : ESTABLISHED                 ║
-║  [✓] IDS / IPS            : RUNNING                     ║
-║  [✓] Firewall Rules       : 2719 LOADED                 ║
-║  [!] Threat Level         : ALWAYS ELEVATED             ║
-║  [!] Intrusion Attempts   : BLOCKED [0x4E]              ║
-║  [*] Current Mission      : Secure Everything           ║
 ╚══════════════════════════════════════════════════════════╝
 ```
 
----
 
-### [ 08 ] — EXPLOIT CHAIN
-
-```bash
-#!/bin/bash
-# Mission: Achieve Full Knowledge Compromise
-
-recon()    { echo "[*] Gathering intel on new tech..."; }
-enum()     { echo "[*] Enumerating vulnerabilities to patch..."; }
-exploit()  { echo "[+] Exploiting knowledge gaps — PWNED."; }
-escalate() { echo "[+] Privilege escalated: Noob -> Elite"; }
-persist()  { echo "[+] Persistence established via daily commits"; }
-
-recon && enum && exploit && escalate && persist
-
-echo "[✓] MISSION COMPLETE — System hardened. Knowledge updated."
-```
-
----
 
 ### [ 09 ] — CONNECT
 
@@ -175,28 +139,6 @@ echo "[✓] MISSION COMPLETE — System hardened. Knowledge updated."
 
 ---
 
-### [ 10 ] — CONTRIBUTION SNAKE
-
-<div align="center">
-
-![snake gif](https://raw.githubusercontent.com/nithin2719-commits/nithin2719-commits/output/github-contribution-grid-snake-dark.svg)
-
-</div>
-
----
-
-<div align="center">
-
-```
-+----------------------------------------------------------+
-|   [✓] README loaded         [✓] Modules initialized     |
-|   [✓] Stats connected       [✓] Defenses active         |
-|   [✓] Snake deployed        [✓] Streak online           |
-|   [!] Unauthorized access will be traced & reported     |
-+----------------------------------------------------------+
-|          root@nithin:~# █                               |
-|          © 2025 Nithin — Cybersecurity Engineer         |
-+----------------------------------------------------------+
 ```
 
 </div>
