@@ -107,15 +107,6 @@ class Nithin:
 
 ![GitHub Streak](https://streak-stats.demolab.com?user=nithin2719-commits&theme=highcontrast&background=000000&ring=FFFFFF&fire=FFFFFF&currStreakLabel=FFFFFF&border=333333&sideLabels=AAAAAA&dates=666666&currStreakNum=FFFFFF&sideNums=FFFFFF)
 
-</div>
-
-<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=nithin2719-commits&layout=compact&theme=dark&bg_color=0D1117&title_color=FFFFFF&text_color=AAAAAA&border_color=30363D&langs_count=8" />
-
-</div>
-
----
-
-### [ 05 ] — STREAK
 
 <div align="center">
 
