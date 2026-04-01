@@ -4,14 +4,15 @@
 
 <br/>
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=00FF41&center=true&vCenter=true&width=700&lines=B.E+CSE+%7C+Cybersecurity+Specialist+%F0%9F%94%90;Ethical+Hacker+%7C+AI%2FML+Enthusiast+%F0%9F%A4%96;Advanced+Python+%7C+Backend+Dev+%F0%9F%90%8D;If+it%27s+connected%2C+it%27s+vulnerable." alt="Typing SVG" />
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=FFFFFF&center=true&vCenter=true&background=00000000&width=700&lines=B.E+CSE+%7C+Cybersecurity+Specialist+%F0%9F%94%90;Ethical+Hacker+%7C+AI%2FML+Enthusiast+%F0%9F%A4%96;Advanced+Python+%7C+Backend+Dev+%F0%9F%90%8D;If+it%27s+connected%2C+it%27s+vulnerable." alt="Typing SVG" />
 
 <br/>
 
-![Profile Views](https://komarev.com/ghpvc/?username=nithin2719-commits&color=00ff41&style=for-the-badge&label=PROFILE+VIEWS)
+![Profile Views](https://komarev.com/ghpvc/?username=nithin2719-commits&color=ffffff&style=for-the-badge&label=PROFILE+VIEWS)
 
+</div>
 
-```
+---
 
 ## `> whoami`
 
@@ -19,7 +20,7 @@
 class Nithin:
     name       = "Nithin"
     degree     = "B.E CSE — Cybersecurity"
-    location   = "India 🇮🇳"
+    location   = "India"
     interests  = ["Ethical Hacking", "AI/ML", "Backend Dev", "CTFs"]
     learning   = ["Advanced Python", "Django", "FastAPI", "Malware Analysis"]
     tools      = ["Kali Linux", "Burp Suite", "Wireshark", "Metasploit"]
@@ -44,7 +45,7 @@ class Nithin:
 
 ---
 
-## `> nmap -sV --open nithin`
+## `> nmap -sV --open target`
 
 ```
 Starting Nmap 7.94 — Scanning target: nithin
@@ -75,35 +76,35 @@ PORT        STATE   SERVICE              VERSION
 
 **`[0x01]` 🔐 Cybersecurity Arsenal**
 
-![Kali Linux](https://img.shields.io/badge/Kali_Linux-000000?style=for-the-badge&logo=kali-linux&logoColor=00FF41)
-![Wireshark](https://img.shields.io/badge/Wireshark-000000?style=for-the-badge&logo=wireshark&logoColor=00FF41)
-![Metasploit](https://img.shields.io/badge/Metasploit-000000?style=for-the-badge&logoColor=00FF41)
-![Burp Suite](https://img.shields.io/badge/Burp_Suite-000000?style=for-the-badge&logo=burpsuite&logoColor=00FF41)
+![Kali Linux](https://img.shields.io/badge/Kali_Linux-000000?style=for-the-badge&logo=kali-linux&logoColor=white)
+![Wireshark](https://img.shields.io/badge/Wireshark-000000?style=for-the-badge&logo=wireshark&logoColor=white)
+![Metasploit](https://img.shields.io/badge/Metasploit-000000?style=for-the-badge&logoColor=white)
+![Burp Suite](https://img.shields.io/badge/Burp_Suite-000000?style=for-the-badge&logo=burpsuite&logoColor=white)
 
 **`[0x02]` 💻 Languages & Backend**
 
-![Python](https://img.shields.io/badge/Python-000000?style=for-the-badge&logo=python&logoColor=00FF41)
-![Django](https://img.shields.io/badge/Django-000000?style=for-the-badge&logo=django&logoColor=00FF41)
-![FastAPI](https://img.shields.io/badge/FastAPI-000000?style=for-the-badge&logo=fastapi&logoColor=00FF41)
-![C](https://img.shields.io/badge/C-000000?style=for-the-badge&logo=c&logoColor=00FF41)
-![Bash](https://img.shields.io/badge/Bash-000000?style=for-the-badge&logo=gnubash&logoColor=00FF41)
+![Python](https://img.shields.io/badge/Python-000000?style=for-the-badge&logo=python&logoColor=white)
+![Django](https://img.shields.io/badge/Django-000000?style=for-the-badge&logo=django&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-000000?style=for-the-badge&logo=fastapi&logoColor=white)
+![C](https://img.shields.io/badge/C-000000?style=for-the-badge&logo=c&logoColor=white)
+![Bash](https://img.shields.io/badge/Bash-000000?style=for-the-badge&logo=gnubash&logoColor=white)
 
 </td>
 <td valign="top">
 
 **`[0x03]` 🧠 AI / ML**
 
-![TensorFlow](https://img.shields.io/badge/TensorFlow-000000?style=for-the-badge&logo=TensorFlow&logoColor=00FF41)
-![scikit-learn](https://img.shields.io/badge/scikit--learn-000000?style=for-the-badge&logo=scikit-learn&logoColor=00FF41)
-![nVIDIA](https://img.shields.io/badge/NVIDIA_CUDA-000000?style=for-the-badge&logo=nvidia&logoColor=00FF41)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-000000?style=for-the-badge&logo=TensorFlow&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-000000?style=for-the-badge&logo=scikit-learn&logoColor=white)
+![nVIDIA](https://img.shields.io/badge/NVIDIA_CUDA-000000?style=for-the-badge&logo=nvidia&logoColor=white)
 
 **`[0x04]` 🛠️ Tools & Creative**
 
-![Blender](https://img.shields.io/badge/Blender-000000?style=for-the-badge&logo=blender&logoColor=00FF41)
-![Canva](https://img.shields.io/badge/Canva-000000?style=for-the-badge&logo=canva&logoColor=00FF41)
-![Git](https://img.shields.io/badge/Git-000000?style=for-the-badge&logo=git&logoColor=00FF41)
-![Linux](https://img.shields.io/badge/Linux-000000?style=for-the-badge&logo=linux&logoColor=00FF41)
-![Docker](https://img.shields.io/badge/Docker-000000?style=for-the-badge&logo=docker&logoColor=00FF41)
+![Blender](https://img.shields.io/badge/Blender-000000?style=for-the-badge&logo=blender&logoColor=white)
+![Canva](https://img.shields.io/badge/Canva-000000?style=for-the-badge&logo=canva&logoColor=white)
+![Git](https://img.shields.io/badge/Git-000000?style=for-the-badge&logo=git&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-000000?style=for-the-badge&logo=linux&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-000000?style=for-the-badge&logo=docker&logoColor=white)
 
 </td>
 </tr>
@@ -115,15 +116,15 @@ PORT        STATE   SERVICE              VERSION
 
 <div align="center">
 
-<img height="175em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=nithin2719-commits&theme=github_dark" />
+<img height="175em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=nithin2719-commits&theme=monochrome" />
 &nbsp;
-<img height="175em" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=nithin2719-commits&theme=github_dark" />
+<img height="175em" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=nithin2719-commits&theme=monochrome" />
 
 </div>
 
 <div align="center">
 
-![GitHub Streak](https://streak-stats.demolab.com?user=nithin2719-commits&theme=matrix&background=0D1117&ring=00FF41&fire=00FF41&currStreakLabel=00FF41&border=00FF41&sideLabels=00AA28&dates=00AA28&currStreakNum=00FF41&sideNums=00FF41)
+![GitHub Streak](https://streak-stats.demolab.com?user=nithin2719-commits&theme=highcontrast&background=0D1117&ring=FFFFFF&fire=FFFFFF&currStreakLabel=FFFFFF&border=30363D&sideLabels=8B949E&dates=8B949E&currStreakNum=FFFFFF&sideNums=FFFFFF)
 
 </div>
 
@@ -133,7 +134,7 @@ PORT        STATE   SERVICE              VERSION
 
 <div align="center">
 
-[![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=nithin2719-commits&bg_color=0D1117&color=00FF41&line=00FF41&point=00FF41&area=true&area_color=001a00&hide_border=true)](https://github.com/ashutosh00710/github-readme-activity-graph)
+[![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=nithin2719-commits&bg_color=0D1117&color=FFFFFF&line=FFFFFF&point=FFFFFF&area=true&area_color=161B22&hide_border=true)](https://github.com/ashutosh00710/github-readme-activity-graph)
 
 </div>
 
@@ -174,13 +175,12 @@ PORT        STATE   SERVICE              VERSION
 recon()     { echo "[*] Gathering intel on new tech..."; }
 enum()      { echo "[*] Enumerating vulnerabilities to patch..."; }
 exploit()   { echo "[+] Exploiting knowledge gaps — PWNED."; }
-escalate()  { echo "[+] Privilege escalated: Noob → Elite"; }
+escalate()  { echo "[+] Privilege escalated: Noob -> Elite"; }
 persist()   { echo "[+] Persistence established via daily commits"; }
 cover()     { echo "[*] Covering tracks... just kidding, it's all on GitHub."; }
 
 recon && enum && exploit && escalate && persist && cover
 
-echo ""
 echo "[✓] MISSION COMPLETE — System hardened. Knowledge updated."
 ```
 
@@ -190,10 +190,10 @@ echo "[✓] MISSION COMPLETE — System hardened. Knowledge updated."
 
 <div align="center">
 
-[![Instagram](https://img.shields.io/badge/Instagram-000000?style=for-the-badge&logo=Instagram&logoColor=00FF41)](https://instagram.com/nit_2719)
-[![GitHub](https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=00FF41)](https://github.com/nithin2719-commits)
-[![TryHackMe](https://img.shields.io/badge/TryHackMe-000000?style=for-the-badge&logo=tryhackme&logoColor=00FF41)](https://tryhackme.com/p/nithin2719)
-[![HackTheBox](https://img.shields.io/badge/HackTheBox-000000?style=for-the-badge&logo=hackthebox&logoColor=00FF41)](https://app.hackthebox.com/profile/nithin2719)
+[![Instagram](https://img.shields.io/badge/Instagram-000000?style=for-the-badge&logo=Instagram&logoColor=white)](https://instagram.com/nit_2719)
+[![GitHub](https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/nithin2719-commits)
+[![TryHackMe](https://img.shields.io/badge/TryHackMe-000000?style=for-the-badge&logo=tryhackme&logoColor=white)](https://tryhackme.com/p/nithin2719)
+[![HackTheBox](https://img.shields.io/badge/HackTheBox-000000?style=for-the-badge&logo=hackthebox&logoColor=white)](https://app.hackthebox.com/profile/nithin2719)
 
 </div>
 
@@ -218,8 +218,8 @@ echo "[✓] MISSION COMPLETE — System hardened. Knowledge updated."
   [✓] Snake deployed          [✓] Streak online
   [!] Unauthorized access will be traced, logged & reported
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-  root@nithin:~# _
-            © Nithin | Cybersecurity Engineer 🛡️
+              root@nithin:~# _
+          © Nithin | Cybersecurity Engineer
 ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
 ```
 
