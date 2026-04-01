@@ -104,7 +104,7 @@ class Nithin:
 
 <div align="center">
 
-<img src="https://streak-stats.demolab.com?user=nithin2719-commits&theme=dark&background=0D1117&ring=FFFFFF&fire=FFFFFF&currStreakLabel=FFFFFF&border=30363D&sideLabels=FFFFFF&dates=AAAAAA&currStreakNum=FFFFFF&sideNums=FFFFFF" />
+<img src="https://streak-stats.demolab.com?user=nithin2719-commits&background=000000&ring=FFFFFF&fire=FFFFFF&currStreakLabel=FFFFFF&border=FFFFFF&sideLabels=FFFFFF&dates=FFFFFF&currStreakNum=FFFFFF&sideNums=FFFFFF&stroke=000000" />
 
 </div>
 
@@ -114,7 +114,7 @@ class Nithin:
 
 <div align="center">
 
-[![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=nithin2719-commits&bg_color=0D1117&color=FFFFFF&line=FFFFFF&point=FFFFFF&area=true&area_color=161B22&hide_border=true)](https://github.com/ashutosh00710/github-readme-activity-graph)
+[![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=nithin2719-commits&bg_color=000000&color=FFFFFF&line=FFFFFF&point=FFFFFF&area=true&area_color=1a1a1a&hide_border=true)](https://github.com/ashutosh00710/github-readme-activity-graph)
 
 </div>
 
