@@ -89,16 +89,6 @@ class Nithin:
 
 ### [ 04 ] — GITHUB STATS
 
-<div align="center">
-
-<img src="https://github-readme-stats.vercel.app/api?username=nithin2719-commits&show_icons=true&bg_color=000000&title_color=FFFFFF&text_color=FFFFFF&icon_color=FFFFFF&border_color=FFFFFF&hide_border=false&include_all_commits=true&count_private=true" />
-
-</div>
-
-<div align="center">
-
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=nithin2719-commits&layout=compact&bg_color=000000&title_color=FFFFFF&text_color=FFFFFF&border_color=FFFFFF&hide_border=false" />
-
 </div>
 
 <div align="center">
