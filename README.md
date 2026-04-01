@@ -86,6 +86,10 @@ class Nithin:
 </table>
 
 ---
+
+
+### [ 04 ] — GITHUB STATS
+
 <div align="center">
 
 <img width="100%" src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=nithin2719-commits&theme=2077" />
@@ -105,12 +109,6 @@ class Nithin:
 
 </div>
 
-### [ 04 ] — GITHUB STATS
-
-<div align="center">
-
-<img height="180em" src="https://github-readme-stats.vercel.app/api?username=nithin2719-commits&show_icons=true&theme=dark&bg_color=0D1117&title_color=FFFFFF&icon_color=FFFFFF&text_color=AAAAAA&border_color=30363D&count_private=true&include_all_commits=true" />
-&nbsp;&nbsp;
 <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=nithin2719-commits&layout=compact&theme=dark&bg_color=0D1117&title_color=FFFFFF&text_color=AAAAAA&border_color=30363D&langs_count=8" />
 
 </div>
