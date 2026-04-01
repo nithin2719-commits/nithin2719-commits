@@ -43,7 +43,7 @@ class Nithin:
 
 ---
 
-### [ 03 ] — TECH STACK
+### [ 02 ] — TECH STACK
 
 <table>
 <tr>
@@ -87,7 +87,7 @@ class Nithin:
 
 ---
 
-### [ 04 ] — GITHUB STATS
+### [ 03 ] — GITHUB STATS
 
 <div align="center">
 
@@ -97,7 +97,7 @@ class Nithin:
 
 ---
 
-### [ 06 ] — ACTIVITY
+### [ 04 ] — ACTIVITY
 
 <div align="center">
 
@@ -107,7 +107,7 @@ class Nithin:
 
 ---
 
-### [ 09 ] — CONNECT
+### [ 05 ] — CONNECT
 
 <div align="center">
 
