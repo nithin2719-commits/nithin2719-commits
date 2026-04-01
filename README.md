@@ -86,6 +86,24 @@ class Nithin:
 </table>
 
 ---
+<div align="center">
+
+<img width="100%" src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=nithin2719-commits&theme=2077" />
+
+</div>
+
+<div align="center">
+
+<img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=nithin2719-commits&theme=2077" />
+<img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=nithin2719-commits&theme=2077" />
+
+</div>
+
+<div align="center">
+
+![GitHub Streak](https://streak-stats.demolab.com?user=nithin2719-commits&theme=highcontrast&background=000000&ring=FFFFFF&fire=FFFFFF&currStreakLabel=FFFFFF&border=333333&sideLabels=AAAAAA&dates=666666&currStreakNum=FFFFFF&sideNums=FFFFFF)
+
+</div>
 
 ### [ 04 ] — GITHUB STATS
 
