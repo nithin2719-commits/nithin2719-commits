@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://user-images.githubusercontent.com/74038190/241765440-80728820-e06b-4f96-9c9e-9df46f0cc0a5.gif" width="100%" />
+<img src="https://user-images.githubusercontent.com/74038190/225813708-98b745f2-7d22-48cf-9150-083f1b00d6c9.gif" width="100%" />
 
 <br/>
 
@@ -54,9 +54,7 @@ class Nithin:
 ## `> nmap -sV --open nithin`
 
 ```
-[nithin@kali ~]$ nmap -sV -sC -T4 --open nithin.local
-
-Starting Nmap 7.94  |  SYN Stealth Scan
+[nithin@kali ~]$ nmap -sV -T4 --open nithin.local
 
 PORT        STATE   SERVICE          VERSION
 22/tcp      open    shell            Python 3.x | Bash | Zsh
@@ -69,8 +67,6 @@ PORT        STATE   SERVICE          VERSION
 
 OS : Linux 5.x — Kali Rolling (98%)
 [!] Nmap done — Attacker: not you.
-
-[nithin@kali ~]$ _
 ```
 
 ---
@@ -120,13 +116,7 @@ OS : Linux 5.x — Kali Rolling (98%)
 
 <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=nithin2719-commits&layout=compact&theme=dark&bg_color=000000&title_color=ffffff&text_color=ffffff&border_color=444444&hide_border=false&langs_count=8" />
 
-</div>
-
----
-
-## `> streak --show`
-
-<div align="center">
+<br/>
 
 ![GitHub Streak](https://streak-stats.demolab.com?user=nithin2719-commits&theme=dark&background=000000&ring=ffffff&fire=ffffff&currStreakLabel=ffffff&border=444444&sideLabels=ffffff&dates=888888&currStreakNum=ffffff&sideNums=ffffff)
 
@@ -137,10 +127,6 @@ OS : Linux 5.x — Kali Rolling (98%)
 ## `> tail -f /var/log/activity.log`
 
 <div align="center">
-
-<img src="https://user-images.githubusercontent.com/74038190/225813708-98b745f2-7d22-48cf-9150-083f1b00d6c9.gif" width="100%" />
-
-<br/>
 
 [![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=nithin2719-commits&theme=github-compact&bg_color=000000&color=ffffff&line=ffffff&point=ffffff&area=true&hide_border=true)](https://github.com/ashutosh00710/github-readme-activity-graph)
 
