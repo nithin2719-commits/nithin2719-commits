@@ -103,10 +103,6 @@ class Nithin:
 
 </div>
 
-<div align="center">
-
-![GitHub Streak](https://streak-stats.demolab.com?user=nithin2719-commits&theme=highcontrast&background=000000&ring=FFFFFF&fire=FFFFFF&currStreakLabel=FFFFFF&border=333333&sideLabels=AAAAAA&dates=666666&currStreakNum=FFFFFF&sideNums=FFFFFF)
-
 
 <div align="center">
 
