@@ -8,7 +8,7 @@
 
 <br/>
 
-[![](https://visitcount.itsvg.in/api?id=nithin2719-commits&icon=6&color=0)](https://visitcount.itsvg.in)
+![Profile Views](https://komarev.com/ghpvc/?username=nithin2719-commits&color=000000&style=for-the-badge&label=PROFILE+VIEWS)
 
 </div>
 
@@ -100,14 +100,14 @@ Nmap done: 6 ports open. System secured. Attacker: not you.
 
 <div align="center">
 
-<img width="100%" src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=nithin2719-commits&theme=nord_dark" />
+<img width="100%" src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=nithin2719-commits&theme=2077" />
 
 </div>
 
 <div align="center">
 
-<img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=nithin2719-commits&theme=nord_dark" />
-<img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=nithin2719-commits&theme=nord_dark" />
+<img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=nithin2719-commits&theme=2077" />
+<img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=nithin2719-commits&theme=2077" />
 
 </div>
 
@@ -123,7 +123,7 @@ Nmap done: 6 ports open. System secured. Attacker: not you.
 
 <div align="center">
 
-[![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=nithin2719-commits&bg_color=000000&color=FFFFFF&line=FFFFFF&point=FFFFFF&area=true&area_color=222222&hide_border=true)](https://github.com/ashutosh00710/github-readme-activity-graph)
+[![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=nithin2719-commits&bg_color=000000&color=FFFFFF&line=FFFFFF&point=FFFFFF&area=true&area_color=111111&hide_border=true)](https://github.com/ashutosh00710/github-readme-activity-graph)
 
 </div>
 
@@ -166,8 +166,6 @@ Nmap done: 6 ports open. System secured. Attacker: not you.
 ![snake gif](https://raw.githubusercontent.com/nithin2719-commits/nithin2719-commits/output/github-contribution-grid-snake-dark.svg)
 
 </div>
-
-> ⚙️ **One-time snake setup** — Upload `snake.yml` to `.github/workflows/snake.yml` in this repo → **Actions → Generate Snake → Run workflow**.
 
 ---
 
