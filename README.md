@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://user-images.githubusercontent.com/74038190/225813708-98b745f2-7d22-48cf-9150-083f1b00d6c9.gif" width="100%" />
+<img src="https://user-images.githubusercontent.com/74038190/241765440-80728820-e06b-4f96-9c9e-9df46f0cc0a5.gif" width="100%" />
 
 <br/>
 
@@ -8,31 +8,13 @@
 
 <br/>
 
-![Profile Views](https://komarev.com/ghpvc/?username=nithin2719-commits&style=for-the-badge&color=grey&label=PROFILE+VIEWS)
+[![](https://visitcount.itsvg.in/api?id=nithin2719-commits&label=PROFILE%20VIEWS&color=12&icon=6&pretty=true)](https://visitcount.itsvg.in)
 
 </div>
 
-<br/>
-
-```
-╔════════════════════════════════════════════════════════════════════╗
-║                                                                    ║
-║     ███╗   ██╗██╗████████╗██╗  ██╗██╗███╗   ██╗                  ║
-║     ████╗  ██║██║╚══██╔══╝██║  ██║██║████╗  ██║                  ║
-║     ██╔██╗ ██║██║   ██║   ███████║██║██╔██╗ ██║                  ║
-║     ██║╚██╗██║██║   ██║   ██╔══██║██║██║╚██╗██║                  ║
-║     ██║ ╚████║██║   ██║   ██║  ██║██║██║ ╚████║                  ║
-║     ╚═╝  ╚═══╝╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝                  ║
-║                                                                    ║
-║           B.E CSE — CYBERSECURITY SPECIALIST                      ║
-║           ETHICAL HACKER  |  AI/ML  |  BACKEND DEV               ║
-║                                                                    ║
-╚════════════════════════════════════════════════════════════════════╝
-```
-
 ---
 
-### 〔 01 〕 IDENTITY
+## `> whoami`
 
 ```python
 #!/usr/bin/env python3
@@ -51,16 +33,25 @@ class Nithin:
     def status(self) -> str:
         return "[ONLINE] — Building. Breaking. Learning."
 
-if __name__ == "__main__":
-    me = Nithin()
-    print(me.status())
-
 # OUTPUT: [ONLINE] — Building. Breaking. Learning.
 ```
 
 ---
 
-### 〔 02 〕 RECON
+## `> linus --quote`
+
+<div align="center">
+
+> *"The difference between a good engineer and a great one*
+> *is understanding how things **fail**."*
+>
+> **— Linus Torvalds**
+
+</div>
+
+---
+
+## `> nmap -sV --open nithin`
 
 ```
 [nithin@kali ~]$ nmap -sV -sC -T4 --open nithin.local
@@ -76,27 +67,26 @@ PORT        STATE   SERVICE          VERSION
 9001/tcp    open    creative         Blender 3D | Canva
 9999/tcp    open    malware-lab      IDA Pro | Ghidra | Radare2
 
-OS Detection    : Linux 5.x — Kali Rolling (98% confidence)
-Threat Level    : CRITICAL
-Nmap done       : 7 ports open — Attacker: not you.
+OS : Linux 5.x — Kali Rolling (98%)
+[!] Nmap done — Attacker: not you.
 
 [nithin@kali ~]$ _
 ```
 
 ---
 
-### 〔 03 〕 ARSENAL
+## `> cat /etc/tech_stack`
 
 <div align="center">
 
-**// OFFENSE**
+**🔐 OFFENSE**
 
 ![Kali Linux](https://img.shields.io/badge/Kali_Linux-000000?style=for-the-badge&logo=kali-linux&logoColor=white)
 ![Burp Suite](https://img.shields.io/badge/Burp_Suite-000000?style=for-the-badge&logo=burpsuite&logoColor=white)
 ![Metasploit](https://img.shields.io/badge/Metasploit-000000?style=for-the-badge&logoColor=white)
 ![Wireshark](https://img.shields.io/badge/Wireshark-000000?style=for-the-badge&logo=wireshark&logoColor=white)
 
-**// CODE**
+**💻 CODE**
 
 ![Python](https://img.shields.io/badge/Python-000000?style=for-the-badge&logo=python&logoColor=white)
 ![Bash](https://img.shields.io/badge/Bash-000000?style=for-the-badge&logo=gnubash&logoColor=white)
@@ -104,13 +94,13 @@ Nmap done       : 7 ports open — Attacker: not you.
 ![Django](https://img.shields.io/badge/Django-000000?style=for-the-badge&logo=django&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-000000?style=for-the-badge&logo=fastapi&logoColor=white)
 
-**// INTELLIGENCE**
+**🧠 INTELLIGENCE**
 
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-000000?style=for-the-badge&logo=tensorflow&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-000000?style=for-the-badge&logo=scikit-learn&logoColor=white)
 ![NVIDIA CUDA](https://img.shields.io/badge/NVIDIA_CUDA-000000?style=for-the-badge&logo=nvidia&logoColor=white)
 
-**// INFRASTRUCTURE**
+**🛠️ INFRASTRUCTURE**
 
 ![Linux](https://img.shields.io/badge/Linux-000000?style=for-the-badge&logo=linux&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-000000?style=for-the-badge&logo=docker&logoColor=white)
@@ -122,39 +112,43 @@ Nmap done       : 7 ports open — Attacker: not you.
 
 ---
 
-### 〔 04 〕 STATS
+## `> git log --all --stat`
 
 <div align="center">
 
-<img height="180em" src="https://github-readme-stats.vercel.app/api?username=nithin2719-commits&show_icons=true&theme=dark&bg_color=0D1117&title_color=FFFFFF&icon_color=FFFFFF&text_color=999999&border_color=30363D&count_private=true&include_all_commits=true" />
-&nbsp;
-<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=nithin2719-commits&layout=compact&theme=dark&bg_color=0D1117&title_color=FFFFFF&text_color=999999&border_color=30363D&langs_count=8" />
+<img height="180em" src="https://github-readme-stats.vercel.app/api?username=nithin2719-commits&show_icons=true&theme=dark&bg_color=000000&title_color=ffffff&text_color=ffffff&icon_color=ffffff&border_color=444444&include_all_commits=true&count_private=true&hide_border=false" />
+
+<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=nithin2719-commits&layout=compact&theme=dark&bg_color=000000&title_color=ffffff&text_color=ffffff&border_color=444444&hide_border=false&langs_count=8" />
 
 </div>
 
 ---
 
-### 〔 05 〕 STREAK
+## `> streak --show`
 
 <div align="center">
 
-<img src="https://streak-stats.demolab.com?user=nithin2719-commits&theme=dark&background=0D1117&ring=FFFFFF&fire=FFFFFF&currStreakLabel=FFFFFF&border=30363D&sideLabels=999999&dates=999999&currStreakNum=FFFFFF&sideNums=FFFFFF" />
+![GitHub Streak](https://streak-stats.demolab.com?user=nithin2719-commits&theme=dark&background=000000&ring=ffffff&fire=ffffff&currStreakLabel=ffffff&border=444444&sideLabels=ffffff&dates=888888&currStreakNum=ffffff&sideNums=ffffff)
 
 </div>
 
 ---
 
-### 〔 06 〕 ACTIVITY
+## `> tail -f /var/log/activity.log`
 
 <div align="center">
 
-[![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=nithin2719-commits&bg_color=0D1117&color=FFFFFF&line=FFFFFF&point=FFFFFF&area=true&area_color=161B22&hide_border=true)](https://github.com/ashutosh00710/github-readme-activity-graph)
+<img src="https://user-images.githubusercontent.com/74038190/225813708-98b745f2-7d22-48cf-9150-083f1b00d6c9.gif" width="100%" />
+
+<br/>
+
+[![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=nithin2719-commits&theme=github-compact&bg_color=000000&color=ffffff&line=ffffff&point=ffffff&area=true&hide_border=true)](https://github.com/ashutosh00710/github-readme-activity-graph)
 
 </div>
 
 ---
 
-### 〔 07 〕 CONSOLE
+## `> watch -n 1 threat_status.sh`
 
 ```
 [nithin@kali ~]$ ./threat_status.sh
@@ -178,27 +172,7 @@ Nmap done       : 7 ports open — Attacker: not you.
 
 ---
 
-### 〔 08 〕 EXPLOIT CHAIN
-
-```bash
-#!/bin/bash
-# mission.sh — Full Knowledge Compromise
-
-recon()    { echo "[*] Gathering intel on new tech..."; }
-enum()     { echo "[*] Enumerating knowledge gaps..."; }
-exploit()  { echo "[+] Gaps exploited — PWNED."; }
-escalate() { echo "[+] Privilege escalated: Noob -> Elite"; }
-persist()  { echo "[+] Persistence: daily commits established"; }
-
-recon && enum && exploit && escalate && persist
-
-echo ""
-echo "[✓] MISSION COMPLETE — System hardened. Knowledge updated."
-```
-
----
-
-### 〔 09 〕 CONNECT
+## `> netstat -an | grep ESTABLISHED`
 
 <div align="center">
 
@@ -211,11 +185,15 @@ echo "[✓] MISSION COMPLETE — System hardened. Knowledge updated."
 
 ---
 
-### 〔 10 〕 CONTRIBUTION SNAKE
+## `> cat /proc/contributions`
 
 <div align="center">
 
-![snake gif](https://raw.githubusercontent.com/nithin2719-commits/nithin2719-commits/output/github-contribution-grid-snake-dark.svg)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/nithin2719-commits/nithin2719-commits/output/github-contribution-grid-snake-dark.svg" />
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/nithin2719-commits/nithin2719-commits/output/github-contribution-grid-snake.svg" />
+  <img alt="contribution-snake" src="https://raw.githubusercontent.com/nithin2719-commits/nithin2719-commits/output/github-contribution-grid-snake-dark.svg" />
+</picture>
 
 </div>
 
@@ -224,17 +202,17 @@ echo "[✓] MISSION COMPLETE — System hardened. Knowledge updated."
 <div align="center">
 
 ```
-+------------------------------------------------------------------+
-|   [✓] README loaded        [✓] Stats connected                  |
-|   [✓] Snake deployed       [✓] Streak online                    |
-|   [✓] Defenses active      [✓] Modules initialized              |
-|   [!] Unauthorized access will be traced & reported             |
-+------------------------------------------------------------------+
-|                     root@nithin:~# █                            |
-|               Cybersecurity Engineer  —  India                  |
-+------------------------------------------------------------------+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  [✓] README loaded         [✓] Modules initialized
+  [✓] Stats connected       [✓] Defenses active
+  [✓] Snake deployed        [✓] Streak online
+  [!] Unauthorized access will be traced & reported
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+           root@nithin:~# █
+       © Nithin | Cybersecurity Engineer
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 
-*"The quieter you become, the more you can hear."*  —  Kali Linux
+*"The quieter you become, the more you can hear."* — Kali Linux
 
 </div>
