@@ -4,11 +4,11 @@
 
 <br/>
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&pause=1000&color=FFFFFF&center=true&vCenter=true&width=640&lines=B.E+CSE+%7C+Cybersecurity+Specialist+%F0%9F%94%90;Ethical+Hacker+%7C+AI%2FML+Enthusiast+%F0%9F%A4%96;Advanced+Python+%7C+Backend+Dev+%F0%9F%90%8D;If+it%27s+connected%2C+it%27s+vulnerable." alt="Typing SVG" />
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=FFFFFF&center=true&vCenter=true&width=700&lines=B.E+CSE+%7C+Cybersecurity+Specialist+%F0%9F%94%90;Ethical+Hacker+%7C+AI%2FML+Enthusiast+%F0%9F%A4%96;Advanced+Python+%7C+Backend+Dev+%F0%9F%90%8D;If+it%27s+connected%2C+it%27s+vulnerable." alt="Typing SVG" />
 
 <br/>
 
-![Profile Views](https://komarev.com/ghpvc/?username=nithin2719-commits&color=000000&style=for-the-badge&label=PROFILE+VIEWS)
+![Profile Views](https://komarev.com/ghpvc/?username=nithin2719-commits&color=grey&style=for-the-badge&label=PROFILE+VIEWS)
 
 </div>
 
@@ -16,19 +16,41 @@
 
 ## `> whoami`
 
+<table>
+<tr>
+<td valign="top" width="55%">
+
 ```python
 class Nithin:
-    name         = "Nithin"
-    degree       = "B.E CSE — Cybersecurity"
-    location     = "India 🇮🇳"
-    interests    = ["Ethical Hacking", "AI/ML", "Backend Dev", "CTFs"]
-    learning     = ["Advanced Python", "Django", "FastAPI", "Malware Analysis"]
-    tools        = ["Kali Linux", "Burp Suite", "Wireshark", "Metasploit"]
-    motto        = "Break things ethically. Fix them permanently."
+    name       = "Nithin"
+    degree     = "B.E CSE — Cybersecurity"
+    location   = "India 🇮🇳"
+    interests  = ["Ethical Hacking",
+                  "AI/ML", "Backend Dev",
+                  "CTFs"]
+    learning   = ["Advanced Python",
+                  "Django", "FastAPI",
+                  "Malware Analysis"]
+    tools      = ["Kali Linux",
+                  "Burp Suite",
+                  "Wireshark",
+                  "Metasploit"]
+    motto      = "Break things ethically.\
+                  Fix them permanently."
 
     def status(self):
-        return "[ACTIVE] — Building. Breaking. Learning."
+        return "[ACTIVE] — Building.\
+                Breaking. Learning."
 ```
+
+</td>
+<td valign="top" width="45%">
+
+<img src="https://user-images.githubusercontent.com/74038190/229223263-cf2e4b07-2615-4f87-9c38-e37600f8381a.gif" width="100%" />
+
+</td>
+</tr>
+</table>
 
 ---
 
@@ -36,8 +58,7 @@ class Nithin:
 
 <div align="center">
 
-> *"Security people are often the target of irrational fear.*
-> *The difference between a good engineer and a great one*
+> *"The difference between a good engineer and a great one*
 > *is understanding how things **fail**."*
 >
 > **— Linus Torvalds**
@@ -66,6 +87,10 @@ Nmap done: 6 ports open. System secured. Attacker: not you.
 
 ## `> cat /etc/tech_stack`
 
+<table>
+<tr>
+<td valign="top">
+
 **🔐 Cybersecurity**
 
 ![Kali Linux](https://img.shields.io/badge/Kali_Linux-000000?style=for-the-badge&logo=kali-linux&logoColor=white)
@@ -79,6 +104,9 @@ Nmap done: 6 ports open. System secured. Attacker: not you.
 ![Django](https://img.shields.io/badge/Django-000000?style=for-the-badge&logo=django&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-000000?style=for-the-badge&logo=fastapi&logoColor=white)
 ![C](https://img.shields.io/badge/C-000000?style=for-the-badge&logo=c&logoColor=white)
+
+</td>
+<td valign="top">
 
 **🧠 AI / ML**
 
@@ -94,26 +122,31 @@ Nmap done: 6 ports open. System secured. Attacker: not you.
 ![Linux](https://img.shields.io/badge/Linux-000000?style=for-the-badge&logo=linux&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-000000?style=for-the-badge&logo=docker&logoColor=white)
 
+</td>
+</tr>
+</table>
+
 ---
 
 ## `> git log --all --stat`
 
 <div align="center">
 
-<img width="100%" src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=nithin2719-commits&theme=2077" />
+<img width="100%" src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=nithin2719-commits&theme=github_dark" />
 
 </div>
 
 <div align="center">
 
-<img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=nithin2719-commits&theme=2077" />
-<img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=nithin2719-commits&theme=2077" />
+<img height="175em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=nithin2719-commits&theme=github_dark" />
+&nbsp;
+<img height="175em" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=nithin2719-commits&theme=github_dark" />
 
 </div>
 
 <div align="center">
 
-![GitHub Streak](https://streak-stats.demolab.com?user=nithin2719-commits&theme=highcontrast&background=000000&ring=FFFFFF&fire=FFFFFF&currStreakLabel=FFFFFF&border=333333&sideLabels=AAAAAA&dates=666666&currStreakNum=FFFFFF&sideNums=FFFFFF)
+![GitHub Streak](https://streak-stats.demolab.com?user=nithin2719-commits&theme=highcontrast&background=0D1117&ring=FFFFFF&fire=FFFFFF&currStreakLabel=FFFFFF&border=30363D&sideLabels=8B949E&dates=8B949E&currStreakNum=FFFFFF&sideNums=FFFFFF)
 
 </div>
 
@@ -123,13 +156,15 @@ Nmap done: 6 ports open. System secured. Attacker: not you.
 
 <div align="center">
 
-[![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=nithin2719-commits&bg_color=000000&color=FFFFFF&line=FFFFFF&point=FFFFFF&area=true&area_color=111111&hide_border=true)](https://github.com/ashutosh00710/github-readme-activity-graph)
+[![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=nithin2719-commits&bg_color=0D1117&color=FFFFFF&line=FFFFFF&point=FFFFFF&area=true&area_color=161B22&hide_border=true)](https://github.com/ashutosh00710/github-readme-activity-graph)
 
 </div>
 
 ---
 
 ## `> watch -n 1 threat_status.sh`
+
+<div align="center">
 
 ```
 ╔══════════════════════════════════════════════╗
@@ -143,6 +178,8 @@ Nmap done: 6 ports open. System secured. Attacker: not you.
 ║  [*] Current Mission   : Secure Everything   ║
 ╚══════════════════════════════════════════════╝
 ```
+
+</div>
 
 ---
 
