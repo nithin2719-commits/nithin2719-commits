@@ -1,10 +1,6 @@
 <div align="center">
 
-<img src="https://user-images.githubusercontent.com/74038190/225813708-98b745f2-7d22-48cf-9150-083f1b00d6c9.gif" width="100%" />
-
-<br/>
-
-<img src="https://user-images.githubusercontent.com/74038190/212749447-bfb7e725-6987-49d9-ae85-2015e3e7cc41.gif" width="500" />
+<img src="https://user-images.githubusercontent.com/74038190/241765440-80728820-e06b-4f96-9c9e-9df46f0cc0a5.gif" width="100%" />
 
 <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&pause=1000&color=FFFFFF&center=true&vCenter=true&width=640&lines=B.E+CSE+%7C+Cybersecurity+Specialist+%F0%9F%94%90;Ethical+Hacker+%7C+AI%2FML+Enthusiast+%F0%9F%A4%96;Advanced+Python+%7C+Backend+Dev+%F0%9F%90%8D;If+it%27s+connected%2C+it%27s+vulnerable." alt="Typing SVG" />
 
@@ -100,6 +96,8 @@ Nmap done: 6 ports open. System secured. Attacker: not you.
 
 ## `> git log --all --stat`
 
+> ⚠️ **Important:** These stats only work when this README is in your **profile repo** — a repo named exactly `nithin2719` (same as your username). Create it at github.com/new if it doesn't exist yet.
+
 <div align="center">
 
 <img height="180em" src="https://github-readme-stats.vercel.app/api?username=nithin2719&show_icons=true&theme=dark&bg_color=000000&title_color=ffffff&text_color=ffffff&icon_color=ffffff&border_color=444444&include_all_commits=true&count_private=true&hide_border=false" />
@@ -120,7 +118,7 @@ Nmap done: 6 ports open. System secured. Attacker: not you.
 
 <div align="center">
 
-[![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=nithin2719&bg_color=000000&color=ffffff&line=ffffff&point=ffffff&area=true&area_color=222222&hide_border=false&border_color=444444&radius=6)](https://github.com/ashutosh00710/github-readme-activity-graph)
+[![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=nithin2719&theme=github-compact&bg_color=000000&color=ffffff&line=ffffff&point=ffffff&area=true&hide_border=true)](https://github.com/ashutosh00710/github-readme-activity-graph)
 
 </div>
 
