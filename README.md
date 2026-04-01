@@ -8,7 +8,7 @@
 
 <br/>
 
-[![](https://visitcount.itsvg.in/api?id=nithin2719-commits&icon=6&color=12)](https://visitcount.itsvg.in)
+[![](https://visitcount.itsvg.in/api?id=nithin2719-commits&icon=6&color=0)](https://visitcount.itsvg.in)
 
 </div>
 
@@ -100,20 +100,20 @@ Nmap done: 6 ports open. System secured. Attacker: not you.
 
 <div align="center">
 
-<img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=nithin2719-commits&theme=github_dark" />
+<img width="100%" src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=nithin2719-commits&theme=nord_dark" />
 
 </div>
 
 <div align="center">
 
-<img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=nithin2719-commits&theme=github_dark" />
-<img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=nithin2719-commits&theme=github_dark" />
+<img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=nithin2719-commits&theme=nord_dark" />
+<img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=nithin2719-commits&theme=nord_dark" />
 
 </div>
 
 <div align="center">
 
-![GitHub Streak](https://streak-stats.demolab.com?user=nithin2719-commits&theme=dark&background=000000&ring=ffffff&fire=ffffff&currStreakLabel=ffffff&border=444444&sideLabels=ffffff&dates=888888&currStreakNum=ffffff&sideNums=ffffff)
+![GitHub Streak](https://streak-stats.demolab.com?user=nithin2719-commits&theme=highcontrast&background=000000&ring=FFFFFF&fire=FFFFFF&currStreakLabel=FFFFFF&border=333333&sideLabels=AAAAAA&dates=666666&currStreakNum=FFFFFF&sideNums=FFFFFF)
 
 </div>
 
@@ -123,7 +123,7 @@ Nmap done: 6 ports open. System secured. Attacker: not you.
 
 <div align="center">
 
-[![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=nithin2719-commits&theme=github-compact&bg_color=000000&color=ffffff&line=ffffff&point=ffffff&area=true&hide_border=true)](https://github.com/ashutosh00710/github-readme-activity-graph)
+[![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=nithin2719-commits&bg_color=000000&color=FFFFFF&line=FFFFFF&point=FFFFFF&area=true&area_color=222222&hide_border=true)](https://github.com/ashutosh00710/github-readme-activity-graph)
 
 </div>
 
@@ -167,7 +167,7 @@ Nmap done: 6 ports open. System secured. Attacker: not you.
 
 </div>
 
-> ⚙️ **One-time snake setup** — Upload `snake.yml` (downloaded separately) to `.github/workflows/snake.yml` in this repo, then go to **Actions → Generate Snake → Run workflow**.
+> ⚙️ **One-time snake setup** — Upload `snake.yml` to `.github/workflows/snake.yml` in this repo → **Actions → Generate Snake → Run workflow**.
 
 ---
 
