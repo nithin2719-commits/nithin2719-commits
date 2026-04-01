@@ -1,10 +1,10 @@
 <div align="center">
 
-<img src="https://user-images.githubusercontent.com/74038190/225813708-98b745f2-7d22-48cf-9150-083f1b00d6c9.gif" width="100%" />
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%" />
 
 <br/>
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=24&pause=1000&color=FFFFFF&center=true&vCenter=true&width=800&lines=root%40nithin%3A~%23+_;Ethical+Hacker+%7C+AI-ML+Engineer;Cybersecurity+Specialist;If+it%27s+connected%2C+it%27s+vulnerable.;Break+things+ethically.+Fix+them+permanently." alt="Typing SVG" />
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=24&pause=1000&color=FFFFFF&center=true&vCenter=true&width=800&lines=Ethical+Hacker+%7C+AI-ML+Engineer;Cybersecurity+Specialist;If+it%27s+connected%2C+it%27s+vulnerable.;Break+things+ethically.+Fix+them+permanently." alt="Typing SVG" />
 
 <br/>
 
@@ -112,11 +112,21 @@ OS : Linux 5.x — Kali Rolling (98%)
 
 <div align="center">
 
-<img height="180em" src="https://github-readme-stats.vercel.app/api?username=nithin2719-commits&show_icons=true&theme=dark&bg_color=000000&title_color=ffffff&text_color=ffffff&icon_color=ffffff&border_color=444444&include_all_commits=true&count_private=true&hide_border=false" />
+[![Ashutosh's github activity graph](https://github-readme-activity-graph.vercel.app/graph?username=nithin2719-commits&bg_color=000000&color=ffffff&line=ffffff&point=ffffff&area=true&hide_border=true)](https://github.com/ashutosh00710/github-readme-activity-graph)
 
-<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=nithin2719-commits&layout=compact&theme=dark&bg_color=000000&title_color=ffffff&text_color=ffffff&border_color=444444&hide_border=false&langs_count=8" />
+</div>
 
-<br/>
+<div align="center">
+
+![](https://github-profile-trophy.vercel.app/?username=nithin2719-commits&theme=darkhub&no-frame=true&no-bg=true&margin-w=4&row=1)
+
+</div>
+
+---
+
+## `> streak --show`
+
+<div align="center">
 
 ![GitHub Streak](https://streak-stats.demolab.com?user=nithin2719-commits&theme=dark&background=000000&ring=ffffff&fire=ffffff&currStreakLabel=ffffff&border=444444&sideLabels=ffffff&dates=888888&currStreakNum=ffffff&sideNums=ffffff)
 
@@ -128,7 +138,7 @@ OS : Linux 5.x — Kali Rolling (98%)
 
 <div align="center">
 
-[![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=nithin2719-commits&theme=github-compact&bg_color=000000&color=ffffff&line=ffffff&point=ffffff&area=true&hide_border=true)](https://github.com/ashutosh00710/github-readme-activity-graph)
+<img src="https://user-images.githubusercontent.com/74038190/225813708-98b745f2-7d22-48cf-9150-083f1b00d6c9.gif" width="100%" />
 
 </div>
 
