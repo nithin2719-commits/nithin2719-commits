@@ -1,15 +1,6 @@
 <div align="center">
 
-```
-███╗   ██╗██╗████████╗██╗  ██╗██╗███╗   ██╗
-████╗  ██║██║╚══██╔══╝██║  ██║██║████╗  ██║
-██╔██╗ ██║██║   ██║   ███████║██║██╔██╗ ██║
-██║╚██╗██║██║   ██║   ██╔══██║██║██║╚██╗██║
-██║ ╚████║██║   ██║   ██║  ██║██║██║ ╚████║
-╚═╝  ╚═══╝╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝
-```
-
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=14&pause=1000&color=FFFFFF&center=true&vCenter=true&background=00000000&width=750&lines=root%40blackarch+~+%24+whoami;%3E+nithin+--+cybersec+%40+kgisl;%3E+cat+%2Fetc%2Fmotd+%7C+grep+motto;%3E+%22Root+is+not+a+privilege.+It%27s+a+responsibility.%22;%3E+sudo+pacman+-Syu+%26%26+conquer_world;%3E+nmap+-sV+-sC+-A+target.local;%3E+volatility3+-f+memory.dmp+windows.pslist;%3E+git+clone+https%3A%2F%2Fgithub.com%2Fnithin2729-commits" alt="Typing SVG" />
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=15&pause=1000&color=FFFFFF&center=true&vCenter=true&background=00000000&width=750&lines=root%40blackarch+~+%24+whoami;%3E+nithin+--+cybersec+%40+kgisl;%3E+%22Root+is+not+a+privilege.+It%27s+a+responsibility.%22;%3E+sudo+pacman+-Syu+%26%26+conquer_world;%3E+nmap+-sV+-sC+-A+target.local;%3E+volatility3+-f+memory.dmp+windows.pslist" alt="Typing SVG" />
 
 <br/>
 
@@ -26,7 +17,6 @@ class Nithin:
     name        = "Nithin N."
     degree      = "B.E CSE — Cybersecurity"
     college     = "KGISL Institute of Technology, Coimbatore"
-    reg_no      = "711725UCY131"
     os          = "Arch Linux (BlackArch) + Hyprland WM"  # btw
     interests   = ["Ethical Hacking", "Reverse Engineering", "AI/ML", "CTFs"]
     learning    = ["DFIR", "Malware Analysis", "Penetration Testing", "FastAPI"]
@@ -118,31 +108,17 @@ class Nithin:
 
 <div align="center">
 
-<img src="https://streak-stats.demolab.com?user=nithin2729-commits&background=000000&ring=FFFFFF&fire=FFFFFF&currStreakLabel=FFFFFF&border=333333&sideLabels=FFFFFF&dates=555555&currStreakNum=FFFFFF&sideNums=FFFFFF&stroke=000000&hide_border=false" />
+<img src="https://github-readme-stats.vercel.app/api?username=nithin2729-commits&show_icons=true&theme=dark&bg_color=000000&title_color=ffffff&text_color=888888&icon_color=ffffff&border_color=222222&hide_border=false" />
 
 <br/><br/>
 
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=nithin2729-commits&bg_color=000000&color=ffffff&line=ffffff&point=ffffff&area=true&area_color=111111&hide_border=false&border_color=333333" />
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=nithin2729-commits&layout=compact&theme=dark&bg_color=000000&title_color=ffffff&text_color=888888&border_color=222222&hide_border=false" />
 
 </div>
 
 ---
 
-## `[ 05 ]` — HIGHLIGHTS
-
-```
-$ cat /proc/achievements
-
-  ► TOP 2    — Rev Reana · Reverse Engineering CTF
-  ► BUILT    — SignFlow · ASL Recognition System · PyExpo 2026
-  ► ACTIVE   — HackTheBox · TryHackMe · picoCTF
-  ► RUNNING  — Arch Linux (BlackArch) + Hyprland · daily driver
-  ► PATH     — eJPT → OSCP
-```
-
----
-
-## `[ 06 ]` — CONNECT
+## `[ 05 ]` — CONNECT
 
 <div align="center">
 
