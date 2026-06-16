@@ -1,73 +1,89 @@
 <div align="center">
 
-<img src="https://user-images.githubusercontent.com/74038190/225813708-98b745f2-7d22-48cf-9150-083f1b00d6c9.gif" width="100%" />
+```
+███╗   ██╗██╗████████╗██╗  ██╗██╗███╗   ██╗
+████╗  ██║██║╚══██╔══╝██║  ██║██║████╗  ██║
+██╔██╗ ██║██║   ██║   ███████║██║██╔██╗ ██║
+██║╚██╗██║██║   ██║   ██╔══██║██║██║╚██╗██║
+██║ ╚████║██║   ██║   ██║  ██║██║██║ ╚████║
+╚═╝  ╚═══╝╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝
+```
+
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=14&pause=1000&color=FFFFFF&center=true&vCenter=true&background=00000000&width=750&lines=root%40blackarch+~+%24+whoami;%3E+nithin+--+cybersec+%40+kgisl;%3E+cat+%2Fetc%2Fmotd+%7C+grep+motto;%3E+%22Root+is+not+a+privilege.+It%27s+a+responsibility.%22;%3E+sudo+pacman+-Syu+%26%26+conquer_world;%3E+nmap+-sV+-sC+-A+target.local;%3E+volatility3+-f+memory.dmp+windows.pslist;%3E+git+clone+https%3A%2F%2Fgithub.com%2Fnithin2729-commits" alt="Typing SVG" />
 
 <br/>
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=FFFFFF&center=true&vCenter=true&background=00000000&width=700&lines=B.E+CSE+%7C+Cybersecurity+Specialist+%F0%9F%94%90;Ethical+Hacker+%7C+AI%2FML+Enthusiast+%F0%9F%A4%96;Advanced+Python+%7C+Backend+Dev+%F0%9F%90%8D;If+it%27s+connected%2C+it%27s+vulnerable.;BTW...+I+use+Arch+%F0%9F%90%A7;The+quieter+you+become%2C+the+more+you+hear.;Root+is+not+a+privilege.+It%27s+a+responsibility.;I+don%27t+hack+systems.+I+understand+them.;pacman+-Syu+%26%26+conquer+the+world+%F0%9F%8C%8D;Security+is+not+a+product.+It%27s+a+mindset." alt="Typing SVG" />
-
-<br/>
-
-![Profile Views](https://komarev.com/ghpvc/?username=nithin2719-commits&color=grey&style=for-the-badge&label=PROFILE+VIEWS)
+![Profile Views](https://komarev.com/ghpvc/?username=nithin2729-commits&color=ffffff&style=flat-square&label=PROFILE+VIEWS)
 
 </div>
 
 ---
 
-### [ 01 ] — WHO AM I
+## `[ 01 ]` — WHO AM I
 
 ```python
 class Nithin:
-    name       = "Nithin"
-    degree     = "B.E CSE — Cybersecurity"
-    location   = "India"
-    interests  = ["Ethical Hacking", "AI/ML", "Backend Dev", "CTFs"]
-    learning   = ["Advanced Python", "Django", "FastAPI", "Malware Analysis"]
-    tools      = ["BlackArch Linux", "Burp Suite", "Wireshark", "Metasploit"]
-    motto      = "Break things ethically. Fix them permanently."
+    name        = "Nithin N."
+    degree      = "B.E CSE — Cybersecurity"
+    college     = "KGISL Institute of Technology, Coimbatore"
+    reg_no      = "711725UCY131"
+    os          = "Arch Linux (BlackArch) + Hyprland WM"  # btw
+    interests   = ["Ethical Hacking", "Reverse Engineering", "AI/ML", "CTFs"]
+    learning    = ["DFIR", "Malware Analysis", "Penetration Testing", "FastAPI"]
+    tools       = ["Burp Suite", "Metasploit", "Wireshark", "Volatility3", "GDB"]
+    achievement = "Top 2 — Rev Reana (Reverse Engineering CTF)"
+    motto       = "Root is not a privilege. It's a responsibility."
 
     def status(self):
-        return "[ACTIVE] — Building. Breaking. Learning."
+        return "[ACTIVE] — Breaking. Building. Learning."
 ```
 
+---
 
-### [ 02 ] — TECH STACK
+## `[ 02 ]` — TECH STACK
 
 <table>
 <tr>
 <td valign="top" width="50%">
 
-### 🛡️ Cybersecurity
+**`// offensive security`**
 
-![BlackArch Linux](https://img.shields.io/badge/BlackArch_Linux-000000?style=for-the-badge&logo=arch-linux&logoColor=white)
-![Wireshark](https://img.shields.io/badge/Wireshark-000000?style=for-the-badge&logo=wireshark&logoColor=white)
-![Metasploit](https://img.shields.io/badge/Metasploit-000000?style=for-the-badge&logoColor=white)
-![Burp Suite](https://img.shields.io/badge/Burp_Suite-000000?style=for-the-badge&logo=burpsuite&logoColor=white)
+![BlackArch](https://img.shields.io/badge/BlackArch_Linux-000000?style=flat-square&logo=arch-linux&logoColor=white)
+![Metasploit](https://img.shields.io/badge/Metasploit-000000?style=flat-square&logoColor=white)
+![Burp Suite](https://img.shields.io/badge/Burp_Suite-000000?style=flat-square&logo=burpsuite&logoColor=white)
+![Wireshark](https://img.shields.io/badge/Wireshark-000000?style=flat-square&logo=wireshark&logoColor=white)
+![Volatility3](https://img.shields.io/badge/Volatility3-000000?style=flat-square&logoColor=white)
+![Nmap](https://img.shields.io/badge/Nmap-000000?style=flat-square&logoColor=white)
+![GDB](https://img.shields.io/badge/GDB-000000?style=flat-square&logoColor=white)
+![Ghidra](https://img.shields.io/badge/Ghidra-000000?style=flat-square&logoColor=white)
 
-### 🐍 Languages & Backend
+**`// languages & backend`**
 
-![Python](https://img.shields.io/badge/Python-000000?style=for-the-badge&logo=python&logoColor=white)
-![Django](https://img.shields.io/badge/Django-000000?style=for-the-badge&logo=django&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-000000?style=for-the-badge&logo=fastapi&logoColor=white)
-![C](https://img.shields.io/badge/C-000000?style=for-the-badge&logo=c&logoColor=white)
-![Bash](https://img.shields.io/badge/Bash-000000?style=for-the-badge&logo=gnubash&logoColor=white)
+![Python](https://img.shields.io/badge/Python-000000?style=flat-square&logo=python&logoColor=white)
+![Bash](https://img.shields.io/badge/Bash-000000?style=flat-square&logo=gnubash&logoColor=white)
+![C](https://img.shields.io/badge/C-000000?style=flat-square&logo=c&logoColor=white)
+![Django](https://img.shields.io/badge/Django-000000?style=flat-square&logo=django&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-000000?style=flat-square&logo=fastapi&logoColor=white)
 
 </td>
 <td valign="top" width="50%">
 
-### 🤖 AI / ML
+**`// ai / ml`**
 
-![TensorFlow](https://img.shields.io/badge/TensorFlow-000000?style=for-the-badge&logo=TensorFlow&logoColor=white)
-![scikit-learn](https://img.shields.io/badge/scikit--learn-000000?style=for-the-badge&logo=scikit-learn&logoColor=white)
-![NVIDIA CUDA](https://img.shields.io/badge/NVIDIA_CUDA-000000?style=for-the-badge&logo=nvidia&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-000000?style=flat-square&logo=pytorch&logoColor=white)
+![MediaPipe](https://img.shields.io/badge/MediaPipe-000000?style=flat-square&logo=google&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-000000?style=flat-square&logo=scikit-learn&logoColor=white)
+![CUDA](https://img.shields.io/badge/NVIDIA_CUDA-000000?style=flat-square&logo=nvidia&logoColor=white)
+![ComfyUI](https://img.shields.io/badge/ComfyUI-000000?style=flat-square&logoColor=white)
+![Ollama](https://img.shields.io/badge/Ollama-000000?style=flat-square&logoColor=white)
 
-### 🛠️ Tools & Creative
+**`// environment`**
 
-![Blender](https://img.shields.io/badge/Blender-000000?style=for-the-badge&logo=blender&logoColor=white)
-![Canva](https://img.shields.io/badge/Canva-000000?style=for-the-badge&logo=canva&logoColor=white)
-![Git](https://img.shields.io/badge/Git-000000?style=for-the-badge&logo=git&logoColor=white)
-![Linux](https://img.shields.io/badge/Linux-000000?style=for-the-badge&logo=linux&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-000000?style=for-the-badge&logo=docker&logoColor=white)
+![Hyprland](https://img.shields.io/badge/Hyprland-000000?style=flat-square&logoColor=white)
+![Arch Linux](https://img.shields.io/badge/Arch_Linux-000000?style=flat-square&logo=arch-linux&logoColor=white)
+![Git](https://img.shields.io/badge/Git-000000?style=flat-square&logo=git&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-000000?style=flat-square&logo=docker&logoColor=white)
+![Neovim](https://img.shields.io/badge/Neovim-000000?style=flat-square&logo=neovim&logoColor=white)
 
 </td>
 </tr>
@@ -75,41 +91,81 @@ class Nithin:
 
 ---
 
-### [ 03 ] — GITHUB STATS
+## `[ 03 ]` — CURRENT OPS
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│  ACTIVE MISSIONS                                                        │
+├──────────────┬──────────────────────────────────────────────────────────┤
+│  [AI/ML]     │  SignFlow — ASL recognition · MediaPipe + PyTorch        │
+│              │  Transformer arch · ~95% acc · 58 signs · PyExpo 2026   │
+├──────────────┼──────────────────────────────────────────────────────────┤
+│  [DFIR]      │  Memory forensics training — Volatility3                 │
+│              │  BlackPerl curriculum · process trees · dump analysis    │
+├──────────────┼──────────────────────────────────────────────────────────┤
+│  [CTF]       │  picoCTF · HackTheBox · TryHackMe                       │
+│              │  BrewingSec Hackathon 2026 · July 25 · KITE Campus       │
+├──────────────┼──────────────────────────────────────────────────────────┤
+│  [INFRA]     │  Local AI — Ollama + qwen3:8b daily / qwen3.6:27b heavy │
+├──────────────┼──────────────────────────────────────────────────────────┤
+│  [RICE]      │  Hyprland dotfiles — HyDE base · heavily customized      │
+└──────────────┴──────────────────────────────────────────────────────────┘
+```
+
+---
+
+## `[ 04 ]` — GITHUB STATS
 
 <div align="center">
 
-<img src="https://streak-stats.demolab.com?user=nithin2719-commits&background=000000&ring=FFFFFF&fire=FFFFFF&currStreakLabel=FFFFFF&border=FFFFFF&sideLabels=FFFFFF&dates=FFFFFF&currStreakNum=FFFFFF&sideNums=FFFFFF&stroke=000000" />
+<img src="https://streak-stats.demolab.com?user=nithin2729-commits&background=000000&ring=FFFFFF&fire=FFFFFF&currStreakLabel=FFFFFF&border=333333&sideLabels=FFFFFF&dates=555555&currStreakNum=FFFFFF&sideNums=FFFFFF&stroke=000000&hide_border=false" />
+
+<br/><br/>
+
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=nithin2729-commits&bg_color=000000&color=ffffff&line=ffffff&point=ffffff&area=true&area_color=111111&hide_border=false&border_color=333333" />
 
 </div>
 
 ---
 
-### [ 04 ] — ACTIVITY
+## `[ 05 ]` — HIGHLIGHTS
 
-<div align="center">
+```
+$ cat /proc/achievements
 
-[![Activity Graph](https://github-readme-activity-graph.vercel.app/graph?username=nithin2719-commits&bg_color=000000&color=FFFFFF&line=FFFFFF&point=FFFFFF&area=true&area_color=1a1a1a&hide_border=true)](https://github.com/ashutosh00710/github-readme-activity-graph)
-
-</div>
-
+  ► TOP 2    — Rev Reana · Reverse Engineering CTF
+  ► BUILT    — SignFlow · ASL Recognition System · PyExpo 2026
+  ► ACTIVE   — HackTheBox · TryHackMe · picoCTF
+  ► RUNNING  — Arch Linux (BlackArch) + Hyprland · daily driver
+  ► PATH     — eJPT → OSCP
+```
 
 ---
 
-### [ 05 ] — CONNECT
+## `[ 06 ]` — CONNECT
 
 <div align="center">
 
-
-
-
-[![Instagram](https://img.shields.io/badge/Instagram-000000?style=for-the-badge&logo=Instagram&logoColor=white)](https://instagram.com/nit_2719)
-[![GitHub](https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/nithin2719-commits)
-[![TryHackMe](https://img.shields.io/badge/TryHackMe-000000?style=for-the-badge&logo=tryhackme&logoColor=white)](https://tryhackme.com/p/nithin2719)
-[![HackTheBox](https://img.shields.io/badge/HackTheBox-000000?style=for-the-badge&logo=hackthebox&logoColor=white)](https://app.hackthebox.com/profile/nithin2719)
+[![GitHub](https://img.shields.io/badge/GITHUB-000000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/nithin2729-commits)
+[![TryHackMe](https://img.shields.io/badge/TRYHACKME-000000?style=for-the-badge&logo=tryhackme&logoColor=white)](https://tryhackme.com/p/nithin2719)
+[![HackTheBox](https://img.shields.io/badge/HACKTHEBOX-000000?style=for-the-badge&logo=hackthebox&logoColor=white)](https://app.hackthebox.com/profile/nithin2719)
+[![Instagram](https://img.shields.io/badge/INSTAGRAM-000000?style=for-the-badge&logo=instagram&logoColor=white)](https://instagram.com/nit_2719)
 
 </div>
 
- 
-----
+<br/>
 
+<div align="center">
+
+```
+"If it's connected, it's vulnerable. If it's vulnerable, I'm studying it."
+                                                        — nithin2729-commits
+```
+
+</div>
+
+---
+
+<div align="center">
+<sub>dotfiles → <a href="https://github.com/nithin2729-commits/HYPRLAND-CONFIGS">HYPRLAND-CONFIGS</a> · built on arch btw</sub>
+</div>
