@@ -18,14 +18,10 @@
 
 ```python
 class Nithin:
-    name        = "Nithin N."
-    degree      = "B.E CSE — Cybersecurity"
-    college     = "KGISL Institute of Technology, Coimbatore"
-    os          = "Arch Linux (BlackArch) + Hyprland WM"  # btw
+    os          = "Arch Linux (BlackArch)"
     interests   = ["Ethical Hacking", "Reverse Engineering", "AI/ML", "CTFs"]
     learning    = ["DFIR", "Malware Analysis", "Penetration Testing", "FastAPI"]
     tools       = ["Burp Suite", "Metasploit", "Wireshark", "Volatility3", "GDB"]
-    achievement = "Top 2 — Rev Reana (Reverse Engineering CTF)"
     motto       = "Root is not a privilege. It's a responsibility."
 
     def status(self):
