@@ -8,7 +8,7 @@
 
 <br/>
 
-![Profile Views](https://komarev.com/ghpvc/?username=nithin2729-commits&color=ffffff&style=flat-square&label=PROFILE+VIEWS)
+![Profile Views](https://komarev.com/ghpvc/?username=nithin2729-commits&color=grey&style=for-the-badge&label=PROFILE+VIEWS)
 
 </div>
 
@@ -85,24 +85,18 @@ class Nithin:
 
 ---
 
-## `[ 03 ]` — CURRENT OPS
+## `[ 03 ]` — GITHUB STATS
 
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│  ACTIVE MISSIONS                                                        │
-├──────────────┬──────────────────────────────────────────────────────────┤
-│  [AI/ML]     │  SignFlow — ASL recognition · MediaPipe + PyTorch        │
-│              │  Transformer arch · ~95% acc · 58 signs · PyExpo 2026   │
-├──────────────┼──────────────────────────────────────────────────────────┤
-│  [DFIR]      │  Memory forensics training — Volatility3                 │
-│              │  BlackPerl curriculum · process trees · dump analysis    │
-├──────────────┼──────────────────────────────────────────────────────────┤
+<div align="center">
 
-│  [INFRA]     │  Local AI — Ollama + qwen3:8b daily / qwen3.6:27b heavy │
-├──────────────┼──────────────────────────────────────────────────────────┤
-│  [RICE]      │  Hyprland dotfiles — HyDE base · heavily customized      │
-└──────────────┴──────────────────────────────────────────────────────────┘
-```
+<img src="https://streak-stats.demolab.com?user=nithin2719-commits&theme=dark&background=000000&ring=FFFFFF&fire=FFFFFF&currStreakLabel=FFFFFF&border=333333&sideLabels=FFFFFF&dates=555555&currStreakNum=FFFFFF&sideNums=FFFFFF&stroke=000000" width="49%" />
+<img src="https://github-readme-stats.vercel.app/api?username=nithin2719-commits&show_icons=true&theme=dark&bg_color=000000&title_color=ffffff&text_color=888888&icon_color=ffffff&border_color=333333&hide_border=false&count_private=true" width="49%" />
+
+<br/><br/>
+
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=nithin2719-commits&layout=compact&theme=dark&bg_color=000000&title_color=ffffff&text_color=888888&border_color=333333&hide_border=false&langs_count=8" width="49%" />
+
+</div>
 
 ---
 
@@ -122,8 +116,7 @@ class Nithin:
 <div align="center">
 
 ```
-"If it's connected, it's vulnerable. If it's vulnerable, I'm studying it."
-                                                        — nithin2729-commits
+
 ```
 
 </div>
@@ -131,5 +124,5 @@ class Nithin:
 ---
 
 <div align="center">
-<sub>dotfiles → <a href="https://github.com/nithin279-commits/HYPRLAND-CONFIGS">HYPRLAND-CONFIGS</a> · built on arch btw</sub>
+<sub>dotfiles → <a href="https://github.com/nithin2729-commits/HYPRLAND-CONFIGS">HYPRLAND-CONFIGS</a> · built on arch btw</sub>
 </div>
