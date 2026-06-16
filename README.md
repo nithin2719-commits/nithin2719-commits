@@ -1,6 +1,10 @@
 <div align="center">
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=15&pause=1000&color=FFFFFF&center=true&vCenter=true&background=00000000&width=750&lines=root%40blackarch+~+%24+whoami;%3E+nithin+--+cybersec+%40+kgisl;%3E+%22Root+is+not+a+privilege.+It%27s+a+responsibility.%22;%3E+sudo+pacman+-Syu+%26%26+conquer_world;%3E+nmap+-sV+-sC+-A+target.local;%3E+volatility3+-f+memory.dmp+windows.pslist" alt="Typing SVG" />
+<img src="https://user-images.githubusercontent.com/74038190/225813708-98b745f2-7d22-48cf-9150-083f1b00d6c9.gif" width="100%" />
+
+<br/>
+
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=500&size=15&pause=1000&color=FFFFFF&center=true&vCenter=true&background=00000000&width=750&lines=root%40blackarch+~+%24+whoami;%3E+nithin+--+cybersec+%40+kgisl;%3E+%22Root+is+not+a+privilege.+It%27s+a+responsibility.%22;%3E+sudo+pacman+-Syu+%26%26+conquer_world;%3E+nmap+-sV+-sC+-A+target.local;%3E+volatility3+-f+memory.dmp+windows.pslist;%3E+git+clone+https%3A%2F%2Fgithub.com%2Fnithin2729-commits" alt="Typing SVG" />
 
 <br/>
 
@@ -93,9 +97,7 @@ class Nithin:
 │  [DFIR]      │  Memory forensics training — Volatility3                 │
 │              │  BlackPerl curriculum · process trees · dump analysis    │
 ├──────────────┼──────────────────────────────────────────────────────────┤
-│  [CTF]       │  picoCTF · HackTheBox · TryHackMe                       │
-│              │  BrewingSec Hackathon 2026 · July 25 · KITE Campus       │
-├──────────────┼──────────────────────────────────────────────────────────┤
+
 │  [INFRA]     │  Local AI — Ollama + qwen3:8b daily / qwen3.6:27b heavy │
 ├──────────────┼──────────────────────────────────────────────────────────┤
 │  [RICE]      │  Hyprland dotfiles — HyDE base · heavily customized      │
@@ -104,21 +106,7 @@ class Nithin:
 
 ---
 
-## `[ 04 ]` — GITHUB STATS
-
-<div align="center">
-
-<img src="https://github-readme-stats.vercel.app/api?username=nithin2729-commits&show_icons=true&theme=dark&bg_color=000000&title_color=ffffff&text_color=888888&icon_color=ffffff&border_color=222222&hide_border=false" />
-
-<br/><br/>
-
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=nithin2729-commits&layout=compact&theme=dark&bg_color=000000&title_color=ffffff&text_color=888888&border_color=222222&hide_border=false" />
-
-</div>
-
----
-
-## `[ 05 ]` — CONNECT
+## `[ 04 ]` — CONNECT
 
 <div align="center">
 
@@ -143,5 +131,5 @@ class Nithin:
 ---
 
 <div align="center">
-<sub>dotfiles → <a href="https://github.com/nithin2729-commits/HYPRLAND-CONFIGS">HYPRLAND-CONFIGS</a> · built on arch btw</sub>
+<sub>dotfiles → <a href="https://github.com/nithin279-commits/HYPRLAND-CONFIGS">HYPRLAND-CONFIGS</a> · built on arch btw</sub>
 </div>
