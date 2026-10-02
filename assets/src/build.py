@@ -238,6 +238,25 @@ def tear(d, text_svg, slices, period, delay, cls):
                      f"{b:.1f}%{{opacity:1;transform:translateX({-dx * 0.6:.0f}px)}}{b + 0.8:.1f}%{{opacity:0}}}}")
 
 
+def glow(d, fid="glow", std=3.0, layers=2):
+    """Neon bloom: the element plus blurred copies of itself."""
+    if any(f'id="{fid}"' in x for x in d.defs):
+        return
+    d.defs.append(f'<filter id="{fid}" x="-50%" y="-50%" width="200%" height="200%">'
+                  f'<feGaussianBlur stdDeviation="{std}" result="b"/><feMerge>'
+                  + '<feMergeNode in="b"/>' * layers + '<feMergeNode in="SourceGraphic"/></feMerge></filter>')
+
+
+def pulse(d, path, length, cls, period, delay=0.0, travel=1.0, dash=70, width=2.2):
+    """A bright glowing segment that runs along `path`, then rests for the rest of `period`."""
+    glow(d)
+    d.add(f'<path class="pulse {cls}" d="{path}" fill="none" stroke="#fff" stroke-width="{width}" '
+          f'stroke-linecap="round" stroke-dasharray="{dash} {length + dash:.0f}" stroke-dashoffset="{dash}" '
+          f'filter="url(#glow)"/>')
+    d.css.append(f".{cls}{{animation:{cls} {period}s linear {delay:.2f}s infinite}}"
+                 f"@keyframes {cls}{{0%{{stroke-dashoffset:{dash}}}{travel * 100:.1f}%,100%{{stroke-dashoffset:-{length:.0f}}}}}")
+
+
 REDUCED = "@media (prefers-reduced-motion:reduce){*{animation:none!important}.g,.gl,.pre,.scan{display:none}.f,.late,.t,.ln,.hc{opacity:1!important}.fl,.kx,.pulse,.beam{display:none}.mq{transform:none!important}}"
 
 
@@ -261,11 +280,19 @@ def hero():
     d.add(f'<path d="{chamfer(14, 14, W - 28, H - 28, tr=30, bl=30)}" fill="none" stroke="{EDGE}"/>')
     d.add(bracket(14, 14, 26, 1, 1))
     d.add(bracket(W - 14, H - 14, 26, -1, -1))
+    fw, fh, cut = W - 28, H - 28, 30
+    perim = 2 * (fw - cut) + 2 * (fh - cut) + 2 * cut * 2 ** 0.5
+    pulse(d, chamfer(14, 14, fw, fh, tr=cut, bl=cut), perim, "frame", 9, 2.4, dash=170, width=2)
+    d.defs.append('<filter id="neon" x="-20%" y="-40%" width="140%" height="180%">'
+                  '<feGaussianBlur stdDeviation="9" result="b"/>'
+                  '<feComponentTransfer in="b" result="s"><feFuncA type="linear" slope=".6"/></feComponentTransfer>'
+                  '<feMerge><feMergeNode in="s"/><feMergeNode in="SourceGraphic"/></feMerge></filter>')
 
     # prompt line + status that flips once the name resolves
     prompt = "root@blackarch:~# ./decrypt --target nithin"
-    d.text(52, 62, prompt, "mr", 15, ASH)
-    cx = 52 + measure("mr", prompt, 15) + 8
+    d.add(f'<g filter="url(#glow)">{icon("blackarch", 50, 46, 21)}</g>')
+    d.text(82, 62, prompt, "mr", 15, ASH)
+    cx = 82 + measure("mr", prompt, 15) + 8
     d.add(f'<rect class="cur" x="{cx:.1f}" y="49" width="9" height="17" fill="{SIGNAL}"/>')
     d.text(W - 52, 62, "DECRYPTING …", "mr", 13, SMOKE, "end", 2, "pre")
     d.text(W - 52, 62, "ACCESS GRANTED", "mb", 13, SIGNAL, "end", 2, "f late", ' style="animation-delay:1.55s"')
@@ -297,7 +324,7 @@ def hero():
             d.text(cx, base, g, "ob", size, ASH if k % 2 else SIGNAL, "middle", cls="g",
                    extra=f' style="animation-delay:{t0 + k * step:.2f}s"')
         d.text(cx, base, ch, "ob", size, SIGNAL, "middle", cls="f",
-               extra=f' style="animation-delay:{t0 + 7 * step:.2f}s"')
+               extra=f' style="animation-delay:{t0 + 7 * step:.2f}s" filter="url(#neon)"')
 
     # glitch tears: two horizontal slices of the word, shoved sideways for a few frames
     top = base - size * 0.72
@@ -365,6 +392,8 @@ def header(slug, title, note, delay=0.0):
     d.text(W - 36, 41, note, "mr", 13, ASH, "end")
     d.add(f'<rect x="{t_end:.1f}" y="34" width="4" height="4" fill="{SIGNAL}"/>')
     d.add(f'<path d="M{t_end + 10:.1f},36 H{n_start - 22:.1f}" stroke="{EDGE}"/>')
+    pulse(d, f"M{t_end + 10:.1f},36 H{n_start - 22:.1f}", n_start - 32 - t_end, "rule", 6, 0.6 + delay * 0.7, 0.4)
+    d.css.append(REDUCED)
     d.save(f"h-{slug}.svg")
 
 
@@ -422,6 +451,7 @@ def fetch():
     d.text(50, 76, "❯ fastfetch", "mr", 14, ASH)
 
     lh, y0 = 16.5, 112
+    glow(d, std=2.4)
     for i, line in enumerate(BLACKARCH):
         runs, cur, bright = [], "", None
         for col, ch in enumerate(line):
@@ -432,8 +462,11 @@ def fetch():
         runs.append((cur, bright))
         d.chars["mb"].update(line)
         spans = "".join(f'<tspan fill="{SIGNAL if hot else ASH}">{esc(r)}</tspan>' for r, hot in runs)
-        d.add(f'<text x="36" y="{y0 + i * lh:.1f}" font-family="mb" font-size="13.5" class="ln" '
-              f'style="animation-delay:{0.3 + i * 0.03:.2f}s">{spans}</text>')
+        blade = "".join(r if hot else " " * len(r) for r, hot in runs)
+        d.add(f'<g class="ln" style="animation-delay:{0.3 + i * 0.03:.2f}s">'
+              f'<text x="36" y="{y0 + i * lh:.1f}" font-family="mb" font-size="13.5">{spans}</text>'
+              f'<text x="36" y="{y0 + i * lh:.1f}" font-family="mb" font-size="13.5" fill="{SIGNAL}" class="sw" '
+              f'style="animation-delay:{1.2 + i * 0.07:.2f}s" filter="url(#glow)">{esc(blade)}</text></g>')
     y0 += 14
 
     x = 420
@@ -456,7 +489,9 @@ def fetch():
     d.text(50, H - 26, "❯", "mr", 14, ASH)
     d.add(f'<rect class="cur" x="68" y="{H - 39}" width="9" height="17" fill="{SIGNAL}"/>')
     d.css.append(".cur{animation:blink 1.1s steps(1) infinite}@keyframes blink{50%{opacity:0}}"
-                 ".ln{opacity:0;animation:on .01s linear forwards}@keyframes on{to{opacity:1}}" + REDUCED)
+                 ".ln{opacity:0;animation:on .01s linear forwards}@keyframes on{to{opacity:1}}"
+                 ".sw{opacity:.25;animation:sw 3.2s linear infinite}"
+                 "@keyframes sw{0%,100%{opacity:.25}6%{opacity:1}22%{opacity:.25}}" + REDUCED)
     d.save("fetch.svg")
 
 
@@ -487,6 +522,7 @@ def arsenal():
     d = Doc(W, H, "Arsenal: " + ", ".join(t[1] for _, tools in ARSENAL for t in tools if t))
     d.add(f'<path d="{chamfer(0.5, 0.5, W - 1, H - 1, tr=20, bl=20)}" fill="{VOID}" stroke="{EDGE}"/>')
     d.add(f'<path d="M0.5,36 H{W - 0.5}" stroke="{EDGE}"/>')
+    pulse(d, f"M0.5,36 H{W - 0.5}", W - 1, "top", 6, 1.6, 0.4, dash=90)
     d.text(pad, 23, "/opt/arsenal", "mr", 11.5, SMOKE)
     d.text(W - pad - 4, 23, "loading modules …", "mr", 11.5, SMOKE, "end", cls="pre")
     msg = f"{count} modules online"
@@ -521,7 +557,7 @@ def arsenal():
                        f'letter-spacing="1" fill="{SIGNAL}">{esc(label)}</text>')
             d.add(f'<g class="t" style="animation-delay:{delay:.2f}s">{inner}</g>')
             d.add(f'<path class="fl" style="animation-delay:{delay:.2f}s" d="{shape}" fill="none" '
-                  f'stroke="{SIGNAL}" stroke-width="1.5"/>')
+                  f'stroke="{SIGNAL}" stroke-width="1.5" filter="url(#glow)"/>')
 
     d.defs.append('<linearGradient id="sg" x1="0" y1="0" x2="0" y2="1">'
                   '<stop offset="0" stop-color="#fff" stop-opacity="0"/>'
@@ -542,7 +578,10 @@ def arsenal():
 
 # ── live-feed ticker under the hero ─────────────────────────────────────────
 FEED = ["The quieter you become, the more you are able to hear.",
+        "Nah, I'd hack.",
         "Security is a process, not a product. (Bruce Schneier)",
+        "Amateurs hack systems, professionals hack people. (Bruce Schneier)",
+        "Hack the planet!",
         "If it's connected, it's vulnerable.",
         "Root is not a privilege. It's a responsibility.",
         "I don't hack systems. I understand them.",
@@ -581,7 +620,8 @@ def chip(slug, ico, name, handle):
     W = round(16 + 22 + 14 + nw + 24)
     d = Doc(W, H, f"{name}: {handle}")
     d.add(f'<path d="{chamfer(0.5, 0.5, W - 1, H - 1, br=12)}" fill="{VOID}" stroke="{EDGE}"/>')
-    d.add(icon(ico, 16, 15, 22))
+    glow(d, std=2)
+    d.add(f'<g filter="url(#glow)">{icon(ico, 16, 15, 22)}</g>')
     d.text(52, 24, name, "om", 12, SIGNAL, ls=2)
     d.text(52, 40, handle, "mr", 11, ASH)
     d.save(f"c-{slug}.svg")
@@ -725,6 +765,7 @@ def telemetry():
         d.text(x, 108, label, "mr", 13, ASH)
         d.text(x, 126, sub, "mr", 11.5, SMOKE)
     d.add(f'<path d="M36,156 H{W - 36}" stroke="{GRID}"/>')
+    pulse(d, f"M36,156 H{W - 36}", W - 72, "r1", 7, 1.4, 0.35, dash=90)
 
     # heatmap
     cols = max(x["col"] for x in days) + 1
@@ -741,7 +782,7 @@ def telemetry():
         if x["row"] == 0 and dd.day <= 7 and (dd.month, dd.year) not in seen and x["col"] < cols - 1:
             seen.add((dd.month, dd.year))
             d.text(gx + x["col"] * pitch, gy - 10, f"{dd:%b}".lower(), "mr", 11, SMOKE)
-        cls = ' class="now"' if x is days[-1] else ""
+        cls = ' class="now" filter="url(#glow)"' if x is days[-1] else ""
         colg.setdefault(x["col"], []).append(
             f'<rect x="{gx + x["col"] * pitch:.1f}" y="{gy + x["row"] * pitch}" width="{cell}" '
             f'height="{cell}" fill="{shades[x["level"]]}"{cls}/>')
@@ -756,6 +797,7 @@ def telemetry():
         d.add(f'<rect x="{lx + i * (cell + 3):.1f}" y="{ly - cell + 2}" width="{cell}" height="{cell}" fill="{c}"/>')
     d.text(lx + 5 * (cell + 3) + 5, ly, "more", "mr", 11, SMOKE)
     d.add(f'<path d="M36,{ly + 22} H{W - 36}" stroke="{GRID}"/>')
+    pulse(d, f"M{W - 36},{ly + 22} H36", W - 72, "r2", 7, 3.9, 0.35, dash=90)
 
     # primary language per original repo
     langs = sorted(t["langs"].items(), key=lambda kv: -kv[1])
@@ -785,18 +827,39 @@ def telemetry():
 
 
 # ── footer ───────────────────────────────────────────────────────────────────
-def footer():
-    W, H = 1200, 348
-    d = Doc(W, H, "The quieter you become, the more you are able to hear.")
-    d.add(f'<path d="{chamfer(0.5, 0.5, W - 1, H - 1, tr=30, bl=30)}" fill="{VOID}" stroke="{EDGE}"/>')
-    d.text(W / 2, 66, "THE QUIETER YOU BECOME,", "om", 22, SIGNAL, "middle", 7)
-    d.text(W / 2, 100, "THE MORE YOU ARE ABLE TO HEAR.", "om", 22, SIGNAL, "middle", 7)
-    d.defs.append('<filter id="glow" x="-30%" y="-30%" width="160%" height="160%">'
-                  '<feGaussianBlur stdDeviation="3.2" result="b"/>'
-                  '<feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>'
-                  + BLADE_GRADIENT)
+FOOTER_QUOTES = [
+    ("THE QUIETER YOU BECOME,", "THE MORE YOU ARE ABLE TO HEAR.", "kali linux"),
+    ("NAH,", "I'D HACK.", "nithin"),
+    ("AMATEURS HACK SYSTEMS,", "PROFESSIONALS HACK PEOPLE.", "bruce schneier"),
+    ("HACK THE PLANET!", "", "hackers, 1995"),
+]
 
-    c, size, y = W / 2, 114, 304
+
+def footer():
+    W, H = 1200, 372
+    d = Doc(W, H, " / ".join(" ".join(q[:2]).strip() for q in FOOTER_QUOTES))
+    d.add(f'<path d="{chamfer(0.5, 0.5, W - 1, H - 1, tr=30, bl=30)}" fill="{VOID}" stroke="{EDGE}"/>')
+    glow(d, std=3.2)
+    d.defs.append(BLADE_GRADIENT)
+
+    # quotes take turns, each one glitching in
+    n, hold = len(FOOTER_QUOTES), 5
+    for i, (l1, l2, src) in enumerate(FOOTER_QUOTES):
+        d.chars["om"].update(l1 + l2); d.chars["mr"].update("— " + src)
+        ys = (66, 100) if l2 else (83,)
+        lines = "".join(f'<text x="{W / 2}" y="{y}" font-family="om" font-size="22" fill="{SIGNAL}" '
+                        f'text-anchor="middle" letter-spacing="7">{esc(t)}</text>' for y, t in zip(ys, (l1, l2)))
+        lines += (f'<text x="{W / 2}" y="128" font-family="mr" font-size="12.5" fill="{SMOKE}" '
+                  f'text-anchor="middle" letter-spacing="2">{esc("— " + src)}</text>')
+        d.add(f'<g class="q q{i}">{lines}</g>')
+        a, b = i / n * 100, (i + 1) / n * 100
+        d.css.append(f".q{i}{{animation:q{i} {n * hold}s linear infinite}}"
+                     f"@keyframes q{i}{{0%,{a:.2f}%{{opacity:0}}{a + 0.3:.2f}%{{opacity:1}}{a + 0.7:.2f}%{{opacity:.15}}"
+                     f"{a + 1.1:.2f}%,{b - 0.4:.2f}%{{opacity:1}}{b:.2f}%,100%{{opacity:0}}}}")
+    d.css.append(".q{opacity:0}.q0{opacity:1}")
+
+    # the line rises into BlackArch's glowing "A"; the katana passes straight through it
+    c, size, y = W / 2, 114, 328
     apex = y - size
     outline = arch_pts(ARCH_A, c, y, size)
     ridge = arch_pts(ARCH_RIDGE, c, y, size)

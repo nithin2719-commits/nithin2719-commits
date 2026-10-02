@@ -1,12 +1,6 @@
 <div align="center">
   <img src="./assets/hero.svg" width="100%" alt="NITHIN — cybersecurity, ethical hacking, AI/ML" />
   <img src="./assets/ticker.svg" width="100%" alt="Intercepted quotes" />
-  <br/>
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=18&duration=2600&pause=1100&color=FFFFFF&center=true&vCenter=true&width=760&height=40&lines=B.E+CSE+%2F%2F+Cybersecurity+Specialist;Ethical+Hacker+%2F%2F+AI%2FML+Enthusiast;Advanced+Python+%2F%2F+Backend+Dev;If+it%27s+connected%2C+it%27s+vulnerable.;BTW...+I+use+Arch.;The+quieter+you+become%2C+the+more+you+are+able+to+hear.;Root+is+not+a+privilege.+It%27s+a+responsibility.;I+don%27t+hack+systems.+I+understand+them.;pacman+-Syu+%26%26+conquer+the+world;Security+is+a+process%2C+not+a+product." />
-    <source media="(prefers-color-scheme: light)" srcset="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=18&duration=2600&pause=1100&color=000000&center=true&vCenter=true&width=760&height=40&lines=B.E+CSE+%2F%2F+Cybersecurity+Specialist;Ethical+Hacker+%2F%2F+AI%2FML+Enthusiast;Advanced+Python+%2F%2F+Backend+Dev;If+it%27s+connected%2C+it%27s+vulnerable.;BTW...+I+use+Arch.;The+quieter+you+become%2C+the+more+you+are+able+to+hear.;Root+is+not+a+privilege.+It%27s+a+responsibility.;I+don%27t+hack+systems.+I+understand+them.;pacman+-Syu+%26%26+conquer+the+world;Security+is+a+process%2C+not+a+product." />
-    <img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=18&duration=2600&pause=1100&color=FFFFFF&center=true&vCenter=true&width=760&height=40&lines=B.E+CSE+%2F%2F+Cybersecurity+Specialist;Ethical+Hacker+%2F%2F+AI%2FML+Enthusiast;Advanced+Python+%2F%2F+Backend+Dev;If+it%27s+connected%2C+it%27s+vulnerable.;BTW...+I+use+Arch.;The+quieter+you+become%2C+the+more+you+are+able+to+hear.;Root+is+not+a+privilege.+It%27s+a+responsibility.;I+don%27t+hack+systems.+I+understand+them.;pacman+-Syu+%26%26+conquer+the+world;Security+is+a+process%2C+not+a+product." alt="Typing banner" />
-  </picture>
 </div>
 
 <br/>
@@ -14,27 +8,6 @@
 <img src="./assets/h-whoami.svg" width="100%" alt="whoami" />
 
 <img src="./assets/fetch.svg" width="100%" alt="fastfetch — BlackArch Linux, Hyprland, zsh. B.E CSE Cybersecurity, India. Focus: ethical hacking, CTFs, AI/ML, backend." />
-
-<details>
-<summary><code>$ cat nithin.py</code></summary>
-
-```python
-class Nithin:
-    name       = "Nithin"
-    degree     = "B.E CSE — Cybersecurity"
-    location   = "India"
-    os         = "BlackArch Linux + Hyprland"
-    interests  = ["Ethical Hacking", "AI/ML", "Backend Dev", "CTFs"]
-    learning   = ["Advanced Python", "Django", "FastAPI", "Malware Analysis"]
-    tools      = ["Burp Suite", "Wireshark", "Metasploit", "Ghidra"]
-    building   = ["KRYPT", "AGX", "BlackArch Toolbox"]
-    motto      = "Break things ethically. Fix them permanently."
-
-    def status(self):
-        return "[ACTIVE] — Building. Breaking. Learning."
-```
-
-</details>
 
 <br/>
 
@@ -66,6 +39,6 @@ class Nithin:
 
 <br/>
 
-<img src="./assets/footer.svg" width="100%" alt="The quieter you become, the more you are able to hear." />
+<img src="./assets/footer.svg" width="100%" alt="Quotes: The quieter you become, the more you are able to hear. / Nah, I'd hack. / Amateurs hack systems, professionals hack people. / Hack the planet!" />
 
 </div>
