@@ -735,7 +735,7 @@ def ops():
     """OPERATIONS as a grid of project tiles; a glowing spotlight hops from tile to tile."""
     rows = ops_data()[:6]
     today = dt.date.today()
-    W, gap, tw, th = 1000, 16, 0, 120
+    W, gap, tw, th = 1000, 16, 0, 140
     tw = (W - 2 * gap) / 3
     H = 2 * th + gap
     d = Doc(W, H, "Operations: " + "; ".join(f"{r['name']} — {r['desc']}" for r in rows))
@@ -746,12 +746,11 @@ def ops():
         shape = chamfer(x + 0.5, y + 0.5, tw - 1, th - 1, tr=14)
         d.add(f'<path d="{shape}" fill="{VOID}" stroke="{EDGE}"/>')
         d.add(f'<path class="spot s{i}" d="{shape}" fill="none" stroke="{SIGNAL}" stroke-width="1.6" filter="url(#glow)"/>')
-        art = blackarch_icon() if r["name"] == "BLACKARCH TOOLBOX" else OPS_ICONS.get(r["name"], DEFAULT_ICON)
-        fill = "#fff" if r["name"] == "BLACKARCH TOOLBOX" else "none"
-        d.add(f'<g transform="translate({x + 20:.1f},{y + 18}) scale(1.1)" fill="{fill}" stroke="#fff" stroke-width="1.7" '
-              f'stroke-linecap="round" stroke-linejoin="round">{art}</g>')
-        size = min(15.5, 15.5 * (tw - 72) / measure("ob", r["name"], 15.5, 1))
-        d.text(x + 58, y + 37, r["name"], "ob", round(size, 2), SIGNAL, ls=1)
+        d.add(bracket(x + tw - 1.5, y + th - 1.5, 12, -1, -1))
+        slug = ("." if r["private"] else "") + r["name"].lower().replace(" ", "-")
+        d.text(x + 20, y + 30, f"~/ops/{slug}", "mr", 10.5, SMOKE)
+        size = min(17, 17 * (tw - 40) / measure("ob", r["name"], 17, 1.2))
+        d.text(x + 20, y + 56, r["name"], "ob", round(size, 2), SIGNAL, ls=1.2)
         words, lines, cur = r["desc"].split(), [], ""
         for w_ in words:
             if measure("mr", f"{cur} {w_}".strip(), 11.5) > tw - 40:
@@ -760,7 +759,7 @@ def ops():
                 cur = f"{cur} {w_}".strip()
         lines.append(cur)
         for k, line in enumerate(lines[:2]):
-            d.text(x + 20, y + 68 + k * 17, line, "mr", 11.5, ASH)
+            d.text(x + 20, y + 80 + k * 17, line, "mr", 11.5, ASH)
         fy = y + th - 15
         if r["private"]:
             d.add(f'<rect x="{x + 20}" y="{fy - 10}" width="7" height="7" fill="{SIGNAL}"/>')
