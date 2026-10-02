@@ -336,7 +336,15 @@ def hero():
 
     # prompt line + status that flips once the name resolves
     prompt = "root@blackarch:~# ./decrypt --target nithin"
-    d.add(icon("blackarch", 48, 43, 25))
+    es = 26  # emblem size; centred on the prompt line like the footer's BlackArch mark
+    eapex = 56.5 - 0.26 * es
+    d.defs.append('<filter id="eglow" filterUnits="userSpaceOnUse" x="0" y="0" width="200" height="140">'
+                  '<feGaussianBlur stdDeviation="1.4" result="b"/><feMerge><feMergeNode in="b"/>'
+                  '<feMergeNode in="SourceGraphic"/></feMerge></filter>')
+    d.defs.append(katana_defs(58, eapex, es))
+    d.add(f'<polygon points="{fmt_pts(arch_pts(ARCH_A, 58, eapex + es, es))}" fill="none" stroke="#ececec" '
+          f'stroke-width="1.6" stroke-linejoin="round" filter="url(#eglow)"/>')
+    d.add(katana(58, eapex, es))
     d.text(82, 62, prompt, "mr", 15, ASH)
     cx = 82 + measure("mr", prompt, 15) + 8
     d.add(f'<rect class="cur" x="{cx:.1f}" y="49" width="9" height="17" fill="{SIGNAL}"/>')
@@ -489,7 +497,7 @@ def fetch():
     d.add(f'<path d="{chamfer(0.5, 0.5, W - 1, H - 1, tr=24, bl=24)}" fill="{VOID}" stroke="{EDGE}"/>')
     d.add(f'<path d="M0.5,40 H{W - 0.5}" stroke="{EDGE}"/>')
     for i in range(3):
-        d.add(f'<rect x="{22 + i * 18}" y="16" width="9" height="9" fill="none" stroke="{SMOKE}"/>')
+        d.add(f'<circle cx="{27 + i * 18}" cy="20.5" r="5" fill="{["#e6e6e6", "#8a8a8a", "#4a4a4a"][i]}"/>')
     d.text(W / 2, 25, "nithin@blackarch: ~", "mr", 12, SMOKE, "middle")
     d.text(W - 30, 25, "zsh", "mr", 12, SMOKE, "end")
 
@@ -980,11 +988,12 @@ def footer():
                   '<feGaussianBlur stdDeviation="7" result="b"/>'
                   '<feComponentTransfer in="b" result="s"><feFuncA type="linear" slope=".6"/></feComponentTransfer>'
                   '<feMerge><feMergeNode in="s"/><feMergeNode in="SourceGraphic"/></feMerge></filter>')
-    d.text(W / 2, 92, "NAH, I'D HACK.", "ob", 36, SIGNAL, "middle", 9)
+    d.text(W / 2 + 4.5, 63, "NAH, I'D HACK.", "ob", 36, SIGNAL, "middle", 9)
 
     # the line rises into BlackArch's glowing "A"; the katana passes straight through it
-    c, size, y = W / 2, 114, 300
-    apex = y - size
+    c, size = W / 2, 114
+    apex = 63 + 34 + 0.66 * size  # text, a 34px gap, then the hilt: the group sits dead centre
+    y = apex + size
     outline = arch_pts(ARCH_A, c, y, size)
     ridge = arch_pts(ARCH_RIDGE, c, y, size)
     left, right = ridge[0][0], ridge[-1][0]
