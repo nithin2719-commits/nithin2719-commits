@@ -894,7 +894,6 @@ def telemetry():
         d.text(x, 108, label, "mr", 13, ASH)
         d.text(x, 126, sub, "mr", 11.5, SMOKE)
     d.add(f'<path d="M36,156 H{W - 36}" stroke="{GRID}"/>')
-    pulse(d, f"M36,156 H{W - 36}", W - 72, "r1", 7, 1.4, 0.35, dash=90)
 
     # signal: one mirrored bar per week, sitting exactly above that week's heatmap column
     cols = max(x["col"] for x in days) + 1
@@ -907,22 +906,28 @@ def telemetry():
     hi = max(x["count"] for x in win) or 1
     wpk = max(win, key=lambda x: x["count"])
     d.text(36, 184, "signal  //  daily commits, last 90 days", "mr", 11.5, SMOKE)
-    px0, px1, ptop, pbot = 36, W - 36, 214, 292
-    for f in (0.25, 0.5, 0.75):
-        yy = pbot - f * (pbot - ptop)
-        d.add(f'<path d="M{px0},{yy:.1f} H{px1}" stroke="#1a1a1a" stroke-dasharray="2 6"/>')
+    px0, px1, ptop, pbot = 36, W - 36, 210, 292
     d.add(f'<path d="M{px0},{pbot} H{px1}" stroke="{EDGE}"/>')
     step = (px1 - px0) / (len(win) - 1)
-    pts = [(px0 + i * step, pbot - (x["count"] / hi) ** 0.5 * (pbot - ptop)) for i, x in enumerate(win)]
+    pts = [(px0 + i * step, pbot - 3 - (x["count"] / hi) ** 0.5 * (pbot - ptop - 3)) for i, x in enumerate(win)]
+    curve = f"M{pts[0][0]:.1f},{pts[0][1]:.1f}"
+    for i in range(len(pts) - 1):  # catmull-rom → bezier, clamped so it never dips under the baseline
+        p0, p1, p2 = pts[max(i - 1, 0)], pts[i], pts[i + 1]
+        p3 = pts[min(i + 2, len(pts) - 1)]
+        c1 = (p1[0] + (p2[0] - p0[0]) / 6, min(pbot - 3, p1[1] + (p2[1] - p0[1]) / 6))
+        c2 = (p2[0] - (p3[0] - p1[0]) / 6, min(pbot - 3, p2[1] - (p3[1] - p1[1]) / 6))
+        curve += f" C{c1[0]:.1f},{c1[1]:.1f} {c2[0]:.1f},{c2[1]:.1f} {p2[0]:.1f},{p2[1]:.1f}"
     d.defs.append('<linearGradient id="wf" x1="0" y1="0" x2="0" y2="1">'
-                  '<stop offset="0" stop-color="#fff" stop-opacity=".16"/>'
+                  '<stop offset="0" stop-color="#fff" stop-opacity=".22"/>'
+                  '<stop offset=".6" stop-color="#fff" stop-opacity=".05"/>'
                   '<stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>')
-    d.add(f'<polygon points="{px0},{pbot} {fmt_pts(pts)} {px1},{pbot}" fill="url(#wf)"/>')
+    d.add(f'<path d="{curve} L{px1},{pbot} L{px0},{pbot} Z" fill="url(#wf)"/>')
     glow(d)
-    d.add(f'<polyline points="{fmt_pts(pts)}" fill="none" stroke="#e6e6e6" stroke-width="1.6" '
+    d.add(f'<path d="{curve}" fill="none" stroke="#f2f2f2" stroke-width="1.8" stroke-linecap="round" '
           f'stroke-linejoin="round" filter="url(#glow)"/>')
-    wlen = sum(((bx - ax) ** 2 + (by_ - ay) ** 2) ** 0.5 for (ax, ay), (bx, by_) in zip(pts, pts[1:]))
-    pulse(d, "M" + " L".join(f"{x:.1f},{y:.1f}" for x, y in pts), wlen, "sig", 6, 0.8, 0.6, dash=80, width=2.6)
+    d.add(f'<path class="sig" d="{curve}" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" '
+          f'pathLength="1000" stroke-dasharray="60 1000" filter="url(#glow)"/>')
+    d.css.append(".sig{animation:sig 6s linear infinite}@keyframes sig{from{stroke-dashoffset:60}to{stroke-dashoffset:-1000}}")
     kx, ky = pts[win.index(wpk)]
     d.add(f'<circle cx="{kx:.1f}" cy="{ky:.1f}" r="3.5" fill="{SIGNAL}"/>')
     d.text(kx, ky - 9, str(wpk["count"]), "mr", 10.5, ASH, "middle")
@@ -931,7 +936,6 @@ def telemetry():
         anchor = "start" if i == 0 else "end" if i == len(win) - 1 else "middle"
         d.text(pts[i][0], pbot + 16, _fmt(win[i]["date"]).lower(), "mr", 10.5, SMOKE, anchor)
     d.add(f'<path d="M36,322 H{W - 36}" stroke="{GRID}"/>')
-    pulse(d, f"M{W - 36},322 H36", W - 72, "r3", 7, 2.6, 0.35, dash=90)
     gy_shift = 10
 
     # heatmap
@@ -959,7 +963,6 @@ def telemetry():
         d.add(f'<rect x="{lx + i * (cell + 3):.1f}" y="{ly - cell + 2}" width="{cell}" height="{cell}" fill="{c}"/>')
     d.text(lx + 5 * (cell + 3) + 5, ly, "more", "mr", 11, SMOKE)
     d.add(f'<path d="M36,{ly + 22} H{W - 36}" stroke="{GRID}"/>')
-    pulse(d, f"M{W - 36},{ly + 22} H36", W - 72, "r2", 7, 3.9, 0.35, dash=90)
 
     # primary language per original repo
     langs = sorted(t["langs"].items(), key=lambda kv: -kv[1])
