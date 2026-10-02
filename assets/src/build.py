@@ -716,103 +716,65 @@ def ops_data():
         return json.loads(cache.read_text())
 
 
+OPS_ICONS = {  # 24-unit line art, drawn in white strokes
+    "KRYPT": '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'
+             '<circle cx="12" cy="16" r="1.4" fill="#fff"/>',
+    "AGX": '<circle cx="12" cy="4.5" r="2.3"/><circle cx="4.5" cy="18.5" r="2.3"/><circle cx="19.5" cy="18.5" r="2.3"/>'
+           '<circle cx="12" cy="13" r="2"/><path d="M12 6.8V11M10.4 14.4 6.2 17M13.6 14.4 17.8 17M6.8 18.5h10.4"/>',
+    "MAILFLOW": '<rect x="2.5" y="5.5" width="17" height="12" rx="1.5"/><path d="m2.5 7 8.5 6 8.5-6"/>'
+                '<path d="M18 13.5l3.5 1.2v2.6c0 2.2-1.6 3.4-3.5 4-1.9-.6-3.5-1.8-3.5-4v-2.6z" fill="#000"/>',
+    "HYPRLAND-CONFIGS": '<rect x="3" y="4" width="8.5" height="16" rx="1.5"/><rect x="13.5" y="4" width="7.5" height="7" rx="1.5"/>'
+                        '<rect x="13.5" y="13" width="7.5" height="7" rx="1.5"/>',
+    "MEDIOS": '<path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/>',
+}
+DEFAULT_ICON = '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="m7 10 3 2.5L7 15M12 15h5"/>'
+
+
 def ops():
-    """OPERATIONS as `htop`: each project is a process; real push dates drive state, bars and age."""
-    rows = ops_data()
+    """OPERATIONS as a grid of project tiles; a glowing spotlight hops from tile to tile."""
+    rows = ops_data()[:6]
     today = dt.date.today()
-    for r in rows:
-        r["age"] = (today - dt.date.fromisoformat(r["pushed"])).days if r["pushed"] else None
-    try:  # load average = your real commits/day over 7, 30 and 90 days
-        days = json.loads((HERE / "telemetry.json").read_text())["days"]
-        load = "  ".join(f"{sum(x['count'] for x in days[-n:]) / n:.1f}" for n in (7, 30, 90))
-    except Exception:
-        load = "—"
-    running = sum(1 for r in rows if r["private"] or (r["age"] is not None and r["age"] <= 7))
-
-    W, pad, top, hh, rh = 1000, 24, 40, 24, 36
-    body = top + hh
-    H = body + len(rows) * rh + 8 + 30
+    W, gap, tw, th = 1000, 16, 0, 120
+    tw = (W - 2 * gap) / 3
+    H = 2 * th + gap
     d = Doc(W, H, "Operations: " + "; ".join(f"{r['name']} — {r['desc']}" for r in rows))
-    d.add(f'<path d="{chamfer(0.5, 0.5, W - 1, H - 1, tr=20, bl=20)}" fill="{VOID}" stroke="{EDGE}"/>')
-    d.text(pad, 25, "~ ❯ htop -u nithin", "mr", 11.5, SMOKE)
-    d.text(W - pad, 25, f"tasks: {len(rows)}, {running} running   load average: {load}", "mr", 11.5, ASH, "end")
-
-    cols = {"pid": pad, "user": pad + 58, "s": pad + 124, "bar": pad + 150, "age": pad + 262, "cmd": pad + 316}
-    d.add(f'<rect x="1" y="{top}" width="{W - 2}" height="{hh}" fill="#161616"/>')
-    for k, label in [("pid", "PID"), ("user", "USER"), ("s", "S"), ("bar", "LAST PUSH"), ("age", "AGE"), ("cmd", "COMMAND")]:
-        d.text(cols[k], top + 16, label, "mb", 10.5, ASH, ls=1)
-
-    def T(x, y, txt, font, size, fill, anchor="start", ls=0):
-        d.chars[font].update(txt)
-        a_ = f' text-anchor="{anchor}"' if anchor != "start" else ""
-        l_ = f' letter-spacing="{ls}"' if ls else ""
-        return f'<text x="{x:.1f}" y="{y:.1f}" font-family="{font}" font-size="{size}" fill="{fill}"{a_}{l_}>{esc(txt)}</text>'
-
-    name_w = max(measure("ob", r["name"], 13, 1) for r in rows)
-
-    def row(i, r, inv):
-        y = body + i * rh
-        base = y + rh / 2 + 4.5
-        fg, dim, mid = ("#000", "#000", "#000") if inv else (SIGNAL, SMOKE, ASH)
-        out = [T(cols["pid"], base, str(r["pid"]), "mr", 12, dim if not inv else fg),
-               T(cols["user"], base, "root" if r["private"] else "nithin", "mr", 12, mid)]
-        state = "R" if r["private"] or (r["age"] is not None and r["age"] <= 7) else "S"
-        out.append(T(cols["s"], base, state, "mb", 12, fg if state == "R" else dim))
-        bx, seg = cols["bar"], 11
-        if r["private"]:  # classified: the meter is redacted
-            out.append(f'<rect x="{bx}" y="{y + 11}" width="{8 * seg - 3}" height="14" fill="{fg if inv else "#2a2a2a"}"/>')
-            out.append(T(bx + (8 * seg - 3) / 2, base, "REDACTED", "mb", 9, "#fff" if inv else ASH, "middle", 1.5))
-            age = "—"
-        else:
-            fill = max(1 if r["age"] <= 120 else 0, 8 - round(r["age"] / 11))
-            for k in range(8):
-                on = k < fill
-                col = (fg if on else "#555") if inv else (SIGNAL if on else "#222")
-                out.append(f'<rect x="{bx + k * seg}" y="{y + 11}" width="{seg - 3}" height="14" fill="{col}"/>')
-            age = "today" if r["age"] == 0 else f"{r['age']}d" if r["age"] < 60 else f"{r['age'] // 30}mo"
-        out.append(T(cols["age"], base, age, "mr", 12, mid))
-        out.append(T(cols["cmd"], base + 0.5, r["name"], "ob", 13, fg, ls=1))
-        dx = cols["cmd"] + name_w + 18
-        cw = measure("mb", r["chip"], 9.5, 1.5) + 14
-        room = W - pad - cw - 16 - dx
-        desc = r["desc"]
-        while measure("mr", desc, 11.5) > room:
-            desc = desc[:-2].rstrip(" ,.;:") + "…"
-        out.append(T(dx, base, desc, "mr", 11.5, mid if inv else SMOKE))
-        cx = W - pad - cw
-        if r["private"]:
-            out.append(f'<rect x="{cx:.1f}" y="{y + 10}" width="{cw:.1f}" height="16" fill="{"#000" if inv else SIGNAL}"/>')
-            out.append(T(cx + cw / 2, y + 22, r["chip"], "mb", 9.5, "#fff" if inv else "#000", "middle", 1.5))
-        else:
-            out.append(f'<rect x="{cx:.1f}" y="{y + 10.5}" width="{cw:.1f}" height="15" fill="none" stroke="{fg if inv else SMOKE}"/>')
-            out.append(T(cx + cw / 2, y + 22, r["chip"], "mr", 9.5, fg if inv else ASH, "middle", 1.5))
-        return "".join(out)
-
+    glow(d, std=2.6)
+    n = len(rows)
     for i, r in enumerate(rows):
-        if i:
-            d.add(f'<path d="M{pad},{body + i * rh} H{W - pad}" stroke="#141414"/>')
-        d.add(row(i, r, False))
-
-    # htop's selection bar: an inverted row stepping down the process list
-    ys = ";".join(str(body + i * rh) for i in range(len(rows)))
-    d.defs.append(f'<clipPath id="selc"><rect x="1" y="{body}" width="{W - 2}" height="{rh}">'
-                  f'<animate attributeName="y" values="{ys}" dur="{len(rows) * 1.4:.1f}s" calcMode="discrete" '
-                  f'repeatCount="indefinite"/></rect></clipPath>')
-    d.add(f'<g class="sel" clip-path="url(#selc)"><rect x="1" y="{body}" width="{W - 2}" height="{len(rows) * rh}" '
-          f'fill="{SIGNAL}"/>{"".join(row(i, r, True) for i, r in enumerate(rows))}</g>')
-
-    # the function-key bar along the bottom
-    fy = H - 30
-    d.add(f'<path d="M1,{fy - 4} H{W - 1}" stroke="{EDGE}"/>')
-    x = pad
-    for key, act in [("F1", "Help"), ("F2", "Setup"), ("F3", "Search"), ("F5", "Tree"), ("F6", "SortBy"),
-                     ("F9", "Kill"), ("F10", "Quit")]:
-        kw = measure("mb", key, 11) + 8
-        d.add(f'<rect x="{x}" y="{fy + 2}" width="{kw:.1f}" height="17" fill="{SIGNAL}"/>')
-        d.text(x + 4, fy + 15, key, "mb", 11, VOID)
-        d.text(x + kw + 5, fy + 15, act, "mr", 11, ASH)
-        x += kw + 5 + measure("mr", act, 11) + 20
-    d.css.append(REDUCED.replace(".pulse,.beam{display:none}", ".pulse,.beam,.sel{display:none}"))
+        x, y = (i % 3) * (tw + gap), (i // 3) * (th + gap)
+        shape = chamfer(x + 0.5, y + 0.5, tw - 1, th - 1, tr=14)
+        d.add(f'<path d="{shape}" fill="{VOID}" stroke="{EDGE}"/>')
+        d.add(f'<path class="spot s{i}" d="{shape}" fill="none" stroke="{SIGNAL}" stroke-width="1.6" filter="url(#glow)"/>')
+        art = blackarch_icon() if r["name"] == "BLACKARCH TOOLBOX" else OPS_ICONS.get(r["name"], DEFAULT_ICON)
+        fill = "#fff" if r["name"] == "BLACKARCH TOOLBOX" else "none"
+        d.add(f'<g transform="translate({x + 20:.1f},{y + 18}) scale(1.1)" fill="{fill}" stroke="#fff" stroke-width="1.7" '
+              f'stroke-linecap="round" stroke-linejoin="round">{art}</g>')
+        size = min(15.5, 15.5 * (tw - 72) / measure("ob", r["name"], 15.5, 1))
+        d.text(x + 58, y + 37, r["name"], "ob", round(size, 2), SIGNAL, ls=1)
+        words, lines, cur = r["desc"].split(), [], ""
+        for w_ in words:
+            if measure("mr", f"{cur} {w_}".strip(), 11.5) > tw - 40:
+                lines.append(cur); cur = w_
+            else:
+                cur = f"{cur} {w_}".strip()
+        lines.append(cur)
+        for k, line in enumerate(lines[:2]):
+            d.text(x + 20, y + 68 + k * 17, line, "mr", 11.5, ASH)
+        fy = y + th - 15
+        if r["private"]:
+            d.add(f'<rect x="{x + 20}" y="{fy - 10}" width="7" height="7" fill="{SIGNAL}"/>')
+            d.text(x + 33, fy - 3, "PRIVATE", "mb", 10, SIGNAL, ls=1.5)
+            d.text(x + tw - 20, fy - 3, "classified", "mr", 10.5, SMOKE, "end")
+        else:
+            age = (today - dt.date.fromisoformat(r["pushed"])).days
+            when = "today" if age == 0 else f"{age}d ago" if age < 60 else f"{age // 30}mo ago"
+            d.add(f'<rect x="{x + 20}" y="{fy - 10}" width="7" height="7" fill="none" stroke="{ASH}"/>')
+            d.text(x + 33, fy - 3, r["chip"], "mr", 10, ASH, ls=1.5)
+            d.text(x + tw - 20, fy - 3, f"pushed {when}", "mr", 10.5, SMOKE, "end")
+        span = 100 / n
+        d.css.append(f".s{i}{{opacity:0;animation:spot {n * 1.6:.1f}s linear {0.6 + i * 1.6:.1f}s infinite}}")
+    d.css.append(f"@keyframes spot{{0%{{opacity:0}}3%{{opacity:1}}{span - 2:.1f}%{{opacity:1}}{span + 2:.1f}%,100%{{opacity:0}}}}"
+                 + REDUCED.replace(".pulse,.beam{display:none}", ".pulse,.beam,.spot{display:none}"))
     d.save("ops.svg")
 
 
