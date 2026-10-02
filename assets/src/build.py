@@ -188,7 +188,7 @@ def fmt_pts(points):
     return " ".join(f"{x:.1f},{y:.1f}" for x, y in points)
 
 
-def katana(cx, apex, size, tilt=-4):
+def katana(cx, apex, size, tilt=0):
     """Katana through the A, drawn hilt-up: kashira, ito-wrapped tsuka over white samegawa,
     fuchi, tsuba, habaki, then a gently curved blade with its shinogi ridge and a wavy hamon."""
     u = size / 100
@@ -208,20 +208,20 @@ def katana(cx, apex, size, tilt=-4):
     out.append(f'<rect x="{cx - 2.9 * u:.2f}" y="{apex + (tsuba + 2.3) * u:.2f}" width="{5.8 * u:.2f}" '
                f'height="{6 * u:.2f}" fill="#d6d6d6"/>')                                         # habaki
     # blade: back (mune) on the left, edge (ha) on the right, curving gently toward the edge
-    off = lambda y: 3.2 * ((y - blade0) / (tip - blade0)) ** 2
+    off = lambda y: 0.0  # dead straight: it has to run true through the apex
     ys = [blade0 + i * (104 - blade0) / 24 for i in range(25)]
-    mune = [(-2.5 + off(y), y) for y in ys]
-    ha = [(2.6 + off(y), y) for y in reversed(ys)]
-    point = [(off(104) - 2.5, 104), (off(tip) + 0.4, tip), (off(104) + 2.6, 106.5)]
+    mune = [(-2.55 + off(y), y) for y in ys]
+    ha = [(2.55 + off(y), y) for y in reversed(ys)]
+    point = [(-2.55, 104), (0, tip), (2.55, 104)]
     blade = [mune[0]] + mune[1:] + point + ha
     out.append(f'<path d="M{" L".join(P(x, y) for x, y in blade)} Z" fill="url(#steel)"/>')
-    out.append(f'<path d="M{" L".join(P(-0.7 + off(y), y) for y in ys)}" fill="none" stroke="#7a7a7a" '
+    out.append(f'<path d="M{" L".join(P(0, y) for y in ys)}" fill="none" stroke="#7a7a7a" '
                f'stroke-width="{0.35 * u:.2f}"/>')                                              # shinogi
     import math
     hy = [blade0 + 4 + i * 1.6 for i in range(int((100 - blade0 - 4) / 1.6))]
-    out.append(f'<path d="M{" L".join(P(1.3 + off(y) + 0.55 * math.sin(y / 2.6), y) for y in hy)}" fill="none" '
+    out.append(f'<path d="M{" L".join(P(1.35 + 0.5 * math.sin(y / 2.6), y) for y in hy)}" fill="none" '
                f'stroke="#ffffff" stroke-width="{0.5 * u:.2f}" opacity=".85"/>')                 # hamon
-    out.append(f'<path d="M{P(off(104) - 2.5, 104)} L{P(off(104) + 2.6, 106.5)}" stroke="#9a9a9a" '
+    out.append(f'<path d="M{P(-2.55, 104)} L{P(2.55, 104)}" stroke="#9a9a9a" '
                f'stroke-width="{0.35 * u:.2f}"/>')                                              # yokote
     return f'<g transform="rotate({tilt} {cx} {apex})">{"".join(out)}</g>'
 
