@@ -4,6 +4,8 @@ on:
   schedule:
     - cron: "23 * * * *"   # hourly
   workflow_dispatch:
+  push:
+    branches: [main]
 
 permissions:
   contents: write
@@ -22,20 +24,21 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install fonttools brotli
-      - run: python assets/src/build.py --telemetry
+      - run: python assets/src/build.py --live
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # The panel lives on its own branch: main's history stays yours alone, and commits
+      # The live panels live on their own branch: main's history stays yours alone, and commits
       # off the default branch don't count as contributions (no feedback loop).
       - name: Publish to the output branch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          url="https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/output/telemetry.svg"
-          if curl -sf "$url" | cmp -s - assets/telemetry.svg; then echo "unchanged"; exit 0; fi
-          mkdir out && cp assets/telemetry.svg out/ && cd out
+          raw="https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/output"
+          if curl -sf "$raw/telemetry.svg" | cmp -s - assets/telemetry.svg &&
+             curl -sf "$raw/ops.svg" | cmp -s - assets/ops.svg; then echo "unchanged"; exit 0; fi
+          mkdir out && cp assets/telemetry.svg assets/ops.svg out/ && cd out
           git init -q -b output
           git config user.name "Nithin G"
           git config user.email "thangamnithin1980@gmail.com"
-          git add telemetry.svg && git commit -qm "telemetry"
+          git add telemetry.svg ops.svg && git commit -qm "live panels"
           git push -qf "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" output

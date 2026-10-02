@@ -658,21 +658,65 @@ def chip(slug, ico, name, handle):
 
 
 # ── operations: one `ls -la` row per project, a scan wave running down the list ──
-OPS = [
-    ("krypt", "KRYPT", "Autonomous CTF triage and flag hunter.", "PRIVATE", True),
-    ("toolbox", "BLACKARCH TOOLBOX", "Launch any of BlackArch's ~4000 tools from one menu.", "SHELL", False),
-    ("agx", "AGX", "Operations console for a team of autonomous coding agents.", "PYTHON", False),
-    ("hypr", "HYPRLAND-CONFIGS", "Graphite-monochrome Hyprland rice for Arch Linux.", "CSS", False),
-    ("evidence", "EVIDENCEFLOW", "Browser-based digital forensics artifact workbench.", "FORK", False),
-    ("medios", "MEDIOS", "Offline pharmacy POS and inventory system.", "PYTHON", False),
-]
+# KRYPT is private, so the API can't list it — it stays pinned. Everything else is live:
+# your most recently pushed original repos, newest first.
+OPS_PINNED = [("KRYPT", "Autonomous CTF triage and flag hunter.", "PRIVATE", True)]
+OPS_LIVE = 5
+OPS_NOTES = {  # hand-written one-liners; other repos use their About text, else their README's first line
+    "AGX": "Operations console for a team of autonomous coding agents.",
+    "blackarch_toolbox": "Launch any of BlackArch's ~4000 tools from one menu.",
+    "HYPRLAND-CONFIGS": "Graphite-monochrome Hyprland rice for Arch Linux.",
+    "Medios": "Offline pharmacy POS and inventory system.",
+    "Mailflow": "Gmail threat detection and heuristic defense engine.",
+}
+
+
+def readme_blurb(repo):
+    try:
+        text = _get(f"https://raw.githubusercontent.com/{USER}/{repo}/HEAD/README.md", as_json=False)
+    except Exception:
+        return ""
+    fence, para = False, []
+    for line in text.splitlines():
+        t = line.strip()
+        if t.startswith("```"):
+            fence = not fence
+            continue
+        if fence or not t or (t[0] in "#<|![-=*" and not t.startswith("**")):
+            if para:  # the first real paragraph has ended
+                break
+            continue
+        t = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", t.lstrip("> ").strip())
+        if not para and re.fullmatch(r"\*\*[^*]{12,}\*\*", t):  # a bold tagline is a complete one-liner
+            return t.strip("*").strip()
+        t = re.sub(r"[*_`]", "", t).strip()
+        if para or len(t) > 12:
+            para.append(t)
+    text = " ".join(para)
+    return re.split(r"(?<=[.!?])\s", text)[0] if text else ""
+
+
+def ops_data():
+    cache = HERE / "ops.json"
+    try:
+        repos = _get(f"https://api.github.com/users/{USER}/repos?per_page=100&sort=pushed")
+        rows = list(OPS_PINNED)
+        for r in [r for r in repos if not r["fork"] and r["name"].lower() != USER.lower()][:OPS_LIVE]:
+            desc = OPS_NOTES.get(r["name"]) or (r["description"] or "").strip() or readme_blurb(r["name"]) or "—"
+            rows.append((r["name"].replace("_", " ").upper(), desc, (r["language"] or "repo").upper(), False))
+        cache.write_text(json.dumps(rows))
+        return rows
+    except Exception as e:
+        print(f"  ! repo fetch failed ({e}); using {cache.name}")
+        return [tuple(x) for x in json.loads(cache.read_text())]
 
 
 def ops():
     """All projects in one `ls -la` panel; a selection cursor steps down the entries."""
+    OPS = ops_data()
     W, pad, top, rh = 1000, 24, 40, 36
     H = top + len(OPS) * rh + 14
-    d = Doc(W, H, "Operations: " + "; ".join(f"{n} — {desc}" for _, n, desc, *_ in OPS))
+    d = Doc(W, H, "Operations: " + "; ".join(f"{n} — {desc}" for n, desc, *_ in OPS))
     d.add(f'<path d="{chamfer(0.5, 0.5, W - 1, H - 1, tr=20, bl=20)}" fill="{VOID}" stroke="{EDGE}"/>')
     d.add(f'<path d="M0.5,{top - 4} H{W - 0.5}" stroke="{EDGE}"/>')
     d.text(pad, 24, "~ ❯ ls -la ~/ops", "mr", 11.5, SMOKE)
@@ -687,8 +731,11 @@ def ops():
     d.css.append(f".sel{{animation:sel {n * 1.2:.1f}s linear 1s infinite}}@keyframes sel{{{frames}}}")
 
     name_x = pad + 104
-    desc_x = name_x + max(measure("ob", nm, 14, 1.2) for _, nm, *_ in OPS) + 34
-    for i, (slug, name, desc, chip, private) in enumerate(OPS):
+    desc_x = name_x + max(measure("ob", nm, 14, 1.2) for nm, *_ in OPS) + 34
+    for i, (name, desc, chip, private) in enumerate(OPS):
+        room = W - pad - 96 - desc_x
+        while measure("mr", desc, 12) > room:
+            desc = desc[:-2].rstrip(" ,.;:") + "…"
         y = top + i * rh
         base = y + rh / 2 + 4.5
         if i:
@@ -903,8 +950,9 @@ def footer():
 
 
 if __name__ == "__main__":
-    if "--telemetry" in sys.argv:  # what the scheduled refresh job runs
+    if "--live" in sys.argv or "--telemetry" in sys.argv:  # what the hourly refresh job runs
         telemetry()
+        ops()
         sys.exit()
     print("building assets →", OUT)
     hero()
