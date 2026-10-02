@@ -1008,20 +1008,23 @@ def footer():
     apex = 63 + 34 + 0.66 * size  # text, a 34px gap, then the hilt: the group sits dead centre
     y = apex + size
     outline = arch_pts(ARCH_A, c, y, size)
+    ridge = arch_pts(ARCH_RIDGE, c, y, size)
+    left, right = ridge[0][0], ridge[-1][0]
+    d.add(f'<path d="M60,{y} H{left:.1f} M{right:.1f},{y} H{W - 60}" stroke="{EDGE}"/>')
     d.add(f'<polygon points="{fmt_pts(outline)}" fill="none" stroke="#cfcfcf" stroke-width="2.2" '
           f'stroke-linejoin="round" filter="url(#glow)"/>')
     d.defs.append(katana_defs(c, apex, size))
     d.add(katana(c, apex, size))
 
-    # one bright pulse running around the BlackArch outline
-    loop = outline + outline[:1]
-    plen = sum(((bx - ax) ** 2 + (by - ay) ** 2) ** 0.5 for (ax, ay), (bx, by) in zip(loop, loop[1:]))
-    d.add(f'<polyline class="pulse" points="{fmt_pts(loop)}" fill="none" stroke="{SIGNAL}" stroke-width="3" '
+    # one bright pulse: in along the endline, up and over the A, out the other side
+    route = [(60, y)] + ridge + [(W - 60, y)]
+    plen = sum(((bx - ax) ** 2 + (by - ay) ** 2) ** 0.5 for (ax, ay), (bx, by) in zip(route, route[1:]))
+    d.add(f'<polyline class="pulse" points="{fmt_pts(route)}" fill="none" stroke="{SIGNAL}" stroke-width="3" '
           f'stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="90 {plen:.0f}" filter="url(#glow)"/>')
     d.css.append(f".pulse{{animation:pulse 5s linear infinite}}"
                  f"@keyframes pulse{{from{{stroke-dashoffset:90}}to{{stroke-dashoffset:-{plen:.0f}}}}}" + REDUCED)
-    d.text(60, y, "logout", "mr", 14, SMOKE)
-    d.text(W - 60, y, "connection to nithin@blackarch closed.", "mr", 14, SMOKE, "end")
+    d.text(60, y - 14, "logout", "mr", 14, SMOKE)
+    d.text(W - 60, y - 14, "connection to nithin@blackarch closed.", "mr", 14, SMOKE, "end")
     d.save("footer.svg")
 
 
