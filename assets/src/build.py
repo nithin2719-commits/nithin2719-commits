@@ -140,7 +140,52 @@ def bracket(x, y, size, dx, dy, stroke=SIGNAL, width=2):
             f'stroke="{stroke}" stroke-width="{width}"/>')
 
 
-REDUCED = "@media (prefers-reduced-motion:reduce){*{animation:none!important}.g,.gl,.pre{display:none}.f,.late{opacity:1!important}}"
+# ── icons: simple-icons (CC0) where a brand has one, hand-drawn otherwise ────
+CUSTOM_ICONS = {
+    # the BlackArch sword
+    "blackarch": '<path d="M12 0 14.9 3.4V14.2H9.1V3.4Z"/><path d="M4.6 14.2H19.4V17H4.6Z"/>'
+                 '<path d="M10.6 17H13.4V20.8H10.6Z"/><circle cx="12" cy="21.8" r="2.2"/>',
+    # radar sweep for nmap
+    "nmap": '<g fill="none" stroke="#fff" stroke-width="1.8"><circle cx="12" cy="12" r="10"/>'
+            '<circle cx="12" cy="12" r="5.5"/><path d="M12 12 19.2 4.8" stroke-width="2.2"/></g>'
+            '<circle cx="12" cy="12" r="1.9"/><circle cx="16.6" cy="15.4" r="1.5"/>',
+    # disassembly under a lens for ghidra
+    "ghidra": '<path d="M1 3h12v2.2H1zM1 8.2h8v2.2H1zM1 13.4h5v2.2H1z"/>'
+              '<g fill="none" stroke="#fff"><circle cx="15.5" cy="14" r="5" stroke-width="2.2"/>'
+              '<path d="m19.2 17.8 3.8 4" stroke-width="2.8"/></g>',
+}
+
+
+@lru_cache(None)
+def icon_path(slug):
+    path = CACHE / "icons" / f"{slug}.svg"
+    if not path.exists():
+        path.parent.mkdir(parents=True, exist_ok=True)
+        urllib.request.urlretrieve(f"https://cdn.jsdelivr.net/npm/simple-icons@15/icons/{slug}.svg", path)
+    return re.search(r' d="([^"]+)"', path.read_text()).group(1)
+
+
+def icon(slug, x, y, size, fill=SIGNAL):
+    inner = CUSTOM_ICONS.get(slug) or f'<path d="{icon_path(slug)}"/>'
+    return f'<g transform="translate({x:.1f},{y:.1f}) scale({size / 24:.4f})" fill="{fill}">{inner}</g>'
+
+
+def tear(d, text_svg, slices, period, delay, cls):
+    """Horizontal glitch: slices of `text_svg` jump sideways for a few frames each period."""
+    for n, (y0, h, fill, dx) in enumerate(slices):
+        cid = f"{cls}{n}"
+        d.defs.append(f'<clipPath id="{cid}"><rect x="0" y="{y0:.1f}" width="{d.w}" height="{h}"/></clipPath>')
+        d.add(f'<g clip-path="url(#{cid})"><g class="gl {cid}">'
+              f'<rect x="0" y="{y0:.1f}" width="{d.w}" height="{h}" fill="{VOID}"/>'
+              f'{text_svg.replace("FILL", fill)}</g></g>')
+        a, b = 90 + n * 0.6, 91.5 + n * 0.6
+        d.css.append(f".{cid}{{opacity:0;animation:{cid} {period}s linear {delay + n * 0.04:.2f}s infinite}}"
+                     f"@keyframes {cid}{{0%,{a}%,100%{{opacity:0;transform:none}}"
+                     f"{a + 0.3:.1f}%{{opacity:1;transform:translateX({dx}px)}}"
+                     f"{b:.1f}%{{opacity:1;transform:translateX({-dx * 0.6:.0f}px)}}{b + 0.8:.1f}%{{opacity:0}}}}")
+
+
+REDUCED = "@media (prefers-reduced-motion:reduce){*{animation:none!important}.g,.gl,.pre,.scan{display:none}.f,.late,.t,.ln,.hc{opacity:1!important}.fl,.kx,.pulse{display:none}.mq{transform:none!important}}"
 
 
 # ── hero ─────────────────────────────────────────────────────────────────────
@@ -242,12 +287,16 @@ def hero():
 
 
 # ── section headers ──────────────────────────────────────────────────────────
-def header(slug, title, note):
+def header(slug, title, note, delay=0.0):
     W, H = 1000, 64
     d = Doc(W, H, title)
     d.add(f'<path d="{chamfer(0, 0, W, H, br=18)}" fill="{VOID}"/>')
     d.add(f'<rect x="0" y="14" width="6" height="36" fill="{SIGNAL}"/>')
     d.text(28, 43, title, "ob", 26, SIGNAL, ls=4)
+    t = (f'<text x="28" y="43" font-family="ob" font-size="26" letter-spacing="4" fill="FILL">'
+         f'{esc(title)}</text>')
+    tear(d, t, [(24, 8, SIGNAL, 9), (35, 6, ASH, -12)], 8, 1.2 + delay, "h")
+    d.css.append(REDUCED)
     t_end = 28 + measure("ob", title, 26, 4) + 22
     n_start = W - 36 - measure("mr", note, 13)
     d.text(W - 36, 41, note, "mr", 13, ASH, "end")
@@ -320,7 +369,8 @@ def fetch():
         runs.append((cur, bright))
         d.chars["mb"].update(line)
         spans = "".join(f'<tspan fill="{SIGNAL if hot else ASH}">{esc(r)}</tspan>' for r, hot in runs)
-        d.add(f'<text x="36" y="{y0 + i * lh:.1f}" font-family="mb" font-size="13.5">{spans}</text>')
+        d.add(f'<text x="36" y="{y0 + i * lh:.1f}" font-family="mb" font-size="13.5" class="ln" '
+              f'style="animation-delay:{0.3 + i * 0.03:.2f}s">{spans}</text>')
     y0 += 14
 
     x = 420
@@ -330,8 +380,9 @@ def fetch():
     d.add(f'<path d="M{x},{y0 + 12} H{x + measure("mb", "nithin@blackarch", 16):.0f}" stroke="{SMOKE}" stroke-dasharray="3 3"/>')
     for i, (k, v) in enumerate(FETCH):
         y = y0 + 40 + i * 26
-        d.text(x, y, k, "mb", 14, SIGNAL)
-        d.text(x + 104, y, v, "mr", 14, ASH)
+        late = f' style="animation-delay:{0.95 + i * 0.06:.2f}s"'
+        d.text(x, y, k, "mb", 14, SIGNAL, cls="ln", extra=late)
+        d.text(x + 104, y, v, "mr", 14, ASH, cls="ln", extra=late)
 
     # the usual colour blocks, in greyscale
     gy = y0 + 40 + len(FETCH) * 26 - 6
@@ -341,18 +392,152 @@ def fetch():
     d.text(32, H - 26, "~", "mb", 14, SIGNAL)
     d.text(50, H - 26, "❯", "mr", 14, ASH)
     d.add(f'<rect class="cur" x="68" y="{H - 39}" width="9" height="17" fill="{SIGNAL}"/>')
-    d.css.append(".cur{animation:blink 1.1s steps(1) infinite}@keyframes blink{50%{opacity:0}}" + REDUCED)
+    d.css.append(".cur{animation:blink 1.1s steps(1) infinite}@keyframes blink{50%{opacity:0}}"
+                 ".ln{opacity:0;animation:on .01s linear forwards}@keyframes on{to{opacity:1}}" + REDUCED)
     d.save("fetch.svg")
 
 
-# ── small labels for the arsenal rows ────────────────────────────────────────
-def label(slug, text):
-    w = measure("om", text, 12, 3) + 40
-    d = Doc(round(w), 28, text)
-    d.add(f'<path d="{chamfer(0, 0, round(w), 28, br=8)}" fill="{VOID}"/>')
-    d.add(f'<rect x="10" y="10" width="8" height="8" fill="{SIGNAL}"/>')
-    d.text(28, 18.5, text, "om", 12, SIGNAL, ls=3)
-    d.save(f"l-{slug}.svg")
+# ── arsenal: a loadout rack instead of badge soup ───────────────────────────
+ARSENAL = [
+    (("OFFENSIVE", "SECURITY"), [
+        ("blackarch", "BlackArch", "pentest distro"), ("burpsuite", "Burp Suite", "web proxy"),
+        ("metasploit", "Metasploit", "exploitation"), ("wireshark", "Wireshark", "pcap analysis"),
+        ("nmap", "Nmap", "recon + scan"), ("ghidra", "Ghidra", "reverse eng.")]),
+    (("LANGUAGES", "+ BACKEND"), [
+        ("python", "Python", "main language"), ("c", "C", "systems"), ("gnubash", "Bash", "automation"),
+        ("javascript", "JavaScript", "web"), ("django", "Django", "backend"), ("fastapi", "FastAPI", "apis")]),
+    (("AI / ML", ""), [
+        ("tensorflow", "TensorFlow", "deep learning"), ("scikitlearn", "scikit-learn", "classic ml"),
+        ("nvidia", "CUDA", "rtx 3070 ti"), ("ollama", "Ollama", "local llms"),
+        ("claude", "Claude Code", "agent ops"), None]),
+    (("SYSTEMS", "+ CREATIVE"), [
+        ("archlinux", "Arch Linux", "base os"), ("hyprland", "Hyprland", "wayland wm"),
+        ("docker", "Docker", "containers"), ("git", "Git", "versioning"),
+        ("blender", "Blender", "3d"), ("canva", "Canva", "design")]),
+]
+
+
+def arsenal():
+    W, pad, rh, gap, top = 1000, 24, 92, 10, 60
+    H = top + len(ARSENAL) * (rh + gap) - gap + pad
+    count = sum(1 for _, tools in ARSENAL for t in tools if t)
+    d = Doc(W, H, "Arsenal: " + ", ".join(t[1] for _, tools in ARSENAL for t in tools if t))
+    d.add(f'<path d="{chamfer(0.5, 0.5, W - 1, H - 1, tr=24, bl=24)}" fill="{VOID}" stroke="{EDGE}"/>')
+    d.add(f'<path d="M0.5,40 H{W - 0.5}" stroke="{EDGE}"/>')
+    d.text(pad, 25, "/opt/arsenal", "mr", 12, SMOKE)
+    d.text(W - pad - 4, 25, "loading modules …", "mr", 12, SMOKE, "end", cls="pre")
+    msg = f"{count} modules online"
+    d.text(W - pad - 4, 25, msg, "mr", 12, ASH, "end", cls="f late", extra=' style="animation-delay:1.5s"')
+    d.add(f'<rect class="f late" style="animation-delay:1.5s" x="{W - pad - 18 - measure("mr", msg, 12):.1f}" '
+          f'y="16" width="8" height="8" fill="{SIGNAL}"/>')
+
+    cat_w = 146
+    x0 = pad + cat_w + gap
+    tw = (W - pad - x0 - 5 * gap) / 6
+    k = 0
+    for r, ((l1, l2), tools) in enumerate(ARSENAL):
+        y = top + r * (rh + gap)
+        d.add(f'<rect x="{pad}" y="{y}" width="3" height="{rh}" fill="{SIGNAL}"/>')
+        d.text(pad + 16, y + 32, l1, "ob", 14, SIGNAL, ls=1.5)
+        if l2:
+            d.text(pad + 16, y + 51, l2, "ob", 14, SIGNAL, ls=1.5)
+        d.text(pad + 16, y + rh - 14, f"{sum(1 for t in tools if t):02d} modules", "mr", 11, SMOKE)
+        for c, tool in enumerate(tools):
+            x = x0 + c * (tw + gap)
+            shape = chamfer(x + 0.5, y + 0.5, tw - 1, rh - 1, tr=10)
+            if tool is None:
+                d.add(f'<path d="{shape}" fill="none" stroke="{SMOKE}" stroke-dasharray="4 4"/>')
+                d.text(x + tw / 2, y + 44, "+", "ob", 22, SMOKE, "middle")
+                d.text(x + tw / 2, y + 70, "slot open", "mr", 10.5, SMOKE, "middle")
+                continue
+            slug, name, role = tool
+            label = name.upper()
+            size = min(11.5, 11.5 * (tw - 28) / measure("om", label, 11.5, 1))
+            delay = 0.25 + k * 0.045
+            k += 1
+            inner = (f'<path d="{shape}" fill="{VOID}" stroke="{EDGE}"/>'
+                     + icon(slug, x + 14, y + 14, 22)
+                     + f'<rect x="{x + tw - 24:.1f}" y="{y + 15}" width="5" height="5" fill="{SIGNAL}"/>')
+            d.chars["om"].update(label); d.chars["mr"].update(role)
+            inner += (f'<text x="{x + 14:.1f}" y="{y + 64}" font-family="om" font-size="{size:.2f}" '
+                      f'letter-spacing="1" fill="{SIGNAL}">{esc(label)}</text>'
+                      f'<text x="{x + 14:.1f}" y="{y + 80}" font-family="mr" font-size="10.5" '
+                      f'fill="{ASH}">{esc(role)}</text>')
+            d.add(f'<g class="t" style="animation-delay:{delay:.2f}s">{inner}</g>')
+            d.add(f'<path class="fl" style="animation-delay:{delay:.2f}s" d="{shape}" fill="none" '
+                  f'stroke="{SIGNAL}" stroke-width="1.5"/>')
+
+    d.defs.append('<linearGradient id="sg" x1="0" y1="0" x2="0" y2="1">'
+                  '<stop offset="0" stop-color="#fff" stop-opacity="0"/>'
+                  '<stop offset=".85" stop-color="#fff" stop-opacity=".07"/>'
+                  '<stop offset="1" stop-color="#fff" stop-opacity=".22"/></linearGradient>')
+    d.add(f'<rect class="scan" x="1" y="-70" width="{W - 2}" height="70" fill="url(#sg)"/>')
+    d.css.append(
+        ".t{animation:boot .5s linear both}"
+        "@keyframes boot{0%,40%{opacity:.07}42%{opacity:1}55%{opacity:.3}68%,100%{opacity:1}}"
+        ".fl{opacity:0;animation:flash .6s ease-out both}@keyframes flash{0%{opacity:0}35%{opacity:1}100%{opacity:0}}"
+        ".f{opacity:0;animation:lock .01s linear forwards}@keyframes lock{to{opacity:1}}"
+        ".pre{animation:gone .01s linear 1.5s forwards}@keyframes gone{to{opacity:0}}"
+        f".scan{{animation:scan 7s linear 1.8s infinite}}"
+        f"@keyframes scan{{0%{{transform:translateY(40px)}}45%,100%{{transform:translateY({H + 70}px)}}}}"
+        + REDUCED)
+    d.save("arsenal.svg")
+
+
+# ── live-feed ticker under the hero ─────────────────────────────────────────
+FEED = ["[+] uplink established", "operator: nithin", "loc: india", "os: blackarch linux",
+        "focus: offensive security", "now building: KRYPT", "now learning: malware analysis",
+        "ctf: hackthebox / tryhackme", "[!] if it's connected, it's vulnerable"]
+
+
+def ticker():
+    W, H = 1000, 40
+    d = Doc(W, H, "Live feed: " + " / ".join(FEED))
+    d.add(f'<rect x="0.5" y="0.5" width="{W - 1}" height="{H - 1}" fill="{VOID}" stroke="{EDGE}"/>')
+    tag = "LIVE FEED"
+    cw = measure("om", tag, 11, 2) + 44
+    d.add(f'<path d="{chamfer(0, 0, cw, H, br=12)}" fill="{SIGNAL}"/>')
+    d.add(f'<rect class="cur" x="14" y="16" width="8" height="8" fill="{VOID}"/>')
+    d.text(30, 24.5, tag, "om", 11, VOID, ls=2)
+
+    sep = "   ///   "
+    spans, plain = "", ""
+    for item in FEED:
+        hot = item.startswith("[")
+        spans += f'<tspan fill="{SIGNAL if hot else ASH}">{esc(item)}</tspan><tspan fill="{SMOKE}">{sep}</tspan>'
+        plain += item + sep
+    d.chars["mr"].update(plain)
+    L = measure("mr", plain, 12.5)
+    d.defs.append(f'<clipPath id="tk"><rect x="{cw + 4:.0f}" y="0" width="{W - cw - 5:.0f}" height="{H}"/></clipPath>')
+    row = "".join(f'<text x="{cw + 18 + i * L:.1f}" y="25" font-family="mr" font-size="12.5">{spans}</text>' for i in range(3))
+    d.add(f'<g clip-path="url(#tk)"><g class="mq">{row}</g></g>')
+    d.css.append(f".mq{{animation:mq {L / 48:.1f}s linear infinite}}@keyframes mq{{to{{transform:translateX(-{L:.1f}px)}}}}"
+                 ".cur{animation:blink 1.1s steps(1) infinite}@keyframes blink{50%{opacity:0}}" + REDUCED)
+    d.save("ticker.svg")
+
+
+# ── uplink chips + visitor label ────────────────────────────────────────────
+def chip(slug, ico, name, handle):
+    H = 52
+    nw = max(measure("om", name, 12, 2), measure("mr", handle, 11))
+    W = round(16 + 22 + 14 + nw + 24)
+    d = Doc(W, H, f"{name}: {handle}")
+    d.add(f'<path d="{chamfer(0.5, 0.5, W - 1, H - 1, br=12)}" fill="{VOID}" stroke="{EDGE}"/>')
+    d.add(icon(ico, 16, 15, 22))
+    d.text(52, 24, name, "om", 12, SIGNAL, ls=2)
+    d.text(52, 40, handle, "mr", 11, ASH)
+    d.save(f"c-{slug}.svg")
+
+
+def visitors_label():
+    text = "VISITORS"
+    W, H = round(measure("om", text, 11, 2) + 40), 28
+    d = Doc(W, H, "Visitors")
+    d.add(f'<rect width="{W}" height="{H}" fill="{VOID}"/>')
+    d.add(f'<rect x="0.5" y="0.5" width="{W - 1}" height="{H - 1}" fill="none" stroke="{SIGNAL}"/>')
+    d.add(f'<rect x="12" y="10" width="8" height="8" fill="{SIGNAL}"/>')
+    d.text(28, 18.5, text, "om", 11, SIGNAL, ls=2)
+    d.save("l-visitors.svg")
 
 
 # ── project cards ────────────────────────────────────────────────────────────
@@ -382,7 +567,17 @@ def card(slug, kind, title, desc, tags, chip, private=False):
         d.add(f'<rect x="{W - 34 - cw:.1f}" y="22.5" width="{cw:.1f}" height="19" fill="none" stroke="{SMOKE}"/>')
         d.text(W - 34 - cw / 2, 36, chip, "mr", 11, ASH, "middle", 1.5)
 
-    d.text(26, 80, title, "ob", 25, SIGNAL, ls=2)
+    if private:  # an encrypted name that flickers through ciphertext now and then
+        d.text(26, 80, title, "ob", 25, SIGNAL, ls=2, cls="kt")
+        d.text(26, 80, "K#Y?7", "ob", 25, SIGNAL, ls=2, cls="kx")
+        d.text(26, 80, "%R/PT", "ob", 25, ASH, ls=2, cls="kx kx2")
+        d.css.append(".kx{opacity:0;animation:kx 6s steps(1) 2s infinite}.kx2{animation-name:kx2}"
+                     ".kt{animation:kt 6s steps(1) 2s infinite}"
+                     "@keyframes kt{0%{opacity:1}92%{opacity:0}97%{opacity:1}}"
+                     "@keyframes kx{0%{opacity:0}92%{opacity:1}94.5%{opacity:0}}"
+                     "@keyframes kx2{0%{opacity:0}94.5%{opacity:1}97%{opacity:0}}" + REDUCED)
+    else:
+        d.text(26, 80, title, "ob", 25, SIGNAL, ls=2)
     for i, line in enumerate(wrap(desc, 54)[:3]):
         d.text(26, 110 + i * 19, line, "mr", 13, ASH)
     d.add(f'<path d="M26,{H - 44} H{W - 26}" stroke="{GRID}"/>')
@@ -483,14 +678,18 @@ def telemetry():
     gy = 200
     shades = ["#161616", "#3d3d3d", "#707070", "#a8a8a8", SIGNAL]
     seen = set()
+    colg = {}
     for x in days:
         dd = dt.date.fromisoformat(x["date"])
         if x["row"] == 0 and dd.day <= 7 and (dd.month, dd.year) not in seen and x["col"] < cols - 1:
             seen.add((dd.month, dd.year))
             d.text(gx + x["col"] * pitch, gy - 10, f"{dd:%b}".lower(), "mr", 11, SMOKE)
         cls = ' class="now"' if x is days[-1] else ""
-        d.add(f'<rect x="{gx + x["col"] * pitch:.1f}" y="{gy + x["row"] * pitch}" width="{cell}" '
-              f'height="{cell}" fill="{shades[x["level"]]}"{cls}/>')
+        colg.setdefault(x["col"], []).append(
+            f'<rect x="{gx + x["col"] * pitch:.1f}" y="{gy + x["row"] * pitch}" width="{cell}" '
+            f'height="{cell}" fill="{shades[x["level"]]}"{cls}/>')
+    for c, rects in sorted(colg.items()):
+        d.add(f'<g class="hc" style="animation-delay:{0.2 + c * 0.018:.3f}s">{"".join(rects)}</g>')
     for r, name in [(1, "mon"), (3, "wed"), (5, "fri")]:
         d.text(36, gy + r * pitch + cell - 2, name, "mr", 10.5, SMOKE)
     ly = gy + 7 * pitch + 18
@@ -520,7 +719,9 @@ def telemetry():
         d.text(x + 15, by + 49, label, "mr", 12, ASH if i == 0 else SMOKE)
         x += measure("mr", label, 12) + 40
 
-    d.css.append(".now{animation:blink 1.1s steps(1) infinite;stroke:#fff;stroke-width:1.5}"
+    d.css.append(".hc{animation:boot .35s linear both}"
+                 "@keyframes boot{0%{opacity:0}50%{opacity:1}65%{opacity:.4}100%{opacity:1}}"
+                 ".now{animation:blink 1.1s steps(1) infinite;stroke:#fff;stroke-width:1.5}"
                  "@keyframes blink{50%{opacity:.15}}" + REDUCED)
     d.h = H
     d.save("telemetry.svg")
@@ -542,6 +743,13 @@ def footer():
     d.add(f'<polyline points="{60},{y} {c - 46:.0f},{y}" fill="none" stroke="{EDGE}"/>')
     d.add(f'<polyline points="{c + 26:.0f},{y} {W - 60},{y}" fill="none" stroke="{EDGE}"/>')
     d.add(f'<polyline points="{path}" fill="none" stroke="{SIGNAL}" stroke-width="1.5"/>')
+    full = [(60, y)] + pts[1:-1] + [(W - 60, y)]
+    plen = sum(((bx - ax) ** 2 + (by - ay) ** 2) ** 0.5 for (ax, ay), (bx, by) in zip(full, full[1:]))
+    pl = " ".join(f"{px:.0f},{py:.0f}" for px, py in full)
+    d.add(f'<polyline class="pulse" points="{pl}" fill="none" stroke="{SIGNAL}" stroke-width="2.5" '
+          f'stroke-linecap="round" stroke-dasharray="70 {plen:.0f}"/>')
+    d.css.append(f".pulse{{animation:pulse 4s linear infinite}}"
+                 f"@keyframes pulse{{from{{stroke-dashoffset:70}}to{{stroke-dashoffset:-{plen:.0f}}}}}" + REDUCED)
     d.text(60, y - 14, "logout", "mr", 14, SMOKE)
     d.text(W - 60, y - 14, "connection to nithin@blackarch closed.", "mr", 14, SMOKE, "end")
     d.save("footer.svg")
@@ -550,18 +758,17 @@ def footer():
 if __name__ == "__main__":
     print("building assets →", OUT)
     hero()
-    for slug, title, note in [
+    ticker()
+    for i, (slug, title, note) in enumerate([
         ("whoami", "WHOAMI", "uid=0(nithin) gid=0(root) groups=ctf"),
         ("arsenal", "ARSENAL", "pacman -Sg blackarch | wc -l"),
         ("ops", "OPERATIONS", "ls -la ~/ops"),
         ("telemetry", "TELEMETRY", "tail -f /var/log/commits"),
         ("uplink", "UPLINK", "nc -lvnp 1337"),
-    ]:
-        header(slug, title, note)
+    ]):
+        header(slug, title, note, delay=i * 1.3)
     fetch()
-    for slug, text in [("offense", "OFFENSIVE SECURITY"), ("code", "LANGUAGES / BACKEND"),
-                       ("ai", "AI / ML"), ("sys", "SYSTEMS / CREATIVE")]:
-        label(slug, text)
+    arsenal()
     card("krypt", "CTF AUTOMATION", "KRYPT",
          "Autonomous CTF triage and flag hunter. Classifies the challenge, runs the right "
          "tools, carves and decodes recursively, then ranks every flag candidate.",
@@ -587,4 +794,12 @@ if __name__ == "__main__":
          "Schedule H compliance, one-click backups.",
          ["python", "pos", "offline-first"], "PYTHON")
     telemetry()
+    for slug, ico, name, handle in [
+        ("github", "github", "GITHUB", "nithin2719-commits"),
+        ("thm", "tryhackme", "TRYHACKME", "nithin2719"),
+        ("htb", "hackthebox", "HACKTHEBOX", "nithin2719"),
+        ("ig", "instagram", "INSTAGRAM", "@nit_2719"),
+    ]:
+        chip(slug, ico, name, handle)
+    visitors_label()
     footer()

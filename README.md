@@ -1,5 +1,6 @@
 <div align="center">
   <img src="./assets/hero.svg" width="100%" alt="NITHIN — cybersecurity, ethical hacking, AI/ML" />
+  <img src="./assets/ticker.svg" width="100%" alt="Live feed" />
   <br/><br/>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=18&duration=2600&pause=1100&color=FFFFFF&center=true&vCenter=true&width=760&height=40&lines=B.E+CSE+%2F%2F+Cybersecurity+Specialist;Ethical+Hacker+%2F%2F+AI%2FML+Enthusiast;Advanced+Python+%2F%2F+Backend+Dev;If+it%27s+connected%2C+it%27s+vulnerable.;BTW...+I+use+Arch.;The+quieter+you+become%2C+the+more+you+hear.;Root+is+not+a+privilege.+It%27s+a+responsibility.;I+don%27t+hack+systems.+I+understand+them.;pacman+-Syu+%26%26+conquer+the+world;Security+is+not+a+product.+It%27s+a+mindset." />
@@ -7,7 +8,8 @@
     <img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=18&duration=2600&pause=1100&color=FFFFFF&center=true&vCenter=true&width=760&height=40&lines=B.E+CSE+%2F%2F+Cybersecurity+Specialist;Ethical+Hacker+%2F%2F+AI%2FML+Enthusiast;Advanced+Python+%2F%2F+Backend+Dev;If+it%27s+connected%2C+it%27s+vulnerable.;BTW...+I+use+Arch.;The+quieter+you+become%2C+the+more+you+hear.;Root+is+not+a+privilege.+It%27s+a+responsibility.;I+don%27t+hack+systems.+I+understand+them.;pacman+-Syu+%26%26+conquer+the+world;Security+is+not+a+product.+It%27s+a+mindset." alt="Typing banner" />
   </picture>
   <br/><br/>
-  <img src="https://komarev.com/ghpvc/?username=nithin2719-commits&color=000000&style=for-the-badge&label=PROFILE+VIEWS" alt="Profile views" />
+  <img src="./assets/l-visitors.svg" height="28" alt="Visitors" /><img src="https://img.shields.io/badge/dynamic/xml?url=https%3A%2F%2Fkomarev.com%2Fghpvc%2F%3Fusername%3Dnithin2719-commits%26style%3Dfor-the-badge&query=%2F%2F*%5Blocal-name()%3D%27text%27%5D%5B%40font-weight%3D%27bold%27%5D&label=&color=FFFFFF&style=for-the-badge&cacheSeconds=600" height="28" alt="visitor count" />
+  <img src="https://komarev.com/ghpvc/?username=nithin2719-commits&style=pixel" width="1" height="1" alt="" />
 </div>
 
 <br/>
@@ -41,40 +43,7 @@ class Nithin:
 
 <img src="./assets/h-arsenal.svg" width="100%" alt="arsenal" />
 
-<div align="center">
-
-<img src="./assets/l-offense.svg" height="26" alt="Offensive security" /><br/><br/>
-![BlackArch](https://img.shields.io/badge/BlackArch-000000?style=for-the-badge&logo=archlinux&logoColor=white)
-![Burp Suite](https://img.shields.io/badge/Burp_Suite-000000?style=for-the-badge&logo=burpsuite&logoColor=white)
-![Metasploit](https://img.shields.io/badge/Metasploit-000000?style=for-the-badge&logo=metasploit&logoColor=white)
-![Wireshark](https://img.shields.io/badge/Wireshark-000000?style=for-the-badge&logo=wireshark&logoColor=white)
-![Nmap](https://img.shields.io/badge/Nmap-000000?style=for-the-badge)
-![Ghidra](https://img.shields.io/badge/Ghidra-000000?style=for-the-badge)
-
-<img src="./assets/l-code.svg" height="26" alt="Languages and backend" /><br/><br/>
-![Python](https://img.shields.io/badge/Python-000000?style=for-the-badge&logo=python&logoColor=white)
-![C](https://img.shields.io/badge/C-000000?style=for-the-badge&logo=c&logoColor=white)
-![Bash](https://img.shields.io/badge/Bash-000000?style=for-the-badge&logo=gnubash&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-000000?style=for-the-badge&logo=javascript&logoColor=white)
-![Django](https://img.shields.io/badge/Django-000000?style=for-the-badge&logo=django&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-000000?style=for-the-badge&logo=fastapi&logoColor=white)
-
-<img src="./assets/l-ai.svg" height="26" alt="AI and ML" /><br/><br/>
-![TensorFlow](https://img.shields.io/badge/TensorFlow-000000?style=for-the-badge&logo=tensorflow&logoColor=white)
-![scikit-learn](https://img.shields.io/badge/scikit--learn-000000?style=for-the-badge&logo=scikitlearn&logoColor=white)
-![NVIDIA CUDA](https://img.shields.io/badge/CUDA-000000?style=for-the-badge&logo=nvidia&logoColor=white)
-![Ollama](https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=white)
-![Claude Code](https://img.shields.io/badge/Claude_Code-000000?style=for-the-badge&logo=claude&logoColor=white)
-
-<img src="./assets/l-sys.svg" height="26" alt="Systems and creative" /><br/><br/>
-![Arch Linux](https://img.shields.io/badge/Arch_Linux-000000?style=for-the-badge&logo=archlinux&logoColor=white)
-![Hyprland](https://img.shields.io/badge/Hyprland-000000?style=for-the-badge&logo=hyprland&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-000000?style=for-the-badge&logo=docker&logoColor=white)
-![Git](https://img.shields.io/badge/Git-000000?style=for-the-badge&logo=git&logoColor=white)
-![Blender](https://img.shields.io/badge/Blender-000000?style=for-the-badge&logo=blender&logoColor=white)
-![Canva](https://img.shields.io/badge/Canva-000000?style=for-the-badge&logo=canva&logoColor=white)
-
-</div>
+<img src="./assets/arsenal.svg" width="100%" alt="Arsenal — offensive security: BlackArch, Burp Suite, Metasploit, Wireshark, Nmap, Ghidra. Languages: Python, C, Bash, JavaScript, Django, FastAPI. AI/ML: TensorFlow, scikit-learn, CUDA, Ollama, Claude Code. Systems: Arch Linux, Hyprland, Docker, Git, Blender, Canva." />
 
 <br/>
 
@@ -105,10 +74,10 @@ class Nithin:
 
 <div align="center">
 
-[![GitHub](https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/nithin2719-commits)
-[![TryHackMe](https://img.shields.io/badge/TryHackMe-000000?style=for-the-badge&logo=tryhackme&logoColor=white)](https://tryhackme.com/p/nithin2719)
-[![HackTheBox](https://img.shields.io/badge/HackTheBox-000000?style=for-the-badge&logo=hackthebox&logoColor=white)](https://app.hackthebox.com/profile/nithin2719)
-[![Instagram](https://img.shields.io/badge/Instagram-000000?style=for-the-badge&logo=instagram&logoColor=white)](https://instagram.com/nit_2719)
+<a href="https://github.com/nithin2719-commits"><img src="./assets/c-github.svg" height="52" alt="GitHub" /></a>
+<a href="https://tryhackme.com/p/nithin2719"><img src="./assets/c-thm.svg" height="52" alt="TryHackMe" /></a>
+<a href="https://app.hackthebox.com/profile/nithin2719"><img src="./assets/c-htb.svg" height="52" alt="HackTheBox" /></a>
+<a href="https://instagram.com/nit_2719"><img src="./assets/c-ig.svg" height="52" alt="Instagram" /></a>
 
 <br/>
 
