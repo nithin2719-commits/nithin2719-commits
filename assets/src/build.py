@@ -913,9 +913,7 @@ def telemetry():
     for x in days:
         weekly[x["col"]] += x["count"]
     top_w = max(weekly) or 1
-    avg_day = total / len(days)
-    d.text(36, 184, "signal  //  weekly commits, last 12 months", "mr", 11.5, SMOKE)
-    d.text(W - 36, 184, f"avg {avg_day:.1f}/day  //  best week {top_w}", "mr", 11.5, SMOKE, "end")
+    d.text(36, 184, "signal  //  weekly commits", "mr", 11.5, SMOKE)
     cy, amp = 262, 50
     bars = []
     for c, tot in enumerate(weekly):
