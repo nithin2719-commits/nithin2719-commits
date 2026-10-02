@@ -841,7 +841,10 @@ def telemetry_data():
         for r in repos:
             if r["language"]:
                 langs[r["language"]] = langs.get(r["language"], 0) + 1
-        data = {"synced": dt.date.today().isoformat(), "days": days, "langs": langs, "repos": len(repos)}
+        # GitHub's own "N contributions in the last year" is the number to match, so take it verbatim
+        head = re.search(r"([\d,]+)\s+contributions?\s+in the last year", html)
+        data = {"synced": dt.date.today().isoformat(), "days": days, "langs": langs, "repos": len(repos),
+                "total": int(head.group(1).replace(",", "")) if head else None}
         cache.write_text(json.dumps(data))
     except Exception as e:  # offline: reuse the last snapshot
         print(f"  ! telemetry fetch failed ({e}); using {cache.name}")
@@ -857,7 +860,7 @@ def _fmt(date):
 def telemetry():
     t = telemetry_data()
     days = t["days"]
-    total = sum(d["count"] for d in days)
+    total = t.get("total") or sum(d["count"] for d in days)
 
     runs, start = [], None  # (length, first, last) of every streak
     for i, d in enumerate(days):

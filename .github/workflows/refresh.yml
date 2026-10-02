@@ -25,6 +25,9 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install fonttools brotli
+      # a push is itself a contribution; give GitHub a moment to count it before reading the totals
+      - if: github.event_name == 'push'
+        run: sleep 90
       - run: python assets/src/build.py --live
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
