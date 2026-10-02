@@ -832,9 +832,8 @@ def telemetry():
     current = next((n for n, _, last in reversed(runs) if last == tail[-1]["date"]), 0) if tail else 0
     peak = max(days, key=lambda d: d["count"])
 
-    W, H = 1000, 470
+    W, H = 1000, 0  # height is settled once every section is laid out
     d = Doc(W, H, f"{total} contributions in the last year; longest streak {longest[0]} days")
-    d.add(f'<path d="{chamfer(0.5, 0.5, W - 1, H - 1, tr=24, bl=24)}" fill="{VOID}" stroke="{EDGE}"/>')
 
     stats = [
         (f"{total:,}", "contributions", "last 12 months"),
@@ -853,13 +852,45 @@ def telemetry():
     d.add(f'<path d="M36,156 H{W - 36}" stroke="{GRID}"/>')
     pulse(d, f"M36,156 H{W - 36}", W - 72, "r1", 7, 1.4, 0.35, dash=90)
 
+    win = days[-90:]
+    hi = max(x["count"] for x in win) or 1
+    avg = sum(x["count"] for x in win) / len(win)
+    wpk = max(win, key=lambda x: x["count"])
+    d.text(36, 184, "signal  //  daily commits, last 90 days", "mr", 11.5, SMOKE)
+    d.text(W - 36, 184, f"avg {avg:.1f}/day  //  peak {wpk['count']} on {_fmt(wpk['date'])}", "mr", 11.5, SMOKE, "end")
+    px0, px1, ptop, pbot = 36, W - 36, 214, 292
+    for f in (0.25, 0.5, 0.75):
+        yy = pbot - f * (pbot - ptop)
+        d.add(f'<path d="M{px0},{yy:.1f} H{px1}" stroke="#1a1a1a" stroke-dasharray="2 6"/>')
+    d.add(f'<path d="M{px0},{pbot} H{px1}" stroke="{EDGE}"/>')
+    step = (px1 - px0) / (len(win) - 1)
+    pts = [(px0 + i * step, pbot - (x["count"] / hi) ** 0.5 * (pbot - ptop)) for i, x in enumerate(win)]
+    d.defs.append('<linearGradient id="wf" x1="0" y1="0" x2="0" y2="1">'
+                  '<stop offset="0" stop-color="#fff" stop-opacity=".16"/>'
+                  '<stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>')
+    d.add(f'<polygon points="{px0},{pbot} {fmt_pts(pts)} {px1},{pbot}" fill="url(#wf)"/>')
+    glow(d)
+    d.add(f'<polyline points="{fmt_pts(pts)}" fill="none" stroke="#e6e6e6" stroke-width="1.6" '
+          f'stroke-linejoin="round" filter="url(#glow)"/>')
+    wlen = sum(((bx - ax) ** 2 + (by_ - ay) ** 2) ** 0.5 for (ax, ay), (bx, by_) in zip(pts, pts[1:]))
+    pulse(d, "M" + " L".join(f"{x:.1f},{y:.1f}" for x, y in pts), wlen, "sig", 6, 0.8, 0.6, dash=80, width=2.6)
+    kx, ky = pts[win.index(wpk)]
+    d.add(f'<circle cx="{kx:.1f}" cy="{ky:.1f}" r="3.5" fill="{SIGNAL}"/>')
+    d.text(kx, ky - 9, str(wpk["count"]), "mr", 10.5, ASH, "middle")
+    d.add(f'<circle class="now" cx="{pts[-1][0]:.1f}" cy="{pts[-1][1]:.1f}" r="3.5" fill="{SIGNAL}"/>')
+    for i in (0, len(win) // 2, len(win) - 1):
+        anchor = "start" if i == 0 else "end" if i == len(win) - 1 else "middle"
+        d.text(pts[i][0], pbot + 16, _fmt(win[i]["date"]).lower(), "mr", 10.5, SMOKE, anchor)
+    d.add(f'<path d="M36,322 H{W - 36}" stroke="{GRID}"/>')
+    pulse(d, f"M{W - 36},322 H36", W - 72, "r3", 7, 2.6, 0.35, dash=90)
+
     # heatmap
     cols = max(x["col"] for x in days) + 1
     gutter = 40
     pitch = int((W - 72 - gutter) / cols)
     cell = pitch - 3
     gx = 36 + gutter + (W - 72 - gutter - cols * pitch + 3) / 2
-    gy = 200
+    gy = 366
     shades = ["#161616", "#3d3d3d", "#707070", "#a8a8a8", SIGNAL]
     seen = set()
     colg = {}
@@ -885,10 +916,29 @@ def telemetry():
     d.add(f'<path d="M36,{ly + 22} H{W - 36}" stroke="{GRID}"/>')
     pulse(d, f"M{W - 36},{ly + 22} H36", W - 72, "r2", 7, 3.9, 0.35, dash=90)
 
+    active = sum(1 for x in days if x["count"])
+    wk = [0] * 7
+    for x in days:
+        wk[dt.date.fromisoformat(x["date"]).weekday()] += x["count"]
+    busiest = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"][wk.index(max(wk))]
+    ry = ly + 66
+    reads = [(f"{active}", "active days", f"of the last {len(days)}"),
+             (busiest.upper()[:3], "busiest weekday", f"{max(wk):,} commits"),
+             (f"{total / max(active, 1):.1f}", "avg per active day", "commits")]
+    rcol = (W - 72) / 3
+    for i, (num, label, sub) in enumerate(reads):
+        x = 36 + i * rcol + (14 if i else 0)
+        if i:
+            d.add(f'<path d="M{36 + i * rcol:.0f},{ry - 26} V{ry + 30}" stroke="{EDGE}"/>')
+        d.text(x, ry, num, "ob", 24, SIGNAL, ls=1)
+        d.text(x, ry + 20, label, "mr", 12, ASH)
+        d.text(x + measure("mr", label, 12) + 10, ry + 20, sub, "mr", 11, SMOKE)
+    d.add(f'<path d="M36,{ry + 46} H{W - 36}" stroke="{GRID}"/>')
+
     # primary language per original repo
     langs = sorted(t["langs"].items(), key=lambda kv: -kv[1])
     n = sum(v for _, v in langs)
-    by = ly + 52
+    by = ry + 78
     d.text(36, by, f"primary language of {n} original repos", "mr", 11.5, SMOKE)
     d.text(W - 36, by, f"synced {t['synced']}", "mr", 11.5, SMOKE, "end")
     tones = [SIGNAL, "#bdbdbd", "#8a8a8a", "#5e5e5e", "#3d3d3d", "#2a2a2a"]
@@ -908,7 +958,9 @@ def telemetry():
                  "@keyframes boot{0%{opacity:0}50%{opacity:1}65%{opacity:.4}100%{opacity:1}}"
                  ".now{animation:blink 1.1s steps(1) infinite;stroke:#fff;stroke-width:1.5}"
                  "@keyframes blink{50%{opacity:.15}}" + REDUCED)
+    H = int(by + 49 + 32)
     d.h = H
+    d.parts.insert(0, f'<path d="{chamfer(0.5, 0.5, W - 1, H - 1, tr=24, bl=24)}" fill="{VOID}" stroke="{EDGE}"/>')
     d.save("telemetry.svg")
 
 
