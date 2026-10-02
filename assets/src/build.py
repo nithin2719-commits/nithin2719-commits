@@ -827,39 +827,20 @@ def telemetry():
 
 
 # ── footer ───────────────────────────────────────────────────────────────────
-FOOTER_QUOTES = [
-    ("THE QUIETER YOU BECOME,", "THE MORE YOU ARE ABLE TO HEAR.", "kali linux"),
-    ("NAH,", "I'D HACK.", "nithin"),
-    ("AMATEURS HACK SYSTEMS,", "PROFESSIONALS HACK PEOPLE.", "bruce schneier"),
-    ("HACK THE PLANET!", "", "hackers, 1995"),
-]
-
-
 def footer():
-    W, H = 1200, 372
-    d = Doc(W, H, " / ".join(" ".join(q[:2]).strip() for q in FOOTER_QUOTES))
+    W, H = 1200, 344
+    d = Doc(W, H, "Nah, I'd hack.")
     d.add(f'<path d="{chamfer(0.5, 0.5, W - 1, H - 1, tr=30, bl=30)}" fill="{VOID}" stroke="{EDGE}"/>')
     glow(d, std=3.2)
     d.defs.append(BLADE_GRADIENT)
-
-    # quotes take turns, each one glitching in
-    n, hold = len(FOOTER_QUOTES), 5
-    for i, (l1, l2, src) in enumerate(FOOTER_QUOTES):
-        d.chars["om"].update(l1 + l2); d.chars["mr"].update("— " + src)
-        ys = (66, 100) if l2 else (83,)
-        lines = "".join(f'<text x="{W / 2}" y="{y}" font-family="om" font-size="22" fill="{SIGNAL}" '
-                        f'text-anchor="middle" letter-spacing="7">{esc(t)}</text>' for y, t in zip(ys, (l1, l2)))
-        lines += (f'<text x="{W / 2}" y="128" font-family="mr" font-size="12.5" fill="{SMOKE}" '
-                  f'text-anchor="middle" letter-spacing="2">{esc("— " + src)}</text>')
-        d.add(f'<g class="q q{i}">{lines}</g>')
-        a, b = i / n * 100, (i + 1) / n * 100
-        d.css.append(f".q{i}{{animation:q{i} {n * hold}s linear infinite}}"
-                     f"@keyframes q{i}{{0%,{a:.2f}%{{opacity:0}}{a + 0.3:.2f}%{{opacity:1}}{a + 0.7:.2f}%{{opacity:.15}}"
-                     f"{a + 1.1:.2f}%,{b - 0.4:.2f}%{{opacity:1}}{b:.2f}%,100%{{opacity:0}}}}")
-    d.css.append(".q{opacity:0}.q0{opacity:1}")
+    d.defs.append('<filter id="neon" x="-20%" y="-60%" width="140%" height="220%">'
+                  '<feGaussianBlur stdDeviation="7" result="b"/>'
+                  '<feComponentTransfer in="b" result="s"><feFuncA type="linear" slope=".6"/></feComponentTransfer>'
+                  '<feMerge><feMergeNode in="s"/><feMergeNode in="SourceGraphic"/></feMerge></filter>')
+    d.text(W / 2, 92, "NAH, I'D HACK.", "ob", 36, SIGNAL, "middle", 9, extra=' filter="url(#neon)"')
 
     # the line rises into BlackArch's glowing "A"; the katana passes straight through it
-    c, size, y = W / 2, 114, 328
+    c, size, y = W / 2, 114, 300
     apex = y - size
     outline = arch_pts(ARCH_A, c, y, size)
     ridge = arch_pts(ARCH_RIDGE, c, y, size)

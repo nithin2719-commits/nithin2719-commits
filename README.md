@@ -39,6 +39,6 @@
 
 <br/>
 
-<img src="./assets/footer.svg" width="100%" alt="Quotes: The quieter you become, the more you are able to hear. / Nah, I'd hack. / Amateurs hack systems, professionals hack people. / Hack the planet!" />
+<img src="./assets/footer.svg" width="100%" alt="Nah, I'd hack." />
 
 </div>
