@@ -9,7 +9,10 @@ base64 WOFF2. Edit the content below and re-run:
     python3 assets/src/build.py
 """
 import base64
+import datetime as dt
 import io
+import json
+import re
 import pathlib
 import urllib.request
 from functools import lru_cache
@@ -78,6 +81,7 @@ def embed(key, chars):
     opts.flavor = "woff2"
     opts.hinting = False
     opts.desubroutinize = True
+    opts.layout_features = ["kern"]  # no ligatures: fastfetch art and shell text stay literal
     s = subset.Subsetter(opts)
     s.populate(text="".join(sorted(chars)) + " ")
     s.subset(sub)
@@ -253,25 +257,30 @@ def header(slug, title, note):
 
 
 # ── fastfetch card ───────────────────────────────────────────────────────────
-ARCH = r"""                   -`
-                  .o+`
-                 `ooo/
-                `+oooo:
-               `+oooooo:
-               -+oooooo+:
-             `/:-:++oooo+:
-            `/++++/+++++++:
-           `/++++++++++++++:
-          `/+++ooooooooooooo/`
-         ./ooosssso++osssssso+`
-        .oossssso-````/ossssss+`
-       -osssssso.      :ssssssso.
-      :osssssss/        osssso+++.
-     /ossssssss/        +ssssooo/-
-   `/ossssso+/:-        -:/+osssso+-
-  `+sso+:-`                 `.-/+oso:
- `++:.                           `-/+/
- .`                                 `/""".split("\n")
+# fastfetch's built-in BlackArch logo (fastfetch --logo blackarch)
+BLACKARCH = r"""                     00
+                     11
+                    ====
+                    .//
+                   `o//:
+                  `+o//o:
+                 `+oo//oo:
+                 -+oo//oo+:
+               `/:-:+//ooo+:
+              `/+++++//+++++:
+             `/++++++//++++++:
+            `/+++oooo//ooooooo/`
+           ./ooosssso//osssssso+`
+          .oossssso-`//`/ossssss+`
+         -osssssso.  //  :ssssssso.
+        :osssssss/   //   osssso+++.
+       /ossssssss/   //   +ssssooo/-
+     `/ossssso+/:-   //   -:/+osssso+-
+    `+sso+:-`        //       `.-/+oso:
+   `++:.             //            `-/+/
+   .`                /                `/""".split("\n")
+SWORD = {21, 22}  # the blade column, drawn bright; the body sits back in grey
+
 
 FETCH = [
     ("OS", "BlackArch Linux x86_64"),
@@ -288,7 +297,7 @@ FETCH = [
 
 
 def fetch():
-    W, H = 1000, 492
+    W, H = 1000, 512
     d = Doc(W, H, "fastfetch: nithin@blackarch")
     d.add(f'<path d="{chamfer(0.5, 0.5, W - 1, H - 1, tr=24, bl=24)}" fill="{VOID}" stroke="{EDGE}"/>')
     d.add(f'<path d="M0.5,40 H{W - 0.5}" stroke="{EDGE}"/>')
@@ -300,9 +309,19 @@ def fetch():
     d.text(32, 76, "~", "mb", 14, SIGNAL)
     d.text(50, 76, "❯ fastfetch", "mr", 14, ASH)
 
-    lh, y0 = 17.5, 112
-    for i, line in enumerate(ARCH):
-        d.text(36, y0 + i * lh, line, "mb", 13.5, SIGNAL)
+    lh, y0 = 16.5, 112
+    for i, line in enumerate(BLACKARCH):
+        runs, cur, bright = [], "", None
+        for col, ch in enumerate(line):
+            hot = i < 3 or (col in SWORD and ch in "/=01")
+            if bright is not None and hot != bright and cur:
+                runs.append((cur, bright)); cur = ""
+            cur, bright = cur + ch, hot
+        runs.append((cur, bright))
+        d.chars["mb"].update(line)
+        spans = "".join(f'<tspan fill="{SIGNAL if hot else ASH}">{esc(r)}</tspan>' for r, hot in runs)
+        d.add(f'<text x="36" y="{y0 + i * lh:.1f}" font-family="mb" font-size="13.5">{spans}</text>')
+    y0 += 14
 
     x = 420
     d.text(x, y0, "nithin", "mb", 16, SIGNAL)
@@ -371,6 +390,142 @@ def card(slug, kind, title, desc, tags, chip, private=False):
     d.save(f"p-{slug}.svg")
 
 
+# ── telemetry (self-hosted, so ad blockers and dead stat services can't blank it) ──
+USER = "nithin2719-commits"
+
+
+def _get(url, as_json=True):
+    req = urllib.request.Request(url, headers={"Accept": "application/vnd.github+json", "User-Agent": "readme-build"})
+    raw = urllib.request.urlopen(req, timeout=30).read().decode()
+    return json.loads(raw) if as_json else raw
+
+
+def telemetry_data():
+    cache = HERE / "telemetry.json"
+    try:
+        html = _get(f"https://github.com/users/{USER}/contributions", as_json=False)
+        counts = {}
+        for m in re.finditer(r'<tool-tip[^>]*for="(contribution-day-component-\d+-\d+)"[^>]*>([^<]*)</tool-tip>', html):
+            n = m.group(2).split()[0].replace(",", "")
+            counts[m.group(1)] = 0 if n == "No" else int(n)
+        days = []
+        for m in re.finditer(r'<td[^>]*class="ContributionCalendar-day"[^>]*>', html):
+            tag = m.group(0)
+            date = re.search(r'data-date="([^"]+)"', tag).group(1)
+            cid = re.search(r'id="(contribution-day-component-(\d+)-(\d+))"', tag)
+            level = int(re.search(r'data-level="(\d)"', tag).group(1))
+            days.append({"date": date, "row": int(cid.group(2)), "col": int(cid.group(3)),
+                         "level": level, "count": counts.get(cid.group(1), 0)})
+        days.sort(key=lambda d: d["date"])
+        repos = [r for r in _get(f"https://api.github.com/users/{USER}/repos?per_page=100") if not r["fork"]]
+        langs = {}
+        for r in repos:
+            if r["language"]:
+                langs[r["language"]] = langs.get(r["language"], 0) + 1
+        data = {"synced": dt.date.today().isoformat(), "days": days, "langs": langs, "repos": len(repos)}
+        cache.write_text(json.dumps(data))
+    except Exception as e:  # offline: reuse the last snapshot
+        print(f"  ! telemetry fetch failed ({e}); using {cache.name}")
+        data = json.loads(cache.read_text())
+    return data
+
+
+def _fmt(date):
+    d = dt.date.fromisoformat(date)
+    return f"{d:%b} {d.day}"
+
+
+def telemetry():
+    t = telemetry_data()
+    days = t["days"]
+    total = sum(d["count"] for d in days)
+
+    runs, start = [], None  # (length, first, last) of every streak
+    for i, d in enumerate(days):
+        if d["count"]:
+            start = i if start is None else start
+        elif start is not None:
+            runs.append((i - start, days[start]["date"], days[i - 1]["date"])); start = None
+    if start is not None:
+        runs.append((len(days) - start, days[start]["date"], days[-1]["date"]))
+    longest = max(runs, default=(0, "", ""))
+    # today still counts toward the streak until it's over
+    tail = days[:-1] if days and not days[-1]["count"] else days
+    current = next((n for n, _, last in reversed(runs) if last == tail[-1]["date"]), 0) if tail else 0
+    peak = max(days, key=lambda d: d["count"])
+
+    W, H = 1000, 470
+    d = Doc(W, H, f"{total} contributions in the last year; longest streak {longest[0]} days")
+    d.add(f'<path d="{chamfer(0.5, 0.5, W - 1, H - 1, tr=24, bl=24)}" fill="{VOID}" stroke="{EDGE}"/>')
+
+    stats = [
+        (f"{total:,}", "contributions", "last 12 months"),
+        (str(longest[0]), "longest streak", f"{_fmt(longest[1])} – {_fmt(longest[2])}" if longest[0] else "—"),
+        (str(current), "current streak", "days running"),
+        (str(peak["count"]), "peak day", _fmt(peak["date"])),
+    ]
+    col = (W - 72) / 4
+    for i, (num, label, sub) in enumerate(stats):
+        x = 36 + i * col + (14 if i else 0)
+        if i:
+            d.add(f'<path d="M{36 + i * col:.0f},40 V128" stroke="{EDGE}"/>')
+        d.text(x, 84, num, "ob", 40, SIGNAL, ls=1)
+        d.text(x, 108, label, "mr", 13, ASH)
+        d.text(x, 126, sub, "mr", 11.5, SMOKE)
+    d.add(f'<path d="M36,156 H{W - 36}" stroke="{GRID}"/>')
+
+    # heatmap
+    cols = max(x["col"] for x in days) + 1
+    gutter = 40
+    pitch = int((W - 72 - gutter) / cols)
+    cell = pitch - 3
+    gx = 36 + gutter + (W - 72 - gutter - cols * pitch + 3) / 2
+    gy = 200
+    shades = ["#161616", "#3d3d3d", "#707070", "#a8a8a8", SIGNAL]
+    seen = set()
+    for x in days:
+        dd = dt.date.fromisoformat(x["date"])
+        if x["row"] == 0 and dd.day <= 7 and (dd.month, dd.year) not in seen and x["col"] < cols - 1:
+            seen.add((dd.month, dd.year))
+            d.text(gx + x["col"] * pitch, gy - 10, f"{dd:%b}".lower(), "mr", 11, SMOKE)
+        cls = ' class="now"' if x is days[-1] else ""
+        d.add(f'<rect x="{gx + x["col"] * pitch:.1f}" y="{gy + x["row"] * pitch}" width="{cell}" '
+              f'height="{cell}" fill="{shades[x["level"]]}"{cls}/>')
+    for r, name in [(1, "mon"), (3, "wed"), (5, "fri")]:
+        d.text(36, gy + r * pitch + cell - 2, name, "mr", 10.5, SMOKE)
+    ly = gy + 7 * pitch + 18
+    lx = W - 36 - 5 * (cell + 3) - measure("mr", "more", 11) - 8
+    d.text(lx - 8, ly, "less", "mr", 11, SMOKE, "end")
+    for i, c in enumerate(shades):
+        d.add(f'<rect x="{lx + i * (cell + 3):.1f}" y="{ly - cell + 2}" width="{cell}" height="{cell}" fill="{c}"/>')
+    d.text(lx + 5 * (cell + 3) + 5, ly, "more", "mr", 11, SMOKE)
+    d.add(f'<path d="M36,{ly + 22} H{W - 36}" stroke="{GRID}"/>')
+
+    # primary language per original repo
+    langs = sorted(t["langs"].items(), key=lambda kv: -kv[1])
+    n = sum(v for _, v in langs)
+    by = ly + 52
+    d.text(36, by, f"primary language of {n} original repos", "mr", 11.5, SMOKE)
+    d.text(W - 36, by, f"synced {t['synced']}", "mr", 11.5, SMOKE, "end")
+    tones = [SIGNAL, "#bdbdbd", "#8a8a8a", "#5e5e5e", "#3d3d3d", "#2a2a2a"]
+    x, bw = 36.0, W - 72
+    for i, (name, v) in enumerate(langs):
+        w = bw * v / n
+        d.add(f'<rect x="{x:.1f}" y="{by + 14}" width="{max(w - 2, 1):.1f}" height="10" fill="{tones[min(i, 5)]}"/>')
+        x += w
+    x = 36.0
+    for i, (name, v) in enumerate(langs):
+        d.add(f'<rect x="{x:.1f}" y="{by + 40}" width="9" height="9" fill="{tones[min(i, 5)]}"/>')
+        label = f"{name.lower()} {100 * v / n:.0f}%"
+        d.text(x + 15, by + 49, label, "mr", 12, ASH if i == 0 else SMOKE)
+        x += measure("mr", label, 12) + 40
+
+    d.css.append(".now{animation:blink 1.1s steps(1) infinite;stroke:#fff;stroke-width:1.5}"
+                 "@keyframes blink{50%{opacity:.15}}" + REDUCED)
+    d.h = H
+    d.save("telemetry.svg")
+
+
 # ── footer ───────────────────────────────────────────────────────────────────
 def footer():
     W, H = 1200, 210
@@ -426,9 +581,10 @@ if __name__ == "__main__":
     card("evidence", "DFIR", "EVIDENCEFLOW",
          "Browser-based digital forensics artifact workbench, built as an extension for "
          "PWNDORA.",
-         ["forensics", "browser", "artifacts"], "DFIR")
+         ["forensics", "browser", "artifacts"], "FORK")
     card("medios", "SOFTWARE", "MEDIOS",
          "Offline pharmacy POS and inventory system. GST billing, batch and expiry tracking, "
          "Schedule H compliance, one-click backups.",
          ["python", "pos", "offline-first"], "PYTHON")
+    telemetry()
     footer()

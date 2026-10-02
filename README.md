@@ -1,19 +1,13 @@
 <div align="center">
-
-<img src="./assets/hero.svg" width="100%" alt="NITHIN — cybersecurity, ethical hacking, AI/ML" />
-
-<br/><br/>
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=18&duration=2600&pause=1100&color=FFFFFF&center=true&vCenter=true&width=760&height=40&lines=B.E+CSE+%2F%2F+Cybersecurity+Specialist;Ethical+Hacker+%2F%2F+AI%2FML+Enthusiast;Advanced+Python+%2F%2F+Backend+Dev;If+it%27s+connected%2C+it%27s+vulnerable.;BTW...+I+use+Arch.;The+quieter+you+become%2C+the+more+you+hear.;Root+is+not+a+privilege.+It%27s+a+responsibility.;I+don%27t+hack+systems.+I+understand+them.;pacman+-Syu+%26%26+conquer+the+world;Security+is+not+a+product.+It%27s+a+mindset." />
-  <source media="(prefers-color-scheme: light)" srcset="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=18&duration=2600&pause=1100&color=000000&center=true&vCenter=true&width=760&height=40&lines=B.E+CSE+%2F%2F+Cybersecurity+Specialist;Ethical+Hacker+%2F%2F+AI%2FML+Enthusiast;Advanced+Python+%2F%2F+Backend+Dev;If+it%27s+connected%2C+it%27s+vulnerable.;BTW...+I+use+Arch.;The+quieter+you+become%2C+the+more+you+hear.;Root+is+not+a+privilege.+It%27s+a+responsibility.;I+don%27t+hack+systems.+I+understand+them.;pacman+-Syu+%26%26+conquer+the+world;Security+is+not+a+product.+It%27s+a+mindset." />
-  <img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=18&duration=2600&pause=1100&color=FFFFFF&center=true&vCenter=true&width=760&height=40&lines=B.E+CSE+%2F%2F+Cybersecurity+Specialist;Ethical+Hacker+%2F%2F+AI%2FML+Enthusiast;Advanced+Python+%2F%2F+Backend+Dev;If+it%27s+connected%2C+it%27s+vulnerable.;BTW...+I+use+Arch.;The+quieter+you+become%2C+the+more+you+hear.;Root+is+not+a+privilege.+It%27s+a+responsibility.;I+don%27t+hack+systems.+I+understand+them.;pacman+-Syu+%26%26+conquer+the+world;Security+is+not+a+product.+It%27s+a+mindset." alt="Typing banner" />
-</picture>
-
-<br/>
-
-<img src="https://komarev.com/ghpvc/?username=nithin2719-commits&color=000000&style=for-the-badge&label=PROFILE+VIEWS" alt="Profile views" />
-
+  <img src="./assets/hero.svg" width="100%" alt="NITHIN — cybersecurity, ethical hacking, AI/ML" />
+  <br/><br/>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=18&duration=2600&pause=1100&color=FFFFFF&center=true&vCenter=true&width=760&height=40&lines=B.E+CSE+%2F%2F+Cybersecurity+Specialist;Ethical+Hacker+%2F%2F+AI%2FML+Enthusiast;Advanced+Python+%2F%2F+Backend+Dev;If+it%27s+connected%2C+it%27s+vulnerable.;BTW...+I+use+Arch.;The+quieter+you+become%2C+the+more+you+hear.;Root+is+not+a+privilege.+It%27s+a+responsibility.;I+don%27t+hack+systems.+I+understand+them.;pacman+-Syu+%26%26+conquer+the+world;Security+is+not+a+product.+It%27s+a+mindset." />
+    <source media="(prefers-color-scheme: light)" srcset="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=18&duration=2600&pause=1100&color=000000&center=true&vCenter=true&width=760&height=40&lines=B.E+CSE+%2F%2F+Cybersecurity+Specialist;Ethical+Hacker+%2F%2F+AI%2FML+Enthusiast;Advanced+Python+%2F%2F+Backend+Dev;If+it%27s+connected%2C+it%27s+vulnerable.;BTW...+I+use+Arch.;The+quieter+you+become%2C+the+more+you+hear.;Root+is+not+a+privilege.+It%27s+a+responsibility.;I+don%27t+hack+systems.+I+understand+them.;pacman+-Syu+%26%26+conquer+the+world;Security+is+not+a+product.+It%27s+a+mindset." />
+    <img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=18&duration=2600&pause=1100&color=FFFFFF&center=true&vCenter=true&width=760&height=40&lines=B.E+CSE+%2F%2F+Cybersecurity+Specialist;Ethical+Hacker+%2F%2F+AI%2FML+Enthusiast;Advanced+Python+%2F%2F+Backend+Dev;If+it%27s+connected%2C+it%27s+vulnerable.;BTW...+I+use+Arch.;The+quieter+you+become%2C+the+more+you+hear.;Root+is+not+a+privilege.+It%27s+a+responsibility.;I+don%27t+hack+systems.+I+understand+them.;pacman+-Syu+%26%26+conquer+the+world;Security+is+not+a+product.+It%27s+a+mindset." alt="Typing banner" />
+  </picture>
+  <br/><br/>
+  <img src="https://komarev.com/ghpvc/?username=nithin2719-commits&color=000000&style=for-the-badge&label=PROFILE+VIEWS" alt="Profile views" />
 </div>
 
 <br/>
@@ -24,8 +18,6 @@
 
 <details>
 <summary><code>$ cat nithin.py</code></summary>
-
-<br/>
 
 ```python
 class Nithin:
@@ -51,17 +43,13 @@ class Nithin:
 
 <div align="center">
 
-<br/>
-
 <img src="./assets/l-offense.svg" height="26" alt="Offensive security" /><br/><br/>
-![BlackArch Linux](https://img.shields.io/badge/BlackArch-000000?style=for-the-badge&logo=archlinux&logoColor=white)
+![BlackArch](https://img.shields.io/badge/BlackArch-000000?style=for-the-badge&logo=archlinux&logoColor=white)
 ![Burp Suite](https://img.shields.io/badge/Burp_Suite-000000?style=for-the-badge&logo=burpsuite&logoColor=white)
 ![Metasploit](https://img.shields.io/badge/Metasploit-000000?style=for-the-badge&logo=metasploit&logoColor=white)
 ![Wireshark](https://img.shields.io/badge/Wireshark-000000?style=for-the-badge&logo=wireshark&logoColor=white)
 ![Nmap](https://img.shields.io/badge/Nmap-000000?style=for-the-badge)
 ![Ghidra](https://img.shields.io/badge/Ghidra-000000?style=for-the-badge)
-
-<br/>
 
 <img src="./assets/l-code.svg" height="26" alt="Languages and backend" /><br/><br/>
 ![Python](https://img.shields.io/badge/Python-000000?style=for-the-badge&logo=python&logoColor=white)
@@ -71,16 +59,12 @@ class Nithin:
 ![Django](https://img.shields.io/badge/Django-000000?style=for-the-badge&logo=django&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-000000?style=for-the-badge&logo=fastapi&logoColor=white)
 
-<br/>
-
 <img src="./assets/l-ai.svg" height="26" alt="AI and ML" /><br/><br/>
 ![TensorFlow](https://img.shields.io/badge/TensorFlow-000000?style=for-the-badge&logo=tensorflow&logoColor=white)
 ![scikit-learn](https://img.shields.io/badge/scikit--learn-000000?style=for-the-badge&logo=scikitlearn&logoColor=white)
 ![NVIDIA CUDA](https://img.shields.io/badge/CUDA-000000?style=for-the-badge&logo=nvidia&logoColor=white)
 ![Ollama](https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=white)
 ![Claude Code](https://img.shields.io/badge/Claude_Code-000000?style=for-the-badge&logo=claude&logoColor=white)
-
-<br/>
 
 <img src="./assets/l-sys.svg" height="26" alt="Systems and creative" /><br/><br/>
 ![Arch Linux](https://img.shields.io/badge/Arch_Linux-000000?style=for-the-badge&logo=archlinux&logoColor=white)
@@ -113,22 +97,13 @@ class Nithin:
 
 <img src="./assets/h-telemetry.svg" width="100%" alt="telemetry" />
 
-<div align="center">
-
-<br/>
-
-<img src="https://github-readme-stats.vercel.app/api?username=nithin2719-commits&show_icons=true&include_all_commits=true&count_private=true&bg_color=000000&title_color=FFFFFF&text_color=A3A3A3&icon_color=FFFFFF&ring_color=FFFFFF&border_color=2E2E2E&border_radius=0&custom_title=SYSTEM%20STATS" height="165" alt="GitHub stats" />
-<img src="https://streak-stats.demolab.com?user=nithin2719-commits&background=000000&border=2E2E2E&border_radius=0&stroke=2E2E2E&ring=FFFFFF&fire=FFFFFF&currStreakNum=FFFFFF&sideNums=FFFFFF&currStreakLabel=FFFFFF&sideLabels=A3A3A3&dates=5E5E5E" height="165" alt="GitHub streak" />
-
-</div>
+<img src="./assets/telemetry.svg" width="100%" alt="Contribution telemetry: yearly contributions, streaks, heatmap and languages" />
 
 <br/>
 
 <img src="./assets/h-uplink.svg" width="100%" alt="uplink" />
 
 <div align="center">
-
-<br/>
 
 [![GitHub](https://img.shields.io/badge/GitHub-000000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/nithin2719-commits)
 [![TryHackMe](https://img.shields.io/badge/TryHackMe-000000?style=for-the-badge&logo=tryhackme&logoColor=white)](https://tryhackme.com/p/nithin2719)
