@@ -188,21 +188,56 @@ def fmt_pts(points):
     return " ".join(f"{x:.1f},{y:.1f}" for x, y in points)
 
 
-def katana(cx, apex, size, glow=""):
-    """Katana through the A: wrapped hilt above the apex, blade down past the feet."""
+def katana(cx, apex, size, tilt=-4):
+    """Katana through the A, drawn hilt-up: kashira, ito-wrapped tsuka over white samegawa,
+    fuchi, tsuba, habaki, then a gently curved blade with its shinogi ridge and a wavy hamon."""
     u = size / 100
-    hilt_top, guard = apex - 62 * u, apex - 9 * u
-    wraps = "".join(
-        f'<path d="M{cx - 3.2 * u:.1f},{y:.1f} L{cx + 3.2 * u:.1f},{y + 3.5 * u:.1f} M{cx + 3.2 * u:.1f},{y:.1f} '
-        f'L{cx - 3.2 * u:.1f},{y + 3.5 * u:.1f}" stroke="{SIGNAL}" stroke-width="{0.9 * u:.2f}"/>'
-        for y in [hilt_top + 4 * u + i * 6.5 * u for i in range(7)])
-    return (f'<rect x="{cx - 3.6 * u:.1f}" y="{hilt_top:.1f}" width="{7.2 * u:.1f}" height="{guard - hilt_top - 2 * u:.1f}" '
-            f'fill="#111" stroke="{SIGNAL}" stroke-width="{0.8 * u:.2f}"/>{wraps}'
-            f'<ellipse cx="{cx}" cy="{guard:.1f}" rx="{9 * u:.1f}" ry="{2.4 * u:.1f}" fill="{SIGNAL}"{glow}/>'
-            f'<path d="M{cx - 2.4 * u:.1f},{guard + 2 * u:.1f} H{cx + 2.4 * u:.1f} V{apex + 112 * u:.1f} '
-            f'L{cx},{apex + 120 * u:.1f} L{cx - 2.4 * u:.1f},{apex + 112 * u:.1f} Z" fill="url(#blade)"/>'
-            f'<path d="M{cx + 2.4 * u:.1f},{guard + 2 * u:.1f} V{apex + 112 * u:.1f} L{cx},{apex + 120 * u:.1f}" '
-            f'fill="none" stroke="{SIGNAL}" stroke-width="{0.7 * u:.2f}"/>')
+    P = lambda x, y: f"{cx + x * u:.2f},{apex + y * u:.2f}"
+    top, fuchi, tsuba, blade0, tip = -66, -14, -10, -2, 118
+    out = []
+    # tsuka: white samegawa showing through dark crossed wrap = the classic row of diamonds
+    out.append(f'<path d="M{P(-3.7, top + 3)} L{P(3.7, top + 3)} L{P(3.3, fuchi)} L{P(-3.3, fuchi)} Z" fill="#e9e9e9"/>')
+    out.append(f'<path d="M{P(-3.7, top + 3)} L{P(3.7, top + 3)} L{P(3.3, fuchi)} L{P(-3.3, fuchi)} Z" fill="#0b0b0b" '
+               f'mask="url(#samegawa)"/>')
+    out.append(f'<rect x="{cx - 4 * u:.2f}" y="{apex + top * u:.2f}" width="{8 * u:.2f}" height="{3.4 * u:.2f}" '
+               f'rx="{1.2 * u:.2f}" fill="#bdbdbd"/>')                                          # kashira
+    out.append(f'<rect x="{cx - 3.6 * u:.2f}" y="{apex + fuchi * u:.2f}" width="{7.2 * u:.2f}" height="{2.6 * u:.2f}" '
+               f'fill="#bdbdbd"/>')                                                             # fuchi
+    out.append(f'<ellipse cx="{cx}" cy="{apex + tsuba * u:.2f}" rx="{10 * u:.2f}" ry="{2.5 * u:.2f}" '
+               f'fill="#1c1c1c" stroke="#e6e6e6" stroke-width="{0.7 * u:.2f}"/>')                  # tsuba
+    out.append(f'<rect x="{cx - 2.9 * u:.2f}" y="{apex + (tsuba + 2.3) * u:.2f}" width="{5.8 * u:.2f}" '
+               f'height="{6 * u:.2f}" fill="#d6d6d6"/>')                                         # habaki
+    # blade: back (mune) on the left, edge (ha) on the right, curving gently toward the edge
+    off = lambda y: 3.2 * ((y - blade0) / (tip - blade0)) ** 2
+    ys = [blade0 + i * (104 - blade0) / 24 for i in range(25)]
+    mune = [(-2.5 + off(y), y) for y in ys]
+    ha = [(2.6 + off(y), y) for y in reversed(ys)]
+    point = [(off(104) - 2.5, 104), (off(tip) + 0.4, tip), (off(104) + 2.6, 106.5)]
+    blade = [mune[0]] + mune[1:] + point + ha
+    out.append(f'<path d="M{" L".join(P(x, y) for x, y in blade)} Z" fill="url(#steel)"/>')
+    out.append(f'<path d="M{" L".join(P(-0.7 + off(y), y) for y in ys)}" fill="none" stroke="#7a7a7a" '
+               f'stroke-width="{0.35 * u:.2f}"/>')                                              # shinogi
+    import math
+    hy = [blade0 + 4 + i * 1.6 for i in range(int((100 - blade0 - 4) / 1.6))]
+    out.append(f'<path d="M{" L".join(P(1.3 + off(y) + 0.55 * math.sin(y / 2.6), y) for y in hy)}" fill="none" '
+               f'stroke="#ffffff" stroke-width="{0.5 * u:.2f}" opacity=".85"/>')                 # hamon
+    out.append(f'<path d="M{P(off(104) - 2.5, 104)} L{P(off(104) + 2.6, 106.5)}" stroke="#9a9a9a" '
+               f'stroke-width="{0.35 * u:.2f}"/>')                                              # yokote
+    return f'<g transform="rotate({tilt} {cx} {apex})">{"".join(out)}</g>'
+
+
+def katana_defs(cx, apex, size):
+    u = size / 100
+    top, fuchi = -66, -14
+    diamonds = "".join(
+        f'<path d="M{cx:.2f},{apex + (y - 2.4) * u:.2f} L{cx + 2.6 * u:.2f},{apex + y * u:.2f} '
+        f'L{cx:.2f},{apex + (y + 2.4) * u:.2f} L{cx - 2.6 * u:.2f},{apex + y * u:.2f} Z" fill="#000"/>'
+        for y in [top + 6.5 + i * 5.6 for i in range(9)])
+    return (f'<mask id="samegawa" maskUnits="userSpaceOnUse"><rect x="0" y="0" width="5000" height="5000" fill="#fff"/>'
+            f'{diamonds}</mask>'
+            '<linearGradient id="steel" x1="0" y1="0" x2="1" y2="0">'
+            '<stop offset="0" stop-color="#6b6b6b"/><stop offset=".45" stop-color="#b4b4b4"/>'
+            '<stop offset=".62" stop-color="#e9e9e9"/><stop offset="1" stop-color="#ffffff"/></linearGradient>')
 
 
 BLADE_GRADIENT = ('<linearGradient id="blade" x1="0" y1="0" x2="1" y2="0">'
@@ -290,7 +325,7 @@ def hero():
 
     # prompt line + status that flips once the name resolves
     prompt = "root@blackarch:~# ./decrypt --target nithin"
-    d.add(f'<g filter="url(#glow)">{icon("blackarch", 50, 46, 21)}</g>')
+    d.add(icon("blackarch", 48, 43, 25))
     d.text(82, 62, prompt, "mr", 15, ASH)
     cx = 82 + measure("mr", prompt, 15) + 8
     d.add(f'<rect class="cur" x="{cx:.1f}" y="49" width="9" height="17" fill="{SIGNAL}"/>')
@@ -324,7 +359,7 @@ def hero():
             d.text(cx, base, g, "ob", size, ASH if k % 2 else SIGNAL, "middle", cls="g",
                    extra=f' style="animation-delay:{t0 + k * step:.2f}s"')
         d.text(cx, base, ch, "ob", size, SIGNAL, "middle", cls="f",
-               extra=f' style="animation-delay:{t0 + 7 * step:.2f}s" filter="url(#neon)"')
+               extra=f' style="animation-delay:{t0 + 7 * step:.2f}s"')
 
     # glitch tears: two horizontal slices of the word, shoved sideways for a few frames
     top = base - size * 0.72
@@ -451,7 +486,6 @@ def fetch():
     d.text(50, 76, "❯ fastfetch", "mr", 14, ASH)
 
     lh, y0 = 16.5, 112
-    glow(d, std=2.4)
     for i, line in enumerate(BLACKARCH):
         runs, cur, bright = [], "", None
         for col, ch in enumerate(line):
@@ -462,11 +496,8 @@ def fetch():
         runs.append((cur, bright))
         d.chars["mb"].update(line)
         spans = "".join(f'<tspan fill="{SIGNAL if hot else ASH}">{esc(r)}</tspan>' for r, hot in runs)
-        blade = "".join(r if hot else " " * len(r) for r, hot in runs)
-        d.add(f'<g class="ln" style="animation-delay:{0.3 + i * 0.03:.2f}s">'
-              f'<text x="36" y="{y0 + i * lh:.1f}" font-family="mb" font-size="13.5">{spans}</text>'
-              f'<text x="36" y="{y0 + i * lh:.1f}" font-family="mb" font-size="13.5" fill="{SIGNAL}" class="sw" '
-              f'style="animation-delay:{1.2 + i * 0.07:.2f}s" filter="url(#glow)">{esc(blade)}</text></g>')
+        d.add(f'<text x="36" y="{y0 + i * lh:.1f}" font-family="mb" font-size="13.5" class="ln" '
+              f'style="animation-delay:{0.3 + i * 0.03:.2f}s">{spans}</text>')
     y0 += 14
 
     x = 420
@@ -620,8 +651,7 @@ def chip(slug, ico, name, handle):
     W = round(16 + 22 + 14 + nw + 24)
     d = Doc(W, H, f"{name}: {handle}")
     d.add(f'<path d="{chamfer(0.5, 0.5, W - 1, H - 1, br=12)}" fill="{VOID}" stroke="{EDGE}"/>')
-    glow(d, std=2)
-    d.add(f'<g filter="url(#glow)">{icon(ico, 16, 15, 22)}</g>')
+    d.add(icon(ico, 16, 15, 22))
     d.text(52, 24, name, "om", 12, SIGNAL, ls=2)
     d.text(52, 40, handle, "mr", 11, ASH)
     d.save(f"c-{slug}.svg")
@@ -782,7 +812,7 @@ def telemetry():
         if x["row"] == 0 and dd.day <= 7 and (dd.month, dd.year) not in seen and x["col"] < cols - 1:
             seen.add((dd.month, dd.year))
             d.text(gx + x["col"] * pitch, gy - 10, f"{dd:%b}".lower(), "mr", 11, SMOKE)
-        cls = ' class="now" filter="url(#glow)"' if x is days[-1] else ""
+        cls = ' class="now"' if x is days[-1] else ""
         colg.setdefault(x["col"], []).append(
             f'<rect x="{gx + x["col"] * pitch:.1f}" y="{gy + x["row"] * pitch}" width="{cell}" '
             f'height="{cell}" fill="{shades[x["level"]]}"{cls}/>')
@@ -837,7 +867,7 @@ def footer():
                   '<feGaussianBlur stdDeviation="7" result="b"/>'
                   '<feComponentTransfer in="b" result="s"><feFuncA type="linear" slope=".6"/></feComponentTransfer>'
                   '<feMerge><feMergeNode in="s"/><feMergeNode in="SourceGraphic"/></feMerge></filter>')
-    d.text(W / 2, 92, "NAH, I'D HACK.", "ob", 36, SIGNAL, "middle", 9, extra=' filter="url(#neon)"')
+    d.text(W / 2, 92, "NAH, I'D HACK.", "ob", 36, SIGNAL, "middle", 9)
 
     # the line rises into BlackArch's glowing "A"; the katana passes straight through it
     c, size, y = W / 2, 114, 300
@@ -848,6 +878,7 @@ def footer():
     d.add(f'<path d="M60,{y} H{left:.1f} M{right:.1f},{y} H{W - 60}" stroke="{EDGE}"/>')
     d.add(f'<polygon points="{fmt_pts(outline)}" fill="none" stroke="#cfcfcf" stroke-width="2.2" '
           f'stroke-linejoin="round" filter="url(#glow)"/>')
+    d.defs.append(katana_defs(c, apex, size))
     d.add(katana(c, apex, size))
 
     # one bright pulse: in along the line, up and over the A, out the other side
