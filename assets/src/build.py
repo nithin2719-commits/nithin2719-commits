@@ -663,11 +663,11 @@ def chip(slug, ico, name, handle):
 OPS_PINNED = [("KRYPT", "Autonomous CTF triage and flag hunter.", "PRIVATE", True)]
 OPS_LIVE = 5
 OPS_NOTES = {  # hand-written one-liners; other repos use their About text, else their README's first line
-    "AGX": "Operations console for a team of autonomous coding agents.",
-    "blackarch_toolbox": "Launch any of BlackArch's ~4000 tools from one menu.",
-    "HYPRLAND-CONFIGS": "Graphite-monochrome Hyprland rice for Arch Linux.",
+    "AGX": "Operations console for autonomous coding agents.",
+    "blackarch_toolbox": "One menu for all ~4000 BlackArch tools.",
+    "HYPRLAND-CONFIGS": "Graphite-monochrome Hyprland rice for Arch.",
     "Medios": "Offline pharmacy POS and inventory system.",
-    "Mailflow": "Gmail threat detection and heuristic defense engine.",
+    "Mailflow": "Gmail threat detection + heuristic defense.",
 }
 
 
@@ -697,70 +697,121 @@ def readme_blurb(repo):
 
 
 def ops_data():
+    """Rows for the OPERATIONS panel: KRYPT pinned, then the most recently pushed original repos."""
     cache = HERE / "ops.json"
     try:
         repos = _get(f"https://api.github.com/users/{USER}/repos?per_page=100&sort=pushed")
-        rows = list(OPS_PINNED)
+        rows = [{"name": n, "desc": dsc, "chip": c, "private": True, "pushed": None, "pid": 2719}
+                for n, dsc, c, _ in OPS_PINNED]
         for r in [r for r in repos if not r["fork"] and r["name"].lower() != USER.lower()][:OPS_LIVE]:
-            desc = OPS_NOTES.get(r["name"]) or (r["description"] or "").strip() or readme_blurb(r["name"]) or "—"
-            rows.append((r["name"].replace("_", " ").upper(), desc, (r["language"] or "repo").upper(), False))
+            rows.append({
+                "name": r["name"].replace("_", " ").upper(),
+                "desc": OPS_NOTES.get(r["name"]) or (r["description"] or "").strip() or readme_blurb(r["name"]) or "—",
+                "chip": (r["language"] or "repo").upper(), "private": False,
+                "pushed": r["pushed_at"][:10], "pid": 3000 + r["id"] % 60000})
         cache.write_text(json.dumps(rows))
         return rows
     except Exception as e:
         print(f"  ! repo fetch failed ({e}); using {cache.name}")
-        return [tuple(x) for x in json.loads(cache.read_text())]
+        return json.loads(cache.read_text())
 
 
 def ops():
-    """All projects in one `ls -la` panel; a selection cursor steps down the entries."""
-    OPS = ops_data()
-    W, pad, top, rh = 1000, 24, 40, 36
-    H = top + len(OPS) * rh + 14
-    d = Doc(W, H, "Operations: " + "; ".join(f"{n} — {desc}" for n, desc, *_ in OPS))
+    """OPERATIONS as `htop`: each project is a process; real push dates drive state, bars and age."""
+    rows = ops_data()
+    today = dt.date.today()
+    for r in rows:
+        r["age"] = (today - dt.date.fromisoformat(r["pushed"])).days if r["pushed"] else None
+    try:  # load average = your real commits/day over 7, 30 and 90 days
+        days = json.loads((HERE / "telemetry.json").read_text())["days"]
+        load = "  ".join(f"{sum(x['count'] for x in days[-n:]) / n:.1f}" for n in (7, 30, 90))
+    except Exception:
+        load = "—"
+    running = sum(1 for r in rows if r["private"] or (r["age"] is not None and r["age"] <= 7))
+
+    W, pad, top, hh, rh = 1000, 24, 40, 24, 36
+    body = top + hh
+    H = body + len(rows) * rh + 8 + 30
+    d = Doc(W, H, "Operations: " + "; ".join(f"{r['name']} — {r['desc']}" for r in rows))
     d.add(f'<path d="{chamfer(0.5, 0.5, W - 1, H - 1, tr=20, bl=20)}" fill="{VOID}" stroke="{EDGE}"/>')
-    d.add(f'<path d="M0.5,{top - 4} H{W - 0.5}" stroke="{EDGE}"/>')
-    d.text(pad, 24, "~ ❯ ls -la ~/ops", "mr", 11.5, SMOKE)
-    d.text(W - pad, 24, f"total {len(OPS)}", "mr", 11.5, SMOKE, "end")
+    d.text(pad, 25, "~ ❯ htop -u nithin", "mr", 11.5, SMOKE)
+    d.text(W - pad, 25, f"tasks: {len(rows)}, {running} running   load average: {load}", "mr", 11.5, ASH, "end")
 
-    # selection cursor: a faint band + edge marker that hops row to row
-    n = len(OPS)
-    d.add(f'<g class="sel"><rect x="1" y="{top}" width="{W - 2}" height="{rh}" fill="#fff" opacity=".06"/>'
-          f'<rect x="1" y="{top}" width="3" height="{rh}" fill="{SIGNAL}"/></g>')
-    frames = "".join(f"{i / n * 100:.2f}%,{(i + 1) / n * 100 - 0.01:.2f}%{{transform:translateY({i * rh}px)}}"
-                     for i in range(n))
-    d.css.append(f".sel{{animation:sel {n * 1.2:.1f}s linear 1s infinite}}@keyframes sel{{{frames}}}")
+    cols = {"pid": pad, "user": pad + 58, "s": pad + 124, "bar": pad + 150, "age": pad + 262, "cmd": pad + 316}
+    d.add(f'<rect x="1" y="{top}" width="{W - 2}" height="{hh}" fill="#161616"/>')
+    for k, label in [("pid", "PID"), ("user", "USER"), ("s", "S"), ("bar", "LAST PUSH"), ("age", "AGE"), ("cmd", "COMMAND")]:
+        d.text(cols[k], top + 16, label, "mb", 10.5, ASH, ls=1)
 
-    name_x = pad + 104
-    desc_x = name_x + max(measure("ob", nm, 14, 1.2) for nm, *_ in OPS) + 34
-    for i, (name, desc, chip, private) in enumerate(OPS):
-        room = W - pad - 96 - desc_x
-        while measure("mr", desc, 12) > room:
-            desc = desc[:-2].rstrip(" ,.;:") + "…"
-        y = top + i * rh
+    def T(x, y, txt, font, size, fill, anchor="start", ls=0):
+        d.chars[font].update(txt)
+        a_ = f' text-anchor="{anchor}"' if anchor != "start" else ""
+        l_ = f' letter-spacing="{ls}"' if ls else ""
+        return f'<text x="{x:.1f}" y="{y:.1f}" font-family="{font}" font-size="{size}" fill="{fill}"{a_}{l_}>{esc(txt)}</text>'
+
+    name_w = max(measure("ob", r["name"], 13, 1) for r in rows)
+
+    def row(i, r, inv):
+        y = body + i * rh
         base = y + rh / 2 + 4.5
-        if i:
-            d.add(f'<path d="M{pad},{y} H{W - pad}" stroke="{GRID}"/>')
-        d.text(pad, base, "drwx------" if private else "drwxr-xr-x", "mr", 11, SMOKE)
-        if private:  # the private build's name flickers through ciphertext
-            d.text(name_x, base + 0.5, name, "ob", 14, SIGNAL, ls=1.2, cls="kt")
-            d.text(name_x, base + 0.5, "K#Y?7", "ob", 14, SIGNAL, ls=1.2, cls="kx")
-            d.text(name_x, base + 0.5, "%R/PT", "ob", 14, ASH, ls=1.2, cls="kx kx2")
-            d.css.append(".kx{opacity:0;animation:kx 5s steps(1) 1.5s infinite}.kx2{animation-name:kx2}"
-                         ".kt{animation:kt 5s steps(1) 1.5s infinite}"
-                         "@keyframes kt{0%{opacity:1}90%{opacity:0}96%{opacity:1}}"
-                         "@keyframes kx{0%{opacity:0}90%{opacity:1}93%{opacity:0}}"
-                         "@keyframes kx2{0%{opacity:0}93%{opacity:1}96%{opacity:0}}")
+        fg, dim, mid = ("#000", "#000", "#000") if inv else (SIGNAL, SMOKE, ASH)
+        out = [T(cols["pid"], base, str(r["pid"]), "mr", 12, dim if not inv else fg),
+               T(cols["user"], base, "root" if r["private"] else "nithin", "mr", 12, mid)]
+        state = "R" if r["private"] or (r["age"] is not None and r["age"] <= 7) else "S"
+        out.append(T(cols["s"], base, state, "mb", 12, fg if state == "R" else dim))
+        bx, seg = cols["bar"], 11
+        if r["private"]:  # classified: the meter is redacted
+            out.append(f'<rect x="{bx}" y="{y + 11}" width="{8 * seg - 3}" height="14" fill="{fg if inv else "#2a2a2a"}"/>')
+            out.append(T(bx + (8 * seg - 3) / 2, base, "REDACTED", "mb", 9, "#fff" if inv else ASH, "middle", 1.5))
+            age = "—"
         else:
-            d.text(name_x, base + 0.5, name, "ob", 14, SIGNAL, ls=1.2)
-        d.text(desc_x, base, desc, "mr", 12, ASH)
-        cw = measure("mb", chip, 10, 1.5) + 16
+            fill = max(1 if r["age"] <= 120 else 0, 8 - round(r["age"] / 11))
+            for k in range(8):
+                on = k < fill
+                col = (fg if on else "#555") if inv else (SIGNAL if on else "#222")
+                out.append(f'<rect x="{bx + k * seg}" y="{y + 11}" width="{seg - 3}" height="14" fill="{col}"/>')
+            age = "today" if r["age"] == 0 else f"{r['age']}d" if r["age"] < 60 else f"{r['age'] // 30}mo"
+        out.append(T(cols["age"], base, age, "mr", 12, mid))
+        out.append(T(cols["cmd"], base + 0.5, r["name"], "ob", 13, fg, ls=1))
+        dx = cols["cmd"] + name_w + 18
+        cw = measure("mb", r["chip"], 9.5, 1.5) + 14
+        room = W - pad - cw - 16 - dx
+        desc = r["desc"]
+        while measure("mr", desc, 11.5) > room:
+            desc = desc[:-2].rstrip(" ,.;:") + "…"
+        out.append(T(dx, base, desc, "mr", 11.5, mid if inv else SMOKE))
         cx = W - pad - cw
-        if private:
-            d.add(f'<rect x="{cx:.1f}" y="{y + 9}" width="{cw:.1f}" height="18" fill="{SIGNAL}"/>')
-            d.text(cx + cw / 2, y + 22, chip, "mb", 10, VOID, "middle", 1.5)
+        if r["private"]:
+            out.append(f'<rect x="{cx:.1f}" y="{y + 10}" width="{cw:.1f}" height="16" fill="{"#000" if inv else SIGNAL}"/>')
+            out.append(T(cx + cw / 2, y + 22, r["chip"], "mb", 9.5, "#fff" if inv else "#000", "middle", 1.5))
         else:
-            d.add(f'<rect x="{cx:.1f}" y="{y + 9.5}" width="{cw:.1f}" height="17" fill="none" stroke="{SMOKE}"/>')
-            d.text(cx + cw / 2, y + 22, chip, "mr", 10, ASH, "middle", 1.5)
+            out.append(f'<rect x="{cx:.1f}" y="{y + 10.5}" width="{cw:.1f}" height="15" fill="none" stroke="{fg if inv else SMOKE}"/>')
+            out.append(T(cx + cw / 2, y + 22, r["chip"], "mr", 9.5, fg if inv else ASH, "middle", 1.5))
+        return "".join(out)
+
+    for i, r in enumerate(rows):
+        if i:
+            d.add(f'<path d="M{pad},{body + i * rh} H{W - pad}" stroke="#141414"/>')
+        d.add(row(i, r, False))
+
+    # htop's selection bar: an inverted row stepping down the process list
+    ys = ";".join(str(body + i * rh) for i in range(len(rows)))
+    d.defs.append(f'<clipPath id="selc"><rect x="1" y="{body}" width="{W - 2}" height="{rh}">'
+                  f'<animate attributeName="y" values="{ys}" dur="{len(rows) * 1.4:.1f}s" calcMode="discrete" '
+                  f'repeatCount="indefinite"/></rect></clipPath>')
+    d.add(f'<g class="sel" clip-path="url(#selc)"><rect x="1" y="{body}" width="{W - 2}" height="{len(rows) * rh}" '
+          f'fill="{SIGNAL}"/>{"".join(row(i, r, True) for i, r in enumerate(rows))}</g>')
+
+    # the function-key bar along the bottom
+    fy = H - 30
+    d.add(f'<path d="M1,{fy - 4} H{W - 1}" stroke="{EDGE}"/>')
+    x = pad
+    for key, act in [("F1", "Help"), ("F2", "Setup"), ("F3", "Search"), ("F5", "Tree"), ("F6", "SortBy"),
+                     ("F9", "Kill"), ("F10", "Quit")]:
+        kw = measure("mb", key, 11) + 8
+        d.add(f'<rect x="{x}" y="{fy + 2}" width="{kw:.1f}" height="17" fill="{SIGNAL}"/>')
+        d.text(x + 4, fy + 15, key, "mb", 11, VOID)
+        d.text(x + kw + 5, fy + 15, act, "mr", 11, ASH)
+        x += kw + 5 + measure("mr", act, 11) + 20
     d.css.append(REDUCED.replace(".pulse,.beam{display:none}", ".pulse,.beam,.sel{display:none}"))
     d.save("ops.svg")
 
