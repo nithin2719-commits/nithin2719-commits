@@ -19,7 +19,7 @@
 
 <img src="./assets/h-ops.svg" width="100%" alt="operations" />
 
-<img src="./assets/o-krypt.svg" width="100%" alt="KRYPT — autonomous CTF triage and flag hunter (private)" /><a href="https://github.com/nithin2719-commits/blackarch_toolbox"><img src="./assets/o-toolbox.svg" width="100%" alt="BlackArch Toolbox" /></a><a href="https://github.com/nithin2719-commits/AGX"><img src="./assets/o-agx.svg" width="100%" alt="AGX" /></a><a href="https://github.com/nithin2719-commits/HYPRLAND-CONFIGS"><img src="./assets/o-hypr.svg" width="100%" alt="HYPRLAND-CONFIGS" /></a><a href="https://github.com/nithin2719-commits/EvidenceFlow"><img src="./assets/o-evidence.svg" width="100%" alt="EvidenceFlow" /></a><a href="https://github.com/nithin2719-commits/Medios"><img src="./assets/o-medios.svg" width="100%" alt="MediOS" /></a>
+<a href="https://github.com/nithin2719-commits?tab=repositories"><img src="./assets/ops.svg" width="100%" alt="Operations — KRYPT (private): autonomous CTF triage and flag hunter. BlackArch Toolbox: launch any of BlackArch's ~4000 tools from one menu. AGX: operations console for autonomous coding agents. HYPRLAND-CONFIGS: graphite-monochrome Hyprland rice. EvidenceFlow (fork): browser-based digital forensics workbench. MediOS: offline pharmacy POS and inventory system." /></a>
 
 <br/>
 

@@ -292,7 +292,7 @@ def pulse(d, path, length, cls, period, delay=0.0, travel=1.0, dash=70, width=2.
                  f"@keyframes {cls}{{0%{{stroke-dashoffset:{dash}}}{travel * 100:.1f}%,100%{{stroke-dashoffset:-{length:.0f}}}}}")
 
 
-REDUCED = "@media (prefers-reduced-motion:reduce){*{animation:none!important}.g,.gl,.pre,.scan{display:none}.f,.late,.t,.ln,.hc{opacity:1!important}.fl,.kx,.pulse,.beam{display:none}.mq{transform:none!important}}"
+REDUCED = "@media (prefers-reduced-motion:reduce){*{animation:none!important}.g,.gl,.pre,.scan{display:none}.f,.late,.t,.ln,.hc{opacity:1!important}.fl,.kx,.pulse,.beam,.sel{display:none}.mq{transform:none!important}}"
 
 
 # ── hero ─────────────────────────────────────────────────────────────────────
@@ -668,45 +668,54 @@ OPS = [
 ]
 
 
-def op_row(i, slug, name, desc, chip, private):
-    W, H = 1000, 56
-    d = Doc(W, H, f"{name}: {desc}")
-    shape = chamfer(0.5, 0.5, W - 1, H - 1, tr=12)
-    d.defs.append(f'<clipPath id="row"><path d="{shape}"/></clipPath>')
-    d.add(f'<path d="{shape}" fill="{VOID}" stroke="{EDGE}"/>')
-    d.text(20, 33, "drwx------" if private else "drwxr-xr-x", "mr", 11.5, SMOKE)
-    name_x = 122
-    if private:  # the private build's name flickers through ciphertext
-        d.text(name_x, 35, name, "ob", 17, SIGNAL, ls=1.5, cls="kt")
-        d.text(name_x, 35, "K#Y?7", "ob", 17, SIGNAL, ls=1.5, cls="kx")
-        d.text(name_x, 35, "%R/PT", "ob", 17, ASH, ls=1.5, cls="kx kx2")
-        d.css.append(".kx{opacity:0;animation:kx 5s steps(1) 1.5s infinite}.kx2{animation-name:kx2}"
-                     ".kt{animation:kt 5s steps(1) 1.5s infinite}"
-                     "@keyframes kt{0%{opacity:1}90%{opacity:0}96%{opacity:1}}"
-                     "@keyframes kx{0%{opacity:0}90%{opacity:1}93%{opacity:0}}"
-                     "@keyframes kx2{0%{opacity:0}93%{opacity:1}96%{opacity:0}}")
-    else:
-        d.text(name_x, 35, name, "ob", 17, SIGNAL, ls=1.5)
-    d.text(name_x + max(measure("ob", n, 17, 1.5) for _, n, *_ in OPS) + 28, 33, desc, "mr", 12.5, ASH)
+def ops():
+    """All projects in one `ls -la` panel; a selection cursor steps down the entries."""
+    W, pad, top, rh = 1000, 24, 40, 36
+    H = top + len(OPS) * rh + 14
+    d = Doc(W, H, "Operations: " + "; ".join(f"{n} — {desc}" for _, n, desc, *_ in OPS))
+    d.add(f'<path d="{chamfer(0.5, 0.5, W - 1, H - 1, tr=20, bl=20)}" fill="{VOID}" stroke="{EDGE}"/>')
+    d.add(f'<path d="M0.5,{top - 4} H{W - 0.5}" stroke="{EDGE}"/>')
+    d.text(pad, 24, "~ ❯ ls -la ~/ops", "mr", 11.5, SMOKE)
+    d.text(W - pad, 24, f"total {len(OPS)}", "mr", 11.5, SMOKE, "end")
 
-    cw = measure("mb", chip, 10.5, 1.5) + 18
-    cx = W - 26 - cw
-    if private:
-        d.add(f'<rect x="{cx:.1f}" y="18" width="{cw:.1f}" height="20" fill="{SIGNAL}"/>')
-        d.text(cx + cw / 2, 32, chip, "mb", 10.5, VOID, "middle", 1.5)
-    else:
-        d.add(f'<rect x="{cx:.1f}" y="18.5" width="{cw:.1f}" height="19" fill="none" stroke="{SMOKE}"/>')
-        d.text(cx + cw / 2, 32, chip, "mr", 10.5, ASH, "middle", 1.5)
+    # selection cursor: a faint band + edge marker that hops row to row
+    n = len(OPS)
+    d.add(f'<g class="sel"><rect x="1" y="{top}" width="{W - 2}" height="{rh}" fill="#fff" opacity=".06"/>'
+          f'<rect x="1" y="{top}" width="3" height="{rh}" fill="{SIGNAL}"/></g>')
+    frames = "".join(f"{i / n * 100:.2f}%,{(i + 1) / n * 100 - 0.01:.2f}%{{transform:translateY({i * rh}px)}}"
+                     for i in range(n))
+    d.css.append(f".sel{{animation:sel {n * 1.2:.1f}s linear 1s infinite}}@keyframes sel{{{frames}}}")
 
-    d.defs.append('<linearGradient id="beam" x1="0" y1="0" x2="1" y2="0">'
-                  '<stop offset="0" stop-color="#fff" stop-opacity="0"/>'
-                  '<stop offset=".9" stop-color="#fff" stop-opacity=".09"/>'
-                  '<stop offset="1" stop-color="#fff" stop-opacity=".45"/></linearGradient>')
-    d.add(f'<g clip-path="url(#row)"><rect class="beam" x="-180" y="0" width="180" height="{H}" fill="url(#beam)"/></g>')
-    d.css.append(f".beam{{animation:beam 6s linear {0.8 + i * 0.3:.1f}s infinite}}"
-                 f"@keyframes beam{{0%{{transform:translateX(0)}}30%,100%{{transform:translateX({W + 180}px)}}}}"
-                 + REDUCED.replace(".pulse{display:none}", ".pulse,.beam{display:none}"))
-    d.save(f"o-{slug}.svg")
+    name_x = pad + 104
+    desc_x = name_x + max(measure("ob", nm, 14, 1.2) for _, nm, *_ in OPS) + 34
+    for i, (slug, name, desc, chip, private) in enumerate(OPS):
+        y = top + i * rh
+        base = y + rh / 2 + 4.5
+        if i:
+            d.add(f'<path d="M{pad},{y} H{W - pad}" stroke="{GRID}"/>')
+        d.text(pad, base, "drwx------" if private else "drwxr-xr-x", "mr", 11, SMOKE)
+        if private:  # the private build's name flickers through ciphertext
+            d.text(name_x, base + 0.5, name, "ob", 14, SIGNAL, ls=1.2, cls="kt")
+            d.text(name_x, base + 0.5, "K#Y?7", "ob", 14, SIGNAL, ls=1.2, cls="kx")
+            d.text(name_x, base + 0.5, "%R/PT", "ob", 14, ASH, ls=1.2, cls="kx kx2")
+            d.css.append(".kx{opacity:0;animation:kx 5s steps(1) 1.5s infinite}.kx2{animation-name:kx2}"
+                         ".kt{animation:kt 5s steps(1) 1.5s infinite}"
+                         "@keyframes kt{0%{opacity:1}90%{opacity:0}96%{opacity:1}}"
+                         "@keyframes kx{0%{opacity:0}90%{opacity:1}93%{opacity:0}}"
+                         "@keyframes kx2{0%{opacity:0}93%{opacity:1}96%{opacity:0}}")
+        else:
+            d.text(name_x, base + 0.5, name, "ob", 14, SIGNAL, ls=1.2)
+        d.text(desc_x, base, desc, "mr", 12, ASH)
+        cw = measure("mb", chip, 10, 1.5) + 16
+        cx = W - pad - cw
+        if private:
+            d.add(f'<rect x="{cx:.1f}" y="{y + 9}" width="{cw:.1f}" height="18" fill="{SIGNAL}"/>')
+            d.text(cx + cw / 2, y + 22, chip, "mb", 10, VOID, "middle", 1.5)
+        else:
+            d.add(f'<rect x="{cx:.1f}" y="{y + 9.5}" width="{cw:.1f}" height="17" fill="none" stroke="{SMOKE}"/>')
+            d.text(cx + cw / 2, y + 22, chip, "mr", 10, ASH, "middle", 1.5)
+    d.css.append(REDUCED.replace(".pulse,.beam{display:none}", ".pulse,.beam,.sel{display:none}"))
+    d.save("ops.svg")
 
 
 # ── telemetry (self-hosted, so ad blockers and dead stat services can't blank it) ──
@@ -910,8 +919,7 @@ if __name__ == "__main__":
         header(slug, title, note, delay=i * 1.3)
     fetch()
     arsenal()
-    for i, op in enumerate(OPS):
-        op_row(i, *op)
+    ops()
     telemetry()
     for slug, ico, name, handle in [
         ("github", "github", "GITHUB", "nithin2719-commits"),
