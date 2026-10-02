@@ -247,11 +247,14 @@ BLADE_GRADIENT = ('<linearGradient id="blade" x1="0" y1="0" x2="1" y2="0">'
 
 
 def blackarch_icon():
-    """BlackArch's mark at icon size: the A in outline, a sword straight through it."""
-    a = fmt_pts(arch_pts(ARCH_A, 12, 23.4, 17.5))
-    return (f'<polygon points="{a}" fill="none" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"/>'
-            '<rect x="11.3" y="5.2" width="1.4" height="18.8"/><rect x="8.9" y="4" width="6.2" height="1.4"/>'
-            '<rect x="10.9" y="0.2" width="2.2" height="3.8"/>')
+    """BlackArch at icon size: a solid Arch "A" (inner arch + shoulder notch intact) with a thin
+    blade cut through its centre and a compact sword hilt standing above the apex."""
+    a = fmt_pts(arch_pts(ARCH_A, 12, 24, 18.6))
+    return (f'<polygon points="{a}" fill="#fff" stroke="none"/>'
+            '<path d="M12 6.6V24" stroke="#000" stroke-width="1.25"/>'
+            '<rect x="9.2" y="4.3" width="5.6" height="1.25" fill="#fff"/>'
+            '<rect x="11.3" y="1.5" width="1.4" height="2.8" fill="#fff"/>'
+            '<rect x="10.8" y=".4" width="2.4" height="1.2" fill="#fff"/>')
 
 
 def icon(slug, x, y, size, fill=SIGNAL):
