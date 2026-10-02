@@ -277,7 +277,7 @@ def glow(d, fid="glow", std=3.0, layers=2):
     """Neon bloom: the element plus blurred copies of itself."""
     if any(f'id="{fid}"' in x for x in d.defs):
         return
-    d.defs.append(f'<filter id="{fid}" x="-50%" y="-50%" width="200%" height="200%">'
+    d.defs.append(f'<filter id="{fid}" filterUnits="userSpaceOnUse" x="-500" y="-500" width="3000" height="3000">'
                   f'<feGaussianBlur stdDeviation="{std}" result="b"/><feMerge>'
                   + '<feMergeNode in="b"/>' * layers + '<feMergeNode in="SourceGraphic"/></feMerge></filter>')
 
@@ -903,63 +903,40 @@ def telemetry():
     d.add(f'<path d="M36,156 H{W - 36}" stroke="{GRID}"/>')
     pulse(d, f"M36,156 H{W - 36}", W - 72, "r1", 7, 1.4, 0.35, dash=90)
 
-    # vitals monitor: the last 90 days as an ECG trace that keeps redrawing itself
-    win = days[-90:]
-    hi = max(x["count"] for x in win) or 1
-    avg = sum(x["count"] for x in win) / len(win)
-    wpk = max(win, key=lambda x: x["count"])
-    px0, px1, ptop, pbot = 36, 792, 196, 334
-    d.text(36, 182, "vitals  //  daily commits, last 90 days", "mr", 11.5, SMOKE)
-    grid = []
-    for gx_ in range(px0, px1 + 1, 12):
-        grid.append(f'<path d="M{gx_},{ptop} V{pbot}" stroke="{"#1a1a1a" if (gx_ - px0) % 60 == 0 else "#0d0d0d"}"/>')
-    for gy_ in range(pbot, ptop - 1, -12):
-        grid.append(f'<path d="M{px0},{gy_} H{px1}" stroke="{"#1a1a1a" if (pbot - gy_) % 60 == 0 else "#0d0d0d"}"/>')
-    d.add("".join(grid))
-    step = (px1 - px0) / (len(win) - 1)
-    pts = [(px0 + i * step, pbot - 6 - (x["count"] / hi) ** 0.5 * (pbot - ptop - 22)) for i, x in enumerate(win)]
-    curve = f"M{pts[0][0]:.1f},{pts[0][1]:.1f}"
-    for i in range(len(pts) - 1):  # catmull-rom → bezier, clamped so it never dips under the baseline
-        p0, p1, p2 = pts[max(i - 1, 0)], pts[i], pts[i + 1]
-        p3 = pts[min(i + 2, len(pts) - 1)]
-        c1 = (p1[0] + (p2[0] - p0[0]) / 6, min(pbot - 6, p1[1] + (p2[1] - p0[1]) / 6))
-        c2 = (p2[0] - (p3[0] - p1[0]) / 6, min(pbot - 6, p2[1] - (p3[1] - p1[1]) / 6))
-        curve += f" C{c1[0]:.1f},{c1[1]:.1f} {c2[0]:.1f},{c2[1]:.1f} {p2[0]:.1f},{p2[1]:.1f}"
-    d.defs.append('<linearGradient id="wf" x1="0" y1="0" x2="0" y2="1">'
-                  '<stop offset="0" stop-color="#fff" stop-opacity=".18"/>'
-                  '<stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>')
-    d.add(f'<path d="{curve} L{px1},{pbot} L{px0},{pbot} Z" fill="url(#wf)"/>')
-    d.add(f'<path d="{curve}" fill="none" stroke="#3d3d3d" stroke-width="1.4"/>')
+    # signal: one mirrored bar per week, sitting exactly above that week's heatmap column
+    cols = max(x["col"] for x in days) + 1
+    gutter = 40
+    pitch = int((W - 72 - gutter) / cols)
+    cell = pitch - 3
+    gx = 36 + gutter + (W - 72 - gutter - cols * pitch + 3) / 2
+    weekly = [0] * cols
+    for x in days:
+        weekly[x["col"]] += x["count"]
+    top_w = max(weekly) or 1
+    avg_day = total / len(days)
+    d.text(36, 184, "signal  //  weekly commits, last 12 months", "mr", 11.5, SMOKE)
+    d.text(W - 36, 184, f"avg {avg_day:.1f}/day  //  best week {top_w}", "mr", 11.5, SMOKE, "end")
+    cy, amp = 262, 50
+    bars = []
+    for c, tot in enumerate(weekly):
+        h = 2 + (tot / top_w) ** 0.5 * amp if tot else 1.5
+        bars.append(f'<rect x="{gx + c * pitch:.1f}" y="{cy - h:.1f}" width="{cell}" height="{2 * h:.1f}" rx="{cell / 2:.1f}"/>')
+    d.add(f'<path d="M{gx:.1f},{cy} H{gx + cols * pitch - 3:.1f}" stroke="#1c1c1c"/>')
+    d.add(f'<g fill="#2c2c2c">{"".join(bars)}</g>')
     glow(d)
-    period, draw = 7, 0.72
-    d.add(f'<path d="{curve}" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" pathLength="1000" '
-          f'stroke-dasharray="1000" stroke-dashoffset="0" filter="url(#glow)">'
-          f'<animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;{draw};1" dur="{period}s" '
-          f'repeatCount="indefinite"/></path>')
-    d.add(f'<circle r="5" fill="#fff" filter="url(#glow)">'
-          f'<animateMotion dur="{period}s" repeatCount="indefinite" path="{curve}" keyPoints="0;1;1" '
-          f'keyTimes="0;{draw};1" calcMode="linear"/>'
-          f'<animate attributeName="opacity" values="1;1;0;0" keyTimes="0;{draw - 0.01:.2f};{draw};1" dur="{period}s" '
-          f'repeatCount="indefinite"/></circle>')
-    kx, ky = pts[win.index(wpk)]
-    d.add(f'<circle cx="{kx:.1f}" cy="{ky:.1f}" r="3.5" fill="{SIGNAL}"/>')
-    d.text(kx, ky - 10, str(wpk["count"]), "mr", 10.5, ASH, "middle")
-    for i in (0, len(win) // 2, len(win) - 1):
-        anchor = "start" if i == 0 else "end" if i == len(win) - 1 else "middle"
-        d.text(pts[i][0], pbot + 17, _fmt(win[i]["date"]).lower(), "mr", 10.5, SMOKE, anchor)
-
-    # monitor readout, right of the trace
-    rx = px1 + 26
-    d.add(f'<path d="M{px1 + 12},{ptop} V{pbot}" stroke="{EDGE}"/>')
-    d.text(rx, ptop + 14, "AVG / DAY", "mb", 10.5, SMOKE, ls=2)
-    d.text(rx, ptop + 62, f"{avg:.1f}", "ob", 44, SIGNAL, ls=1)
-    d.add(f'<rect class="now" x="{W - 80}" y="{ptop + 5}" width="8" height="8" fill="{SIGNAL}"/>')
-    d.text(W - 36, ptop + 13.5, "LIVE", "mb", 10.5, ASH, "end", 2)
-    d.text(rx, ptop + 98, "PEAK", "mb", 10.5, SMOKE, ls=2)
-    d.text(rx, ptop + 126, str(wpk["count"]), "ob", 24, SIGNAL, ls=1)
-    d.text(rx + measure("ob", str(wpk["count"]), 24, 1) + 10, ptop + 126, _fmt(wpk["date"]).lower(), "mr", 11, SMOKE)
-    d.add(f'<path d="M36,366 H{W - 36}" stroke="{GRID}"/>')
-    pulse(d, f"M{W - 36},366 H36", W - 72, "r3", 7, 2.6, 0.35, dash=90)
+    sweep, period, frac = cols * pitch, 9, 0.78
+    d.defs.append(f'<clipPath id="played"><rect x="{gx - 2:.1f}" y="{cy - amp - 6}" width="0" height="{2 * amp + 12}">'
+                  f'<animate attributeName="width" values="0;{sweep:.0f};{sweep:.0f}" keyTimes="0;{frac};1" '
+                  f'dur="{period}s" repeatCount="indefinite"/></rect></clipPath>')
+    d.add(f'<g fill="{SIGNAL}" clip-path="url(#played)" filter="url(#glow)">{"".join(bars)}</g>')
+    heat_bottom = 356 + 7 * pitch
+    d.add(f'<g><path d="M{gx - 2:.1f},{cy - amp - 10} V{heat_bottom}" stroke="{SIGNAL}" stroke-width="1.5" '
+          f'opacity=".85" filter="url(#glow)"/>'
+          f'<path d="M{gx - 7:.1f},{cy - amp - 16} h10 l-5,6 z" fill="{SIGNAL}"/>'
+          f'<animateTransform attributeName="transform" type="translate" values="0 0;{sweep:.0f} 0;{sweep:.0f} 0" '
+          f'keyTimes="0;{frac};1" dur="{period}s" repeatCount="indefinite"/>'
+          f'<animate attributeName="opacity" values="1;1;0;0" keyTimes="0;{frac - 0.01:.2f};{frac};1" '
+          f'dur="{period}s" repeatCount="indefinite"/></g>')
 
     # heatmap
     cols = max(x["col"] for x in days) + 1
@@ -967,7 +944,7 @@ def telemetry():
     pitch = int((W - 72 - gutter) / cols)
     cell = pitch - 3
     gx = 36 + gutter + (W - 72 - gutter - cols * pitch + 3) / 2
-    gy = 410
+    gy = 356
     shades = ["#161616", "#3d3d3d", "#707070", "#a8a8a8", SIGNAL]
     seen = set()
     colg = {}
