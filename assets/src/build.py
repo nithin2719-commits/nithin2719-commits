@@ -12,6 +12,7 @@ import base64
 import datetime as dt
 import io
 import json
+import math
 import os
 import re
 import pathlib
@@ -872,39 +873,82 @@ def telemetry():
     cell = pitch - 3
     gx = 36 + gutter + (W - 72 - gutter - cols * pitch + 3) / 2
     weekly = [0] * cols
+    col_day = {}
     for x in days:
         weekly[x["col"]] += x["count"]
+        col_day.setdefault(x["col"], x["date"])
     top_w = max(weekly) or 1
-    d.text(36, 184, "signal  //  weekly commits", "mr", 11.5, SMOKE)
-    cy, amp = 262, 50
-    bars = []
-    for c, tot in enumerate(weekly):
-        h = 2 + (tot / top_w) ** 0.5 * amp if tot else 1.5
-        bars.append(f'<rect x="{gx + c * pitch:.1f}" y="{cy - h:.1f}" width="{cell}" height="{2 * h:.1f}" rx="{cell / 2:.1f}"/>')
-    d.add(f'<path d="M{gx:.1f},{cy} H{gx + cols * pitch - 3:.1f}" stroke="#1c1c1c"/>')
-    d.add(f'<g fill="#2c2c2c">{"".join(bars)}</g>')
+
+    # radar: 12 months of weekly commits around the dial, a beam sweeping it
+    cx, cy, R = 186, 330, 116
+    d.text(36, 184, "radar  //  weekly commits, 12 months", "mr", 11.5, SMOKE)
+    d.add(f'<circle cx="{cx}" cy="{cy}" r="{R}" fill="#050505" stroke="#3a3a3a" stroke-width="1.5"/>')
+    for f in (0.25, 0.5, 0.75):
+        d.add(f'<circle cx="{cx}" cy="{cy}" r="{R * f:.1f}" fill="none" stroke="#1c1c1c"/>')
+    d.add(f'<path d="M{cx - R},{cy} H{cx + R} M{cx},{cy - R} V{cy + R}" stroke="#1c1c1c"/>')
+    ang = lambda c: math.radians(-90 + c * 360 / cols)
+    seen_m = set()
+    for c in range(cols):
+        dd = dt.date.fromisoformat(col_day[c])
+        if (dd.month, dd.year) not in seen_m and dd.day <= 7:
+            seen_m.add((dd.month, dd.year))
+            th = ang(c)
+            d.add(f'<path d="M{cx + R * math.cos(th):.1f},{cy + R * math.sin(th):.1f} '
+                  f'L{cx + (R + 6) * math.cos(th):.1f},{cy + (R + 6) * math.sin(th):.1f}" stroke="{SMOKE}"/>')
+            d.text(cx + (R + 17) * math.cos(th), cy + (R + 17) * math.sin(th) + 3.5, f"{dd:%b}".lower()[:3], "mr", 9.5,
+                   SMOKE, "middle")
+    rad = lambda w: R * (0.16 + 0.78 * (w / top_w) ** 0.5)  # quiet weeks sit on an inner ring, not the centre
+    sig = [(cx + rad(w) * math.cos(ang(c)), cy + rad(w) * math.sin(ang(c))) for c, w in enumerate(weekly)]
     glow(d)
-    sweep, period, frac = cols * pitch, 9, 0.78
-    d.defs.append(f'<clipPath id="played"><rect x="{gx - 2:.1f}" y="{cy - amp - 6}" width="0" height="{2 * amp + 12}">'
-                  f'<animate attributeName="width" values="0;{sweep:.0f};{sweep:.0f}" keyTimes="0;{frac};1" '
-                  f'dur="{period}s" repeatCount="indefinite"/></rect></clipPath>')
-    d.add(f'<g fill="{SIGNAL}" clip-path="url(#played)" filter="url(#glow)">{"".join(bars)}</g>')
-    heat_bottom = 356 + 7 * pitch
-    d.add(f'<g><path d="M{gx - 2:.1f},{cy - amp - 10} V{heat_bottom}" stroke="{SIGNAL}" stroke-width="1.5" '
-          f'opacity=".85" filter="url(#glow)"/>'
-          f'<path d="M{gx - 7:.1f},{cy - amp - 16} h10 l-5,6 z" fill="{SIGNAL}"/>'
-          f'<animateTransform attributeName="transform" type="translate" values="0 0;{sweep:.0f} 0;{sweep:.0f} 0" '
-          f'keyTimes="0;{frac};1" dur="{period}s" repeatCount="indefinite"/>'
-          f'<animate attributeName="opacity" values="1;1;0;0" keyTimes="0;{frac - 0.01:.2f};{frac};1" '
+    d.add(f'<polygon points="{fmt_pts(sig)}" fill="#fff" fill-opacity=".07" stroke="#cfcfcf" stroke-width="1.3" '
+          f'stroke-linejoin="round" filter="url(#glow)"/>')
+    period = 6
+    beam = []
+    for k in range(14):  # trailing fade: thin slices, brightest at the leading edge
+        a0, a1 = math.radians(-90 - k * 3), math.radians(-90 - (k + 1) * 3)
+        beam.append(f'<path d="M{cx},{cy} L{cx + R * math.cos(a0):.1f},{cy + R * math.sin(a0):.1f} '
+                    f'A{R},{R} 0 0 0 {cx + R * math.cos(a1):.1f},{cy + R * math.sin(a1):.1f} Z" '
+                    f'fill="#fff" fill-opacity="{0.26 * (1 - k / 14) ** 1.6:.3f}"/>')
+    d.add(f'<g>{"".join(beam)}<path d="M{cx},{cy} V{cy - R}" stroke="#fff" stroke-width="1.6" filter="url(#glow)"/>'
+          f'<animateTransform attributeName="transform" type="rotate" from="0 {cx} {cy}" to="360 {cx} {cy}" '
           f'dur="{period}s" repeatCount="indefinite"/></g>')
+    for c, w in enumerate(weekly):
+        if w:
+            x_, y_ = sig[c]
+            d.add(f'<circle class="blip" cx="{x_:.1f}" cy="{y_:.1f}" r="{2 + 2.2 * (w / top_w) ** 0.5:.1f}" fill="#fff" '
+                  f'style="animation-delay:{c / cols * period:.2f}s"/>')
+    d.add(f'<circle cx="{cx}" cy="{cy}" r="3" fill="#fff"/>')
+    d.css.append(f".blip{{opacity:.3;animation:blip {period}s linear infinite}}"
+                 "@keyframes blip{0%{opacity:1}35%,100%{opacity:.3}}")
+
+    # live log: the last 7 days, newest first
+    lx0 = 382
+    d.text(lx0, 184, "tail -f /var/log/commits", "mr", 11.5, SMOKE)
+    recent = list(reversed(days[-7:]))
+    top_d = max(x["count"] for x in recent) or 1
+    for i, x in enumerate(recent):
+        ry = 232 + i * 31
+        dd = dt.date.fromisoformat(x["date"])
+        hot = x["count"] > 0
+        d.text(lx0, ry, "[+]" if hot else "[-]", "mb", 12.5, SIGNAL if hot else SMOKE)
+        d.text(lx0 + 40, ry, f"{dd:%a %b} {dd.day:02d}".lower(), "mr", 12.5, ASH if hot else SMOKE)
+        bx = lx0 + 170
+        if hot:
+            segs = max(1, round(28 * (x["count"] / top_d) ** 0.7))
+            d.add("".join(f'<rect x="{bx + k * 9}" y="{ry - 10}" width="6" height="11" fill="{SIGNAL}"/>' for k in range(segs)))
+            label = f"{x['count']} commit" + ("s" if x["count"] != 1 else "")
+            d.text(bx + segs * 9 + 8, ry, label, "mr", 12.5, ASH)
+        else:
+            d.text(bx, ry, "idle", "mr", 12.5, SMOKE)
+        if i == 0:
+            d.add(f'<rect class="cur" x="{W - 44}" y="{ry - 11}" width="8" height="14" fill="{SIGNAL}"/>')
+    d.css.append(".cur{animation:blink 1.1s steps(1) infinite}")
+    d.add(f'<path d="M36,486 H{W - 36}" stroke="{GRID}"/>')
+    pulse(d, f"M{W - 36},486 H36", W - 72, "r3", 7, 2.6, 0.35, dash=90)
+    gy_shift = 174
 
     # heatmap
-    cols = max(x["col"] for x in days) + 1
-    gutter = 40
-    pitch = int((W - 72 - gutter) / cols)
-    cell = pitch - 3
-    gx = 36 + gutter + (W - 72 - gutter - cols * pitch + 3) / 2
-    gy = 356
+    gy = 356 + gy_shift
     shades = ["#161616", "#3d3d3d", "#707070", "#a8a8a8", SIGNAL]
     seen = set()
     colg = {}
