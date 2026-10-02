@@ -146,9 +146,6 @@ def bracket(x, y, size, dx, dy, stroke=SIGNAL, width=2):
 
 # ── icons: simple-icons (CC0) where a brand has one, hand-drawn otherwise ────
 CUSTOM_ICONS = {
-    # the BlackArch sword
-    "blackarch": '<path d="M12 0 14.9 3.4V14.2H9.1V3.4Z"/><path d="M4.6 14.2H19.4V17H4.6Z"/>'
-                 '<path d="M10.6 17H13.4V20.8H10.6Z"/><circle cx="12" cy="21.8" r="2.2"/>',
     # radar sweep for nmap
     "nmap": '<g fill="none" stroke="#fff" stroke-width="1.8"><circle cx="12" cy="12" r="10"/>'
             '<circle cx="12" cy="12" r="5.5"/><path d="M12 12 19.2 4.8" stroke-width="2.2"/></g>'
@@ -173,8 +170,56 @@ def icon_path(slug):
     return re.search(r' d="([^"]+)"', path.read_text()).group(1)
 
 
+# Arch "A" outline on a 100-unit box (apex at 50,0; feet on y=100), traced as one contour:
+# left edge with its shoulder notch, left foot, inner arch, right foot, right notch, right edge.
+ARCH_A = [(50, 0), (37.9, 28.5), (50.7, 39.6), (36.5, 31.5), (0, 99.5), (38.4, 82.6), (37.6, 75.9),
+          (39.0, 67.2), (43.0, 60.5), (50.7, 57.2), (58.0, 61.0), (61.8, 69.2), (62.5, 77.3), (61.9, 82.7),
+          (100, 99.5), (91.6, 83.9), (74.3, 72.1), (88.1, 77.5)]
+# the part the signal rides: up the left edge, over the apex, down the right edge
+ARCH_RIDGE = [(0, 99.5), (36.5, 31.5), (50.7, 39.6), (37.9, 28.5), (50, 0), (88.1, 77.5), (74.3, 72.1),
+              (91.6, 83.9), (100, 99.5)]
+
+
+def arch_pts(points, cx, base, size):
+    return [(cx + (x - 50) / 100 * size, base - size + y / 100 * size) for x, y in points]
+
+
+def fmt_pts(points):
+    return " ".join(f"{x:.1f},{y:.1f}" for x, y in points)
+
+
+def katana(cx, apex, size, glow=""):
+    """Katana through the A: wrapped hilt above the apex, blade down past the feet."""
+    u = size / 100
+    hilt_top, guard = apex - 62 * u, apex - 9 * u
+    wraps = "".join(
+        f'<path d="M{cx - 3.2 * u:.1f},{y:.1f} L{cx + 3.2 * u:.1f},{y + 3.5 * u:.1f} M{cx + 3.2 * u:.1f},{y:.1f} '
+        f'L{cx - 3.2 * u:.1f},{y + 3.5 * u:.1f}" stroke="{SIGNAL}" stroke-width="{0.9 * u:.2f}"/>'
+        for y in [hilt_top + 4 * u + i * 6.5 * u for i in range(7)])
+    return (f'<rect x="{cx - 3.6 * u:.1f}" y="{hilt_top:.1f}" width="{7.2 * u:.1f}" height="{guard - hilt_top - 2 * u:.1f}" '
+            f'fill="#111" stroke="{SIGNAL}" stroke-width="{0.8 * u:.2f}"/>{wraps}'
+            f'<ellipse cx="{cx}" cy="{guard:.1f}" rx="{9 * u:.1f}" ry="{2.4 * u:.1f}" fill="{SIGNAL}"{glow}/>'
+            f'<path d="M{cx - 2.4 * u:.1f},{guard + 2 * u:.1f} H{cx + 2.4 * u:.1f} V{apex + 112 * u:.1f} '
+            f'L{cx},{apex + 120 * u:.1f} L{cx - 2.4 * u:.1f},{apex + 112 * u:.1f} Z" fill="url(#blade)"/>'
+            f'<path d="M{cx + 2.4 * u:.1f},{guard + 2 * u:.1f} V{apex + 112 * u:.1f} L{cx},{apex + 120 * u:.1f}" '
+            f'fill="none" stroke="{SIGNAL}" stroke-width="{0.7 * u:.2f}"/>')
+
+
+BLADE_GRADIENT = ('<linearGradient id="blade" x1="0" y1="0" x2="1" y2="0">'
+                  '<stop offset="0" stop-color="#5e5e5e"/><stop offset=".55" stop-color="#bdbdbd"/>'
+                  '<stop offset="1" stop-color="#ffffff"/></linearGradient>')
+
+
+def blackarch_icon():
+    """BlackArch's mark at icon size: the A in outline, a sword straight through it."""
+    a = fmt_pts(arch_pts(ARCH_A, 12, 23.4, 17.5))
+    return (f'<polygon points="{a}" fill="none" stroke="#fff" stroke-width="1.7" stroke-linejoin="round"/>'
+            '<rect x="11.3" y="5.2" width="1.4" height="18.8"/><rect x="8.9" y="4" width="6.2" height="1.4"/>'
+            '<rect x="10.9" y="0.2" width="2.2" height="3.8"/>')
+
+
 def icon(slug, x, y, size, fill=SIGNAL):
-    inner = CUSTOM_ICONS.get(slug) or f'<path d="{icon_path(slug)}"/>'
+    inner = blackarch_icon() if slug == "blackarch" else CUSTOM_ICONS.get(slug) or f'<path d="{icon_path(slug)}"/>'
     return f'<g transform="translate({x:.1f},{y:.1f}) scale({size / 24:.4f})" fill="{fill}">{inner}</g>'
 
 
@@ -193,7 +238,7 @@ def tear(d, text_svg, slices, period, delay, cls):
                      f"{b:.1f}%{{opacity:1;transform:translateX({-dx * 0.6:.0f}px)}}{b + 0.8:.1f}%{{opacity:0}}}}")
 
 
-REDUCED = "@media (prefers-reduced-motion:reduce){*{animation:none!important}.g,.gl,.pre,.scan{display:none}.f,.late,.t,.ln,.hc{opacity:1!important}.fl,.kx,.pulse{display:none}.mq{transform:none!important}}"
+REDUCED = "@media (prefers-reduced-motion:reduce){*{animation:none!important}.g,.gl,.pre,.scan{display:none}.f,.late,.t,.ln,.hc{opacity:1!important}.fl,.kx,.pulse,.beam{display:none}.mq{transform:none!important}}"
 
 
 # ── hero ─────────────────────────────────────────────────────────────────────
@@ -436,68 +481,61 @@ ARSENAL = [
 
 
 def arsenal():
-    W, pad, rh, gap, top = 1000, 24, 92, 10, 60
-    H = top + len(ARSENAL) * (rh + gap) - gap + pad
+    W, pad, rh, gap, top = 1000, 24, 40, 8, 56
+    H = top + len(ARSENAL) * (rh + gap) - gap + 22
     count = sum(1 for _, tools in ARSENAL for t in tools if t)
     d = Doc(W, H, "Arsenal: " + ", ".join(t[1] for _, tools in ARSENAL for t in tools if t))
-    d.add(f'<path d="{chamfer(0.5, 0.5, W - 1, H - 1, tr=24, bl=24)}" fill="{VOID}" stroke="{EDGE}"/>')
-    d.add(f'<path d="M0.5,40 H{W - 0.5}" stroke="{EDGE}"/>')
-    d.text(pad, 25, "/opt/arsenal", "mr", 12, SMOKE)
-    d.text(W - pad - 4, 25, "loading modules …", "mr", 12, SMOKE, "end", cls="pre")
+    d.add(f'<path d="{chamfer(0.5, 0.5, W - 1, H - 1, tr=20, bl=20)}" fill="{VOID}" stroke="{EDGE}"/>')
+    d.add(f'<path d="M0.5,36 H{W - 0.5}" stroke="{EDGE}"/>')
+    d.text(pad, 23, "/opt/arsenal", "mr", 11.5, SMOKE)
+    d.text(W - pad - 4, 23, "loading modules …", "mr", 11.5, SMOKE, "end", cls="pre")
     msg = f"{count} modules online"
-    d.text(W - pad - 4, 25, msg, "mr", 12, ASH, "end", cls="f late", extra=' style="animation-delay:1.5s"')
-    d.add(f'<rect class="f late" style="animation-delay:1.5s" x="{W - pad - 18 - measure("mr", msg, 12):.1f}" '
-          f'y="16" width="8" height="8" fill="{SIGNAL}"/>')
+    d.text(W - pad - 4, 23, msg, "mr", 11.5, ASH, "end", cls="f late", extra=' style="animation-delay:1.3s"')
+    d.add(f'<rect class="f late" style="animation-delay:1.3s" x="{W - pad - 18 - measure("mr", msg, 11.5):.1f}" '
+          f'y="15" width="7" height="7" fill="{SIGNAL}"/>')
 
-    cat_w = 146
-    x0 = pad + cat_w + gap
+    cat_w = 150
+    x0 = pad + cat_w
     tw = (W - pad - x0 - 5 * gap) / 6
     k = 0
-    for r, ((l1, l2), tools) in enumerate(ARSENAL):
+    for r, ((l1, _), tools) in enumerate(ARSENAL):
         y = top + r * (rh + gap)
         d.add(f'<rect x="{pad}" y="{y}" width="3" height="{rh}" fill="{SIGNAL}"/>')
-        d.text(pad + 16, y + 32, l1, "ob", 14, SIGNAL, ls=1.5)
-        if l2:
-            d.text(pad + 16, y + 51, l2, "ob", 14, SIGNAL, ls=1.5)
-        d.text(pad + 16, y + rh - 14, f"{sum(1 for t in tools if t):02d} modules", "mr", 11, SMOKE)
+        d.text(pad + 14, y + 17, l1, "ob", 12, SIGNAL, ls=1.5)
+        d.text(pad + 14, y + 32, f"{sum(1 for t in tools if t):02d} modules", "mr", 10, SMOKE)
         for c, tool in enumerate(tools):
             x = x0 + c * (tw + gap)
-            shape = chamfer(x + 0.5, y + 0.5, tw - 1, rh - 1, tr=10)
+            shape = chamfer(x + 0.5, y + 0.5, tw - 1, rh - 1, tr=8)
             if tool is None:
-                d.add(f'<path d="{shape}" fill="none" stroke="{SMOKE}" stroke-dasharray="4 4"/>')
-                d.text(x + tw / 2, y + 44, "+", "ob", 22, SMOKE, "middle")
-                d.text(x + tw / 2, y + 70, "slot open", "mr", 10.5, SMOKE, "middle")
+                d.add(f'<path d="{shape}" fill="none" stroke="{SMOKE}" stroke-dasharray="3 4"/>')
+                d.text(x + tw / 2, y + 24, "+ slot open", "mr", 10, SMOKE, "middle")
                 continue
-            slug, name, role = tool
+            slug, name, _ = tool
             label = name.upper()
-            size = min(11.5, 11.5 * (tw - 28) / measure("om", label, 11.5, 1))
-            delay = 0.25 + k * 0.045
+            size = min(10.5, 10.5 * (tw - 46) / measure("om", label, 10.5, 1))
+            delay = 0.2 + k * 0.035
             k += 1
-            inner = (f'<path d="{shape}" fill="{VOID}" stroke="{EDGE}"/>'
-                     + icon(slug, x + 14, y + 14, 22)
-                     + f'<rect x="{x + tw - 24:.1f}" y="{y + 15}" width="5" height="5" fill="{SIGNAL}"/>')
-            d.chars["om"].update(label); d.chars["mr"].update(role)
-            inner += (f'<text x="{x + 14:.1f}" y="{y + 64}" font-family="om" font-size="{size:.2f}" '
-                      f'letter-spacing="1" fill="{SIGNAL}">{esc(label)}</text>'
-                      f'<text x="{x + 14:.1f}" y="{y + 80}" font-family="mr" font-size="10.5" '
-                      f'fill="{ASH}">{esc(role)}</text>')
+            d.chars["om"].update(label)
+            inner = (f'<path d="{shape}" fill="{VOID}" stroke="{EDGE}"/>' + icon(slug, x + 11, y + 12, 16)
+                     + f'<text x="{x + 35:.1f}" y="{y + 24.5}" font-family="om" font-size="{size:.2f}" '
+                       f'letter-spacing="1" fill="{SIGNAL}">{esc(label)}</text>')
             d.add(f'<g class="t" style="animation-delay:{delay:.2f}s">{inner}</g>')
             d.add(f'<path class="fl" style="animation-delay:{delay:.2f}s" d="{shape}" fill="none" '
                   f'stroke="{SIGNAL}" stroke-width="1.5"/>')
 
     d.defs.append('<linearGradient id="sg" x1="0" y1="0" x2="0" y2="1">'
                   '<stop offset="0" stop-color="#fff" stop-opacity="0"/>'
-                  '<stop offset=".85" stop-color="#fff" stop-opacity=".07"/>'
-                  '<stop offset="1" stop-color="#fff" stop-opacity=".22"/></linearGradient>')
-    d.add(f'<rect class="scan" x="1" y="-70" width="{W - 2}" height="70" fill="url(#sg)"/>')
+                  '<stop offset=".85" stop-color="#fff" stop-opacity=".06"/>'
+                  '<stop offset="1" stop-color="#fff" stop-opacity=".25"/></linearGradient>')
+    d.add(f'<rect class="scan" x="1" y="-50" width="{W - 2}" height="50" fill="url(#sg)"/>')
     d.css.append(
-        ".t{animation:boot .5s linear both}"
+        ".t{animation:boot .45s linear both}"
         "@keyframes boot{0%,40%{opacity:.07}42%{opacity:1}55%{opacity:.3}68%,100%{opacity:1}}"
-        ".fl{opacity:0;animation:flash .6s ease-out both}@keyframes flash{0%{opacity:0}35%{opacity:1}100%{opacity:0}}"
+        ".fl{opacity:0;animation:flash .55s ease-out both}@keyframes flash{0%{opacity:0}35%{opacity:1}100%{opacity:0}}"
         ".f{opacity:0;animation:lock .01s linear forwards}@keyframes lock{to{opacity:1}}"
-        ".pre{animation:gone .01s linear 1.5s forwards}@keyframes gone{to{opacity:0}}"
-        f".scan{{animation:scan 7s linear 1.8s infinite}}"
-        f"@keyframes scan{{0%{{transform:translateY(40px)}}45%,100%{{transform:translateY({H + 70}px)}}}}"
+        ".pre{animation:gone .01s linear 1.3s forwards}@keyframes gone{to{opacity:0}}"
+        f".scan{{animation:scan 5s linear 1.5s infinite}}"
+        f"@keyframes scan{{0%{{transform:translateY(36px)}}40%,100%{{transform:translateY({H + 50}px)}}}}"
         + REDUCED)
     d.save("arsenal.svg")
 
@@ -536,7 +574,7 @@ def ticker():
     d.save("ticker.svg")
 
 
-# ── uplink chips + visitor label ────────────────────────────────────────────
+# ── uplink chips ────────────────────────────────────────────
 def chip(slug, ico, name, handle):
     H = 52
     nw = max(measure("om", name, 12, 2), measure("mr", handle, 11))
@@ -549,60 +587,56 @@ def chip(slug, ico, name, handle):
     d.save(f"c-{slug}.svg")
 
 
-def visitors_label():
-    text = "VISITORS"
-    W, H = round(measure("om", text, 11, 2) + 40), 28
-    d = Doc(W, H, "Visitors")
-    d.add(f'<rect width="{W}" height="{H}" fill="{VOID}"/>')
-    d.add(f'<rect x="0.5" y="0.5" width="{W - 1}" height="{H - 1}" fill="none" stroke="{SIGNAL}"/>')
-    d.add(f'<rect x="12" y="10" width="8" height="8" fill="{SIGNAL}"/>')
-    d.text(28, 18.5, text, "om", 11, SIGNAL, ls=2)
-    d.save("l-visitors.svg")
+# ── operations: one `ls -la` row per project, a scan wave running down the list ──
+OPS = [
+    ("krypt", "KRYPT", "Autonomous CTF triage and flag hunter.", "PRIVATE", True),
+    ("toolbox", "BLACKARCH TOOLBOX", "Launch any of BlackArch's ~4000 tools from one menu.", "SHELL", False),
+    ("agx", "AGX", "Operations console for a team of autonomous coding agents.", "PYTHON", False),
+    ("hypr", "HYPRLAND-CONFIGS", "Graphite-monochrome Hyprland rice for Arch Linux.", "CSS", False),
+    ("evidence", "EVIDENCEFLOW", "Browser-based digital forensics artifact workbench.", "FORK", False),
+    ("medios", "MEDIOS", "Offline pharmacy POS and inventory system.", "PYTHON", False),
+]
 
 
-# ── project cards ────────────────────────────────────────────────────────────
-def wrap(text, n):
-    lines, cur = [], ""
-    for word in text.split():
-        if len(cur) + len(word) + (1 if cur else 0) > n:
-            lines.append(cur)
-            cur = word
-        else:
-            cur = f"{cur} {word}" if cur else word
-    return lines + [cur]
+def op_row(i, slug, name, desc, chip, private):
+    W, H = 1000, 56
+    d = Doc(W, H, f"{name}: {desc}")
+    shape = chamfer(0.5, 0.5, W - 1, H - 1, tr=12)
+    d.defs.append(f'<clipPath id="row"><path d="{shape}"/></clipPath>')
+    d.add(f'<path d="{shape}" fill="{VOID}" stroke="{EDGE}"/>')
+    d.text(20, 33, "drwx------" if private else "drwxr-xr-x", "mr", 11.5, SMOKE)
+    name_x = 122
+    if private:  # the private build's name flickers through ciphertext
+        d.text(name_x, 35, name, "ob", 17, SIGNAL, ls=1.5, cls="kt")
+        d.text(name_x, 35, "K#Y?7", "ob", 17, SIGNAL, ls=1.5, cls="kx")
+        d.text(name_x, 35, "%R/PT", "ob", 17, ASH, ls=1.5, cls="kx kx2")
+        d.css.append(".kx{opacity:0;animation:kx 5s steps(1) 1.5s infinite}.kx2{animation-name:kx2}"
+                     ".kt{animation:kt 5s steps(1) 1.5s infinite}"
+                     "@keyframes kt{0%{opacity:1}90%{opacity:0}96%{opacity:1}}"
+                     "@keyframes kx{0%{opacity:0}90%{opacity:1}93%{opacity:0}}"
+                     "@keyframes kx2{0%{opacity:0}93%{opacity:1}96%{opacity:0}}")
+    else:
+        d.text(name_x, 35, name, "ob", 17, SIGNAL, ls=1.5)
+    d.text(name_x + max(measure("ob", n, 17, 1.5) for _, n, *_ in OPS) + 28, 33, desc, "mr", 12.5, ASH)
 
-
-def card(slug, kind, title, desc, tags, chip, private=False):
-    W, H = 480, 210
-    d = Doc(W, H, f"{title}: {desc}")
-    d.add(f'<path d="{chamfer(0.5, 0.5, W - 1, H - 1, tr=20)}" fill="{VOID}" stroke="{EDGE}"/>')
-    d.add(bracket(W - 0.5 - 1, H - 0.5 - 1, 16, -1, -1))
-    d.text(26, 36, kind, "mr", 11, SMOKE, ls=2)
-
-    cw = measure("mb", chip, 11, 1.5) + 18
+    cw = measure("mb", chip, 10.5, 1.5) + 18
+    cx = W - 26 - cw
     if private:
-        d.add(f'<rect x="{W - 34 - cw:.1f}" y="22" width="{cw:.1f}" height="20" fill="{SIGNAL}"/>')
-        d.text(W - 34 - cw / 2, 36, chip, "mb", 11, VOID, "middle", 1.5)
+        d.add(f'<rect x="{cx:.1f}" y="18" width="{cw:.1f}" height="20" fill="{SIGNAL}"/>')
+        d.text(cx + cw / 2, 32, chip, "mb", 10.5, VOID, "middle", 1.5)
     else:
-        d.add(f'<rect x="{W - 34 - cw:.1f}" y="22.5" width="{cw:.1f}" height="19" fill="none" stroke="{SMOKE}"/>')
-        d.text(W - 34 - cw / 2, 36, chip, "mr", 11, ASH, "middle", 1.5)
+        d.add(f'<rect x="{cx:.1f}" y="18.5" width="{cw:.1f}" height="19" fill="none" stroke="{SMOKE}"/>')
+        d.text(cx + cw / 2, 32, chip, "mr", 10.5, ASH, "middle", 1.5)
 
-    if private:  # an encrypted name that flickers through ciphertext now and then
-        d.text(26, 80, title, "ob", 25, SIGNAL, ls=2, cls="kt")
-        d.text(26, 80, "K#Y?7", "ob", 25, SIGNAL, ls=2, cls="kx")
-        d.text(26, 80, "%R/PT", "ob", 25, ASH, ls=2, cls="kx kx2")
-        d.css.append(".kx{opacity:0;animation:kx 6s steps(1) 2s infinite}.kx2{animation-name:kx2}"
-                     ".kt{animation:kt 6s steps(1) 2s infinite}"
-                     "@keyframes kt{0%{opacity:1}92%{opacity:0}97%{opacity:1}}"
-                     "@keyframes kx{0%{opacity:0}92%{opacity:1}94.5%{opacity:0}}"
-                     "@keyframes kx2{0%{opacity:0}94.5%{opacity:1}97%{opacity:0}}" + REDUCED)
-    else:
-        d.text(26, 80, title, "ob", 25, SIGNAL, ls=2)
-    for i, line in enumerate(wrap(desc, 54)[:3]):
-        d.text(26, 110 + i * 19, line, "mr", 13, ASH)
-    d.add(f'<path d="M26,{H - 44} H{W - 26}" stroke="{GRID}"/>')
-    d.text(26, H - 21, "  /  ".join(tags), "mr", 11.5, SMOKE)
-    d.save(f"p-{slug}.svg")
+    d.defs.append('<linearGradient id="beam" x1="0" y1="0" x2="1" y2="0">'
+                  '<stop offset="0" stop-color="#fff" stop-opacity="0"/>'
+                  '<stop offset=".9" stop-color="#fff" stop-opacity=".09"/>'
+                  '<stop offset="1" stop-color="#fff" stop-opacity=".45"/></linearGradient>')
+    d.add(f'<g clip-path="url(#row)"><rect class="beam" x="-180" y="0" width="180" height="{H}" fill="url(#beam)"/></g>')
+    d.css.append(f".beam{{animation:beam 6s linear {0.8 + i * 0.3:.1f}s infinite}}"
+                 f"@keyframes beam{{0%{{transform:translateX(0)}}30%,100%{{transform:translateX({W + 180}px)}}}}"
+                 + REDUCED.replace(".pulse{display:none}", ".pulse,.beam{display:none}"))
+    d.save(f"o-{slug}.svg")
 
 
 # ── telemetry (self-hosted, so ad blockers and dead stat services can't blank it) ──
@@ -752,27 +786,33 @@ def telemetry():
 
 # ── footer ───────────────────────────────────────────────────────────────────
 def footer():
-    W, H = 1200, 210
+    W, H = 1200, 348
     d = Doc(W, H, "The quieter you become, the more you are able to hear.")
     d.add(f'<path d="{chamfer(0.5, 0.5, W - 1, H - 1, tr=30, bl=30)}" fill="{VOID}" stroke="{EDGE}"/>')
-    d.text(W / 2, 82, "THE QUIETER YOU BECOME,", "om", 22, SIGNAL, "middle", 7)
-    d.text(W / 2, 116, "THE MORE YOU ARE ABLE TO HEAR.", "om", 22, SIGNAL, "middle", 7)
+    d.text(W / 2, 66, "THE QUIETER YOU BECOME,", "om", 22, SIGNAL, "middle", 7)
+    d.text(W / 2, 100, "THE MORE YOU ARE ABLE TO HEAR.", "om", 22, SIGNAL, "middle", 7)
+    d.defs.append('<filter id="glow" x="-30%" y="-30%" width="160%" height="160%">'
+                  '<feGaussianBlur stdDeviation="3.2" result="b"/>'
+                  '<feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>'
+                  + BLADE_GRADIENT)
 
-    # a flat line with a single small signal in it
-    y, c = 162, W / 2
-    pts = [(60, y), (c - 46, y), (c - 30, y - 4), (c - 18, y + 6), (c - 6, y - 22),
-           (c + 6, y + 14), (c + 16, y - 6), (c + 26, y), (W - 60, y)]
-    path = " ".join(f"{px:.0f},{py:.0f}" for px, py in pts[1:-1])
-    d.add(f'<polyline points="{60},{y} {c - 46:.0f},{y}" fill="none" stroke="{EDGE}"/>')
-    d.add(f'<polyline points="{c + 26:.0f},{y} {W - 60},{y}" fill="none" stroke="{EDGE}"/>')
-    d.add(f'<polyline points="{path}" fill="none" stroke="{SIGNAL}" stroke-width="1.5"/>')
-    full = [(60, y)] + pts[1:-1] + [(W - 60, y)]
-    plen = sum(((bx - ax) ** 2 + (by - ay) ** 2) ** 0.5 for (ax, ay), (bx, by) in zip(full, full[1:]))
-    pl = " ".join(f"{px:.0f},{py:.0f}" for px, py in full)
-    d.add(f'<polyline class="pulse" points="{pl}" fill="none" stroke="{SIGNAL}" stroke-width="2.5" '
-          f'stroke-linecap="round" stroke-dasharray="70 {plen:.0f}"/>')
-    d.css.append(f".pulse{{animation:pulse 4s linear infinite}}"
-                 f"@keyframes pulse{{from{{stroke-dashoffset:70}}to{{stroke-dashoffset:-{plen:.0f}}}}}" + REDUCED)
+    c, size, y = W / 2, 114, 304
+    apex = y - size
+    outline = arch_pts(ARCH_A, c, y, size)
+    ridge = arch_pts(ARCH_RIDGE, c, y, size)
+    left, right = ridge[0][0], ridge[-1][0]
+    d.add(f'<path d="M60,{y} H{left:.1f} M{right:.1f},{y} H{W - 60}" stroke="{EDGE}"/>')
+    d.add(f'<polygon points="{fmt_pts(outline)}" fill="none" stroke="#cfcfcf" stroke-width="2.2" '
+          f'stroke-linejoin="round" filter="url(#glow)"/>')
+    d.add(katana(c, apex, size))
+
+    # one bright pulse: in along the line, up and over the A, out the other side
+    route = [(60, y)] + ridge + [(W - 60, y)]
+    plen = sum(((bx - ax) ** 2 + (by - ay) ** 2) ** 0.5 for (ax, ay), (bx, by) in zip(route, route[1:]))
+    d.add(f'<polyline class="pulse" points="{fmt_pts(route)}" fill="none" stroke="{SIGNAL}" stroke-width="3" '
+          f'stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="90 {plen:.0f}" filter="url(#glow)"/>')
+    d.css.append(f".pulse{{animation:pulse 5s linear infinite}}"
+                 f"@keyframes pulse{{from{{stroke-dashoffset:90}}to{{stroke-dashoffset:-{plen:.0f}}}}}" + REDUCED)
     d.text(60, y - 14, "logout", "mr", 14, SMOKE)
     d.text(W - 60, y - 14, "connection to nithin@blackarch closed.", "mr", 14, SMOKE, "end")
     d.save("footer.svg")
@@ -795,30 +835,8 @@ if __name__ == "__main__":
         header(slug, title, note, delay=i * 1.3)
     fetch()
     arsenal()
-    card("krypt", "CTF AUTOMATION", "KRYPT",
-         "Autonomous CTF triage and flag hunter. Classifies the challenge, runs the right "
-         "tools, carves and decodes recursively, then ranks every flag candidate.",
-         ["python", "pwn", "rev", "stego", "crypto", "web"], "PRIVATE BUILD", private=True)
-    card("toolbox", "OFFENSIVE TOOLING", "BLACKARCH TOOLBOX",
-         "One keybinding to launch any of BlackArch's ~4000 security tools from a clean, "
-         "searchable menu. Linux, macOS and WSL.",
-         ["bash", "awk", "fzf-style menu"], "SHELL")
-    card("agx", "AI AGENTS", "AGX",
-         "An operations console for a team of autonomous coding agents that plan, build, "
-         "review and commit across every project. Fully local.",
-         ["python", "claude code", "agy", "scheduler"], "PYTHON")
-    card("hypr", "ARCH RICE", "HYPRLAND-CONFIGS",
-         "A graphite-monochrome Hyprland rice: custom Waybar, hand-written notification "
-         "theme, eww dashboard and ROG hardware controls.",
-         ["hyprland", "waybar", "eww"], "CSS")
-    card("evidence", "DFIR", "EVIDENCEFLOW",
-         "Browser-based digital forensics artifact workbench, built as an extension for "
-         "PWNDORA.",
-         ["forensics", "browser", "artifacts"], "FORK")
-    card("medios", "SOFTWARE", "MEDIOS",
-         "Offline pharmacy POS and inventory system. GST billing, batch and expiry tracking, "
-         "Schedule H compliance, one-click backups.",
-         ["python", "pos", "offline-first"], "PYTHON")
+    for i, op in enumerate(OPS):
+        op_row(i, *op)
     telemetry()
     for slug, ico, name, handle in [
         ("github", "github", "GITHUB", "nithin2719-commits"),
@@ -826,5 +844,4 @@ if __name__ == "__main__":
         ("ig", "instagram", "INSTAGRAM", "@nit_2719"),
     ]:
         chip(slug, ico, name, handle)
-    visitors_label()
     footer()

@@ -1,2 +1,5 @@
 assets/src/.fonts/
 __pycache__/
+# published to the output branch by the refresh workflow
+assets/telemetry.svg
+assets/src/telemetry.json

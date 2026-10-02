@@ -1,14 +1,12 @@
 <div align="center">
   <img src="./assets/hero.svg" width="100%" alt="NITHIN — cybersecurity, ethical hacking, AI/ML" />
   <img src="./assets/ticker.svg" width="100%" alt="Intercepted quotes" />
-  <br/><br/>
+  <br/>
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=18&duration=2600&pause=1100&color=FFFFFF&center=true&vCenter=true&width=760&height=40&lines=B.E+CSE+%2F%2F+Cybersecurity+Specialist;Ethical+Hacker+%2F%2F+AI%2FML+Enthusiast;Advanced+Python+%2F%2F+Backend+Dev;If+it%27s+connected%2C+it%27s+vulnerable.;BTW...+I+use+Arch.;The+quieter+you+become%2C+the+more+you+are+able+to+hear.;Root+is+not+a+privilege.+It%27s+a+responsibility.;I+don%27t+hack+systems.+I+understand+them.;pacman+-Syu+%26%26+conquer+the+world;Security+is+a+process%2C+not+a+product." />
     <source media="(prefers-color-scheme: light)" srcset="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=18&duration=2600&pause=1100&color=000000&center=true&vCenter=true&width=760&height=40&lines=B.E+CSE+%2F%2F+Cybersecurity+Specialist;Ethical+Hacker+%2F%2F+AI%2FML+Enthusiast;Advanced+Python+%2F%2F+Backend+Dev;If+it%27s+connected%2C+it%27s+vulnerable.;BTW...+I+use+Arch.;The+quieter+you+become%2C+the+more+you+are+able+to+hear.;Root+is+not+a+privilege.+It%27s+a+responsibility.;I+don%27t+hack+systems.+I+understand+them.;pacman+-Syu+%26%26+conquer+the+world;Security+is+a+process%2C+not+a+product." />
     <img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=18&duration=2600&pause=1100&color=FFFFFF&center=true&vCenter=true&width=760&height=40&lines=B.E+CSE+%2F%2F+Cybersecurity+Specialist;Ethical+Hacker+%2F%2F+AI%2FML+Enthusiast;Advanced+Python+%2F%2F+Backend+Dev;If+it%27s+connected%2C+it%27s+vulnerable.;BTW...+I+use+Arch.;The+quieter+you+become%2C+the+more+you+are+able+to+hear.;Root+is+not+a+privilege.+It%27s+a+responsibility.;I+don%27t+hack+systems.+I+understand+them.;pacman+-Syu+%26%26+conquer+the+world;Security+is+a+process%2C+not+a+product." alt="Typing banner" />
   </picture>
-  <br/><br/>
-  <img src="./assets/l-visitors.svg" height="28" alt="Visitors" /><img src="https://hits.sh/github.com/nithin2719-commits.svg?style=for-the-badge&label=%20&color=ffffff&labelColor=000000&extraCount=546" height="28" alt="visitor count" />
 </div>
 
 <br/>
@@ -48,24 +46,13 @@ class Nithin:
 
 <img src="./assets/h-ops.svg" width="100%" alt="operations" />
 
-<p align="center">
-  <img src="./assets/p-krypt.svg" width="49%" alt="KRYPT — autonomous CTF triage and flag hunter (private build)" />
-  <a href="https://github.com/nithin2719-commits/blackarch_toolbox"><img src="./assets/p-toolbox.svg" width="49%" alt="BlackArch Toolbox" /></a>
-</p>
-<p align="center">
-  <a href="https://github.com/nithin2719-commits/AGX"><img src="./assets/p-agx.svg" width="49%" alt="AGX" /></a>
-  <a href="https://github.com/nithin2719-commits/HYPRLAND-CONFIGS"><img src="./assets/p-hypr.svg" width="49%" alt="HYPRLAND-CONFIGS" /></a>
-</p>
-<p align="center">
-  <a href="https://github.com/nithin2719-commits/EvidenceFlow"><img src="./assets/p-evidence.svg" width="49%" alt="EvidenceFlow" /></a>
-  <a href="https://github.com/nithin2719-commits/Medios"><img src="./assets/p-medios.svg" width="49%" alt="MediOS" /></a>
-</p>
+<img src="./assets/o-krypt.svg" width="100%" alt="KRYPT — autonomous CTF triage and flag hunter (private)" /><a href="https://github.com/nithin2719-commits/blackarch_toolbox"><img src="./assets/o-toolbox.svg" width="100%" alt="BlackArch Toolbox" /></a><a href="https://github.com/nithin2719-commits/AGX"><img src="./assets/o-agx.svg" width="100%" alt="AGX" /></a><a href="https://github.com/nithin2719-commits/HYPRLAND-CONFIGS"><img src="./assets/o-hypr.svg" width="100%" alt="HYPRLAND-CONFIGS" /></a><a href="https://github.com/nithin2719-commits/EvidenceFlow"><img src="./assets/o-evidence.svg" width="100%" alt="EvidenceFlow" /></a><a href="https://github.com/nithin2719-commits/Medios"><img src="./assets/o-medios.svg" width="100%" alt="MediOS" /></a>
 
 <br/>
 
 <img src="./assets/h-telemetry.svg" width="100%" alt="telemetry" />
 
-<img src="./assets/telemetry.svg" width="100%" alt="Contribution telemetry: yearly contributions, streaks, heatmap and languages" />
+<img src="https://raw.githubusercontent.com/nithin2719-commits/nithin2719-commits/output/telemetry.svg" width="100%" alt="Contribution telemetry: yearly contributions, streaks, heatmap and languages" />
 
 <br/>
 

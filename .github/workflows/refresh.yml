@@ -2,7 +2,7 @@ name: refresh telemetry
 
 on:
   schedule:
-    - cron: "23 * * * *"   # hourly; the job only commits when the numbers changed
+    - cron: "23 * * * *"   # hourly
   workflow_dispatch:
 
 permissions:
@@ -17,18 +17,25 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
       - run: pip install fonttools brotli
       - run: python assets/src/build.py --telemetry
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Commit if changed
+      # The panel lives on its own branch: main's history stays yours alone, and commits
+      # off the default branch don't count as contributions (no feedback loop).
+      - name: Publish to the output branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git diff --quiet && exit 0
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -am "chore: refresh telemetry"
-          git push
+          url="https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/output/telemetry.svg"
+          if curl -sf "$url" | cmp -s - assets/telemetry.svg; then echo "unchanged"; exit 0; fi
+          mkdir out && cp assets/telemetry.svg out/ && cd out
+          git init -q -b output
+          git config user.name "Nithin G"
+          git config user.email "thangamnithin1980@gmail.com"
+          git add telemetry.svg && git commit -qm "telemetry"
+          git push -qf "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" output
