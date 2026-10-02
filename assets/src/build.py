@@ -12,8 +12,10 @@ import base64
 import datetime as dt
 import io
 import json
+import os
 import re
 import pathlib
+import sys
 import urllib.request
 from functools import lru_cache
 
@@ -58,7 +60,9 @@ def _source(name):
 @lru_cache(None)
 def face(key):
     name, weight = FACES[key]
-    return instancer.instantiateVariableFont(TTFont(_source(name)), {"wght": weight})
+    f = instancer.instantiateVariableFont(TTFont(_source(name), recalcTimestamp=False), {"wght": weight})
+    f.recalcTimestamp = False  # byte-identical rebuilds, so the refresh job only commits real changes
+    return f
 
 
 def measure(key, text, size, ls=0.0):
@@ -76,7 +80,7 @@ def embed(key, chars):
     buf = io.BytesIO()
     f.save(buf)
     buf.seek(0)
-    sub = TTFont(buf)
+    sub = TTFont(buf, recalcTimestamp=False)
     opts = subset.Options()
     opts.flavor = "woff2"
     opts.hinting = False
@@ -149,6 +153,10 @@ CUSTOM_ICONS = {
     "nmap": '<g fill="none" stroke="#fff" stroke-width="1.8"><circle cx="12" cy="12" r="10"/>'
             '<circle cx="12" cy="12" r="5.5"/><path d="M12 12 19.2 4.8" stroke-width="2.2"/></g>'
             '<circle cx="12" cy="12" r="1.9"/><circle cx="16.6" cy="15.4" r="1.5"/>',
+    # linkedin "in" (removed from simple-icons at linkedin's request)
+    "linkedin": '<rect x="1" y="1" width="22" height="22" rx="3"/><g fill="#000"><circle cx="7" cy="6.6" r="1.8"/>'
+                '<path d="M5.4 9.5h3.2V19H5.4zM10.6 9.5h3.1v1.4c.6-1 1.8-1.7 3.3-1.7 2.6 0 3.7 1.6 3.7 4.4V19h-3.2'
+                'v-4.8c0-1.4-.4-2.3-1.6-2.3-1.3 0-2.1.9-2.1 2.4V19h-3.2z"/></g>',
     # disassembly under a lens for ghidra
     "ghidra": '<path d="M1 3h12v2.2H1zM1 8.2h8v2.2H1zM1 13.4h5v2.2H1z"/>'
               '<g fill="none" stroke="#fff"><circle cx="15.5" cy="14" r="5" stroke-width="2.2"/>'
@@ -216,6 +224,14 @@ def hero():
     d.add(f'<rect class="cur" x="{cx:.1f}" y="49" width="9" height="17" fill="{SIGNAL}"/>')
     d.text(W - 52, 62, "DECRYPTING …", "mr", 13, SMOKE, "end", 2, "pre")
     d.text(W - 52, 62, "ACCESS GRANTED", "mb", 13, SIGNAL, "end", 2, "f late", ' style="animation-delay:1.55s"')
+    crit = "CRITICAL"
+    cx_ = W - 52 - measure("mb", crit, 11, 2) + 2
+    d.text(W - 52, 86, crit, "mb", 11, SIGNAL, "end", 2, "f late alarm", ' style="animation-delay:2.05s"')
+    for i in range(5):
+        bx = cx_ - 14 - (5 - i) * 9
+        d.add(f'<rect class="f late" style="animation-delay:{1.7 + i * 0.07:.2f}s" x="{bx:.1f}" y="76" '
+              f'width="6" height="11" fill="{SIGNAL}"/>')
+    d.text(cx_ - 14 - 5 * 9 - 10, 86, "THREAT LEVEL", "mr", 11, SMOKE, "end", 2, "f late", ' style="animation-delay:1.65s"')
 
     # the name: each letter scrambles through noise, then locks in place
     name, size, ls = "NITHIN", 132, 10
@@ -276,6 +292,8 @@ def hero():
         "@keyframes gone{to{opacity:0}}"
         ".cur{animation:blink 1.1s steps(1) infinite}"
         "@keyframes blink{50%{opacity:0}}"
+        ".alarm{animation:lock .01s linear 2.05s forwards,alarm 1.6s steps(1) 2.6s infinite}"
+        "@keyframes alarm{50%{opacity:.3}}"
         ".gl{opacity:0;animation:tear 7s linear 2.6s infinite}"
         ".gl1{animation-name:tear2}"
         "@keyframes tear{0%,93%,100%{opacity:0;transform:translateX(0)}"
@@ -485,16 +503,19 @@ def arsenal():
 
 
 # ── live-feed ticker under the hero ─────────────────────────────────────────
-FEED = ["[+] uplink established", "operator: nithin", "loc: india", "os: blackarch linux",
-        "focus: offensive security", "now building: KRYPT", "now learning: malware analysis",
-        "ctf: hackthebox / tryhackme", "[!] if it's connected, it's vulnerable"]
+FEED = ["The quieter you become, the more you are able to hear.",
+        "Security is a process, not a product. (Bruce Schneier)",
+        "If it's connected, it's vulnerable.",
+        "Root is not a privilege. It's a responsibility.",
+        "I don't hack systems. I understand them.",
+        "Break things ethically. Fix them permanently."]
 
 
 def ticker():
     W, H = 1000, 40
-    d = Doc(W, H, "Live feed: " + " / ".join(FEED))
+    d = Doc(W, H, "Intercepted: " + " / ".join(FEED))
     d.add(f'<rect x="0.5" y="0.5" width="{W - 1}" height="{H - 1}" fill="{VOID}" stroke="{EDGE}"/>')
-    tag = "LIVE FEED"
+    tag = "INTERCEPT"
     cw = measure("om", tag, 11, 2) + 44
     d.add(f'<path d="{chamfer(0, 0, cw, H, br=12)}" fill="{SIGNAL}"/>')
     d.add(f'<rect class="cur" x="14" y="16" width="8" height="8" fill="{VOID}"/>')
@@ -503,8 +524,7 @@ def ticker():
     sep = "   ///   "
     spans, plain = "", ""
     for item in FEED:
-        hot = item.startswith("[")
-        spans += f'<tspan fill="{SIGNAL if hot else ASH}">{esc(item)}</tspan><tspan fill="{SMOKE}">{sep}</tspan>'
+        spans += f'<tspan fill="{ASH}">{esc(item)}</tspan><tspan fill="{SMOKE}">{sep}</tspan>'
         plain += item + sep
     d.chars["mr"].update(plain)
     L = measure("mr", plain, 12.5)
@@ -590,7 +610,10 @@ USER = "nithin2719-commits"
 
 
 def _get(url, as_json=True):
-    req = urllib.request.Request(url, headers={"Accept": "application/vnd.github+json", "User-Agent": "readme-build"})
+    headers = {"Accept": "application/vnd.github+json", "User-Agent": "readme-build"}
+    if os.environ.get("GITHUB_TOKEN") and url.startswith("https://api.github.com"):
+        headers["Authorization"] = f"Bearer {os.environ['GITHUB_TOKEN']}"
+    req = urllib.request.Request(url, headers=headers)
     raw = urllib.request.urlopen(req, timeout=30).read().decode()
     return json.loads(raw) if as_json else raw
 
@@ -730,10 +753,10 @@ def telemetry():
 # ── footer ───────────────────────────────────────────────────────────────────
 def footer():
     W, H = 1200, 210
-    d = Doc(W, H, "The quieter you become, the more you hear.")
+    d = Doc(W, H, "The quieter you become, the more you are able to hear.")
     d.add(f'<path d="{chamfer(0.5, 0.5, W - 1, H - 1, tr=30, bl=30)}" fill="{VOID}" stroke="{EDGE}"/>')
     d.text(W / 2, 82, "THE QUIETER YOU BECOME,", "om", 22, SIGNAL, "middle", 7)
-    d.text(W / 2, 116, "THE MORE YOU HEAR.", "om", 22, SIGNAL, "middle", 7)
+    d.text(W / 2, 116, "THE MORE YOU ARE ABLE TO HEAR.", "om", 22, SIGNAL, "middle", 7)
 
     # a flat line with a single small signal in it
     y, c = 162, W / 2
@@ -756,6 +779,9 @@ def footer():
 
 
 if __name__ == "__main__":
+    if "--telemetry" in sys.argv:  # what the scheduled refresh job runs
+        telemetry()
+        sys.exit()
     print("building assets →", OUT)
     hero()
     ticker()
@@ -796,8 +822,7 @@ if __name__ == "__main__":
     telemetry()
     for slug, ico, name, handle in [
         ("github", "github", "GITHUB", "nithin2719-commits"),
-        ("thm", "tryhackme", "TRYHACKME", "nithin2719"),
-        ("htb", "hackthebox", "HACKTHEBOX", "nithin2719"),
+        ("linkedin", "linkedin", "LINKEDIN", "nithin-g"),
         ("ig", "instagram", "INSTAGRAM", "@nit_2719"),
     ]:
         chip(slug, ico, name, handle)

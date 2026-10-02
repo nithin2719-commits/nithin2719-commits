@@ -1,15 +1,14 @@
 <div align="center">
   <img src="./assets/hero.svg" width="100%" alt="NITHIN — cybersecurity, ethical hacking, AI/ML" />
-  <img src="./assets/ticker.svg" width="100%" alt="Live feed" />
+  <img src="./assets/ticker.svg" width="100%" alt="Intercepted quotes" />
   <br/><br/>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=18&duration=2600&pause=1100&color=FFFFFF&center=true&vCenter=true&width=760&height=40&lines=B.E+CSE+%2F%2F+Cybersecurity+Specialist;Ethical+Hacker+%2F%2F+AI%2FML+Enthusiast;Advanced+Python+%2F%2F+Backend+Dev;If+it%27s+connected%2C+it%27s+vulnerable.;BTW...+I+use+Arch.;The+quieter+you+become%2C+the+more+you+hear.;Root+is+not+a+privilege.+It%27s+a+responsibility.;I+don%27t+hack+systems.+I+understand+them.;pacman+-Syu+%26%26+conquer+the+world;Security+is+not+a+product.+It%27s+a+mindset." />
-    <source media="(prefers-color-scheme: light)" srcset="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=18&duration=2600&pause=1100&color=000000&center=true&vCenter=true&width=760&height=40&lines=B.E+CSE+%2F%2F+Cybersecurity+Specialist;Ethical+Hacker+%2F%2F+AI%2FML+Enthusiast;Advanced+Python+%2F%2F+Backend+Dev;If+it%27s+connected%2C+it%27s+vulnerable.;BTW...+I+use+Arch.;The+quieter+you+become%2C+the+more+you+hear.;Root+is+not+a+privilege.+It%27s+a+responsibility.;I+don%27t+hack+systems.+I+understand+them.;pacman+-Syu+%26%26+conquer+the+world;Security+is+not+a+product.+It%27s+a+mindset." />
-    <img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=18&duration=2600&pause=1100&color=FFFFFF&center=true&vCenter=true&width=760&height=40&lines=B.E+CSE+%2F%2F+Cybersecurity+Specialist;Ethical+Hacker+%2F%2F+AI%2FML+Enthusiast;Advanced+Python+%2F%2F+Backend+Dev;If+it%27s+connected%2C+it%27s+vulnerable.;BTW...+I+use+Arch.;The+quieter+you+become%2C+the+more+you+hear.;Root+is+not+a+privilege.+It%27s+a+responsibility.;I+don%27t+hack+systems.+I+understand+them.;pacman+-Syu+%26%26+conquer+the+world;Security+is+not+a+product.+It%27s+a+mindset." alt="Typing banner" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=18&duration=2600&pause=1100&color=FFFFFF&center=true&vCenter=true&width=760&height=40&lines=B.E+CSE+%2F%2F+Cybersecurity+Specialist;Ethical+Hacker+%2F%2F+AI%2FML+Enthusiast;Advanced+Python+%2F%2F+Backend+Dev;If+it%27s+connected%2C+it%27s+vulnerable.;BTW...+I+use+Arch.;The+quieter+you+become%2C+the+more+you+are+able+to+hear.;Root+is+not+a+privilege.+It%27s+a+responsibility.;I+don%27t+hack+systems.+I+understand+them.;pacman+-Syu+%26%26+conquer+the+world;Security+is+a+process%2C+not+a+product." />
+    <source media="(prefers-color-scheme: light)" srcset="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=18&duration=2600&pause=1100&color=000000&center=true&vCenter=true&width=760&height=40&lines=B.E+CSE+%2F%2F+Cybersecurity+Specialist;Ethical+Hacker+%2F%2F+AI%2FML+Enthusiast;Advanced+Python+%2F%2F+Backend+Dev;If+it%27s+connected%2C+it%27s+vulnerable.;BTW...+I+use+Arch.;The+quieter+you+become%2C+the+more+you+are+able+to+hear.;Root+is+not+a+privilege.+It%27s+a+responsibility.;I+don%27t+hack+systems.+I+understand+them.;pacman+-Syu+%26%26+conquer+the+world;Security+is+a+process%2C+not+a+product." />
+    <img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=18&duration=2600&pause=1100&color=FFFFFF&center=true&vCenter=true&width=760&height=40&lines=B.E+CSE+%2F%2F+Cybersecurity+Specialist;Ethical+Hacker+%2F%2F+AI%2FML+Enthusiast;Advanced+Python+%2F%2F+Backend+Dev;If+it%27s+connected%2C+it%27s+vulnerable.;BTW...+I+use+Arch.;The+quieter+you+become%2C+the+more+you+are+able+to+hear.;Root+is+not+a+privilege.+It%27s+a+responsibility.;I+don%27t+hack+systems.+I+understand+them.;pacman+-Syu+%26%26+conquer+the+world;Security+is+a+process%2C+not+a+product." alt="Typing banner" />
   </picture>
   <br/><br/>
-  <img src="./assets/l-visitors.svg" height="28" alt="Visitors" /><img src="https://img.shields.io/badge/dynamic/xml?url=https%3A%2F%2Fkomarev.com%2Fghpvc%2F%3Fusername%3Dnithin2719-commits%26style%3Dfor-the-badge&query=%2F%2F*%5Blocal-name()%3D%27text%27%5D%5B%40font-weight%3D%27bold%27%5D&label=&color=FFFFFF&style=for-the-badge&cacheSeconds=600" height="28" alt="visitor count" />
-  <img src="https://komarev.com/ghpvc/?username=nithin2719-commits&style=pixel" width="1" height="1" alt="" />
+  <img src="./assets/l-visitors.svg" height="28" alt="Visitors" /><img src="https://hits.sh/github.com/nithin2719-commits.svg?style=for-the-badge&label=%20&color=ffffff&labelColor=000000&extraCount=546" height="28" alt="visitor count" />
 </div>
 
 <br/>
@@ -75,12 +74,11 @@ class Nithin:
 <div align="center">
 
 <a href="https://github.com/nithin2719-commits"><img src="./assets/c-github.svg" height="52" alt="GitHub" /></a>
-<a href="https://tryhackme.com/p/nithin2719"><img src="./assets/c-thm.svg" height="52" alt="TryHackMe" /></a>
-<a href="https://app.hackthebox.com/profile/nithin2719"><img src="./assets/c-htb.svg" height="52" alt="HackTheBox" /></a>
+<a href="https://www.linkedin.com/in/nithin-g-3a6109401"><img src="./assets/c-linkedin.svg" height="52" alt="LinkedIn" /></a>
 <a href="https://instagram.com/nit_2719"><img src="./assets/c-ig.svg" height="52" alt="Instagram" /></a>
 
 <br/>
 
-<img src="./assets/footer.svg" width="100%" alt="The quieter you become, the more you hear." />
+<img src="./assets/footer.svg" width="100%" alt="The quieter you become, the more you are able to hear." />
 
 </div>
