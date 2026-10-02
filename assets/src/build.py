@@ -17,6 +17,8 @@ import os
 import re
 import pathlib
 import sys
+import time
+import urllib.error
 import urllib.request
 from functools import lru_cache
 
@@ -800,13 +802,21 @@ def ops():
 USER = "nithin2719-commits"
 
 
-def _get(url, as_json=True):
+def _get(url, as_json=True, tries=4):
     headers = {"Accept": "application/vnd.github+json", "User-Agent": "readme-build"}
     if os.environ.get("GITHUB_TOKEN") and url.startswith("https://api.github.com"):
         headers["Authorization"] = f"Bearer {os.environ['GITHUB_TOKEN']}"
-    req = urllib.request.Request(url, headers=headers)
-    raw = urllib.request.urlopen(req, timeout=30).read().decode()
-    return json.loads(raw) if as_json else raw
+    for attempt in range(tries):
+        try:
+            raw = urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=30).read().decode()
+            return json.loads(raw) if as_json else raw
+        except urllib.error.HTTPError as e:
+            if e.code < 500 or attempt == tries - 1:  # 4xx won't fix itself; give up on the last try
+                raise
+        except (urllib.error.URLError, TimeoutError, ConnectionError):
+            if attempt == tries - 1:
+                raise
+        time.sleep(2 ** (attempt + 1))
 
 
 def telemetry_data():
@@ -1016,9 +1026,12 @@ def footer():
 
 
 if __name__ == "__main__":
-    if "--live" in sys.argv or "--telemetry" in sys.argv:  # what the hourly refresh job runs
-        telemetry()
-        ops()
+    if "--live" in sys.argv or "--telemetry" in sys.argv:  # what the scheduled refresh job runs
+        for panel in (telemetry, ops):
+            try:
+                panel()
+            except Exception as e:  # GitHub unreachable and no cache: keep the last published panel
+                print(f"  ! {panel.__name__} skipped: {e}")
         sys.exit()
     print("building assets →", OUT)
     hero()
