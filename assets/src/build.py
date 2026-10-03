@@ -723,14 +723,16 @@ def ops_data():
     cache = HERE / "ops.json"
     try:
         repos = _get(f"https://api.github.com/users/{USER}/repos?per_page=100&sort=pushed")
-        originals = [r for r in repos if not r["fork"] and r["name"].lower() != USER.lower()]
-        public = {r["name"].lower() for r in originals}
-        # a pinned card only stands in while that repo is private; once public it shows up live
+        key = lambda name: re.sub(r"[^a-z0-9]", "", name.lower())  # KRYPT == krypt == Krypt_ == k-rypt
+        # /users/<u>/repos only ever returns PUBLIC repos, so private ones can never leak in here
+        originals = [r for r in repos if not r["fork"] and not r.get("private") and r["name"].lower() != USER.lower()]
+        public = {key(r["name"]) for r in originals}
+        # a pinned card only stands in while that repo is private; once public it shows up live instead
         rows = [{"name": n, "desc": dsc, "chip": c, "private": True, "pushed": None, "pid": 2719}
-                for n, dsc, c, _ in OPS_PINNED if n.lower() not in public]
+                for n, dsc, c, _ in OPS_PINNED if key(n) not in public]
         for r in originals[:OPS_TILES - len(rows)]:
             rows.append({
-                "name": r["name"].replace("_", " ").upper(),
+                "name": r["name"].replace("_", " ").upper().strip(),
                 "desc": OPS_NOTES.get(r["name"]) or (r["description"] or "").strip() or readme_blurb(r["name"]) or "—",
                 "chip": (r["language"] or "repo").upper(), "private": False,
                 "pushed": r["pushed_at"][:10], "pid": 3000 + r["id"] % 60000})
