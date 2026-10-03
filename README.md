@@ -19,7 +19,7 @@
 
 <img src="./assets/h-ops.svg" width="100%" alt="operations" />
 
-<a href="https://github.com/nithin2719-commits?tab=repositories"><img src="https://raw.githubusercontent.com/nithin2719-commits/nithin2719-commits/output/ops.svg" width="100%" alt="Operations — KRYPT (private): autonomous CTF triage and flag hunter. BlackArch Toolbox: launch any of BlackArch's ~4000 tools from one menu. AGX: operations console for autonomous coding agents. HYPRLAND-CONFIGS: graphite-monochrome Hyprland rice. EvidenceFlow (fork): browser-based digital forensics workbench. MediOS: offline pharmacy POS and inventory system." /></a>
+<a href="https://github.com/nithin2719-commits?tab=repositories"><img src="https://raw.githubusercontent.com/nithin2719-commits/nithin2719-commits/output/ops.svg" width="100%" alt="Operations: my most recently pushed projects, updated automatically" /></a>
 
 <br/>
 

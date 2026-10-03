@@ -682,8 +682,9 @@ def chip(slug, ico, name, handle):
 # KRYPT is private, so the API can't list it — it stays pinned. Everything else is live:
 # your most recently pushed original repos, newest first.
 OPS_PINNED = [("KRYPT", "Autonomous CTF triage and flag hunter.", "PRIVATE", True)]
-OPS_LIVE = 5
+OPS_TILES = 6  # the grid is 3×2
 OPS_NOTES = {  # hand-written one-liners; other repos use their About text, else their README's first line
+    "KRYPT": "Autonomous CTF triage and flag hunter.",
     "AGX": "Operations console for autonomous coding agents.",
     "blackarch_toolbox": "One menu for all ~4000 BlackArch tools.",
     "HYPRLAND-CONFIGS": "Graphite-monochrome Hyprland rice for Arch.",
@@ -722,9 +723,12 @@ def ops_data():
     cache = HERE / "ops.json"
     try:
         repos = _get(f"https://api.github.com/users/{USER}/repos?per_page=100&sort=pushed")
+        originals = [r for r in repos if not r["fork"] and r["name"].lower() != USER.lower()]
+        public = {r["name"].lower() for r in originals}
+        # a pinned card only stands in while that repo is private; once public it shows up live
         rows = [{"name": n, "desc": dsc, "chip": c, "private": True, "pushed": None, "pid": 2719}
-                for n, dsc, c, _ in OPS_PINNED]
-        for r in [r for r in repos if not r["fork"] and r["name"].lower() != USER.lower()][:OPS_LIVE]:
+                for n, dsc, c, _ in OPS_PINNED if n.lower() not in public]
+        for r in originals[:OPS_TILES - len(rows)]:
             rows.append({
                 "name": r["name"].replace("_", " ").upper(),
                 "desc": OPS_NOTES.get(r["name"]) or (r["description"] or "").strip() or readme_blurb(r["name"]) or "—",
